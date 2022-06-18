@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-           // primary: const Color.fromARGB(255, 29, 14, 70),
-           primary: Colors.black,
-            secondary: myBlue,
+            // primary: const Color.fromARGB(255, 29, 14, 70),
+            primary: Colors.black,
+            secondary: Color.fromARGB(255, 227, 99, 99),
           ),
         ),
         routes: {
