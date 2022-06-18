@@ -1,0 +1,28 @@
+// {
+//     "configurations": [
+//         {
+//             "type": "node-terminal",
+//             "name": "JavaScript Debug Terminal",
+//             "request": "launch",
+//             "cwd": "${workspaceFolder}"
+//         }
+//     ]
+// }
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "kay_sy", //<- Your Project Name
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },   
+     ]
+    }
