@@ -194,7 +194,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ],
                 ),
               ),
-              //COMMENTS
+              //REVIEWS
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -244,6 +244,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
               ),
+              //ADD TO CART BUTTON
               Container(
                 margin: EdgeInsets.all(10),
                 height: 50,

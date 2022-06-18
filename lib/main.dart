@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch().copyWith(
             // primary: const Color.fromARGB(255, 29, 14, 70),
             primary: Colors.black,
-            secondary: pink,
+            secondary: Color.fromARGB(255, 227, 99, 99),
           ),
         ),
         routes: {
