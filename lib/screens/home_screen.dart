@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/models/category_model.dart';
+import 'package:kay_sy/widgets/category_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/product_provider.dart';
@@ -6,26 +8,12 @@ import '../screens/cart_screen.dart';
 import '../widgets/product_widget.dart';
 
 class HomeScreen extends StatelessWidget {
-  final List<String> _categories = [
-    'All',
-    'Accessories',
-    'Tech',
-    'Kitchen',
-    'Furniture',
-    'blabla',
-    'another one',
+  List<CategoryModel> categories = [
+    CategoryModel(id: "c1", title: "Accessories", image: "images/watch.png"),
+    CategoryModel(id: "c2", title: "Tech", image: "images/tech.png"),
+    CategoryModel(id: "c3", title: "Kitchen", image: "images/kitchen.png"),
+    CategoryModel(id: "c4", title: "Furniture", image: "images/furniture.png"),
   ];
-
-  final List<IconData> _categoryIcons = [
-    Icons.apps_rounded,
-    Icons.auto_awesome_rounded,
-    Icons.bolt_rounded,
-    Icons.kitchen_outlined,
-    Icons.home_max_outlined,
-    Icons.outlet,
-    Icons.place_rounded
-  ];
-
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
@@ -114,76 +102,70 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 90,
+                height: 20,
+              ),
+              Align(
+                alignment: Alignment(-0.9, 1),
+                child: Text(
+                  "Categories:",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 300,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
+                  child: GridView.builder(
+                    //physics: NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: _categories.length,
-                    itemBuilder: (ctx, i) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 13),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Icon(
-                              _categoryIcons[i],
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            child: FittedBox(
-                              child: Center(
-                                  child: Text(
-                                _categories[i],
-                                softWrap: true,
-                                style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary),
-                              )),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20),
+                    itemCount: categories.length,
+                    itemBuilder: (ctx, index) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 13),
+                        child: CategoryWidget(
+                          image: categories[index].image,
+                          title: categories[index].title,
+                        )),
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'All',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: productProvider.products.length,
-                itemBuilder: (ctx, i) => ProductWidget(
-                  id: productProvider.products[i].id,
-                  title: productProvider.products[i].title,
-                  imageUrl: productProvider.products[i].imageUrl,
-                  description: productProvider.products[i].description,
-                  price: productProvider.products[i].price,
-                  index: i,
-                ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.all(8.0),
+              //   child: Align(
+              //     alignment: Alignment.topLeft,
+              //     child: Text(
+              //       'All',
+              //       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              //     ),
+              //   ),
+              // ),
+              // GridView.builder(
+              //   physics: NeverScrollableScrollPhysics(),
+              //   shrinkWrap: true,
+              //   itemCount: productProvider.products.length,
+              //   itemBuilder: (ctx, index) => ProductWidget(
+              //     id: productProvider.products[index].id,
+              //     title: productProvider.products[index].title,
+              //     imageUrl: productProvider.products[index].imageUrl,
+              //     description: productProvider.products[index].description,
+              //     price: productProvider.products[index].price,
+              //     index: index,
+              //   ),
+              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //     crossAxisCount: 2,
+              //     childAspectRatio: 1,
+              //     crossAxisSpacing: 10,
+              //     mainAxisSpacing: 10,
+              //   ),
+              // ),
             ],
           ),
         ),

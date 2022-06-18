@@ -33,25 +33,23 @@ class _ProductWidgetState extends State<ProductWidget> {
     // final product = Provider.of<Product>(context, listen: false);
     // final listOfProducts =
     //     Provider.of<ProductProvider>(context, listen: true).products;
-  
+
     return GestureDetector(
       onTap: () {
-                Navigator.of(context)
-                    .pushNamed(ProductDetailsScreen.routeName, arguments: {
-                  'productId': widget.id,
-                  'productName': widget.title,
-                });
-              },
+        Navigator.of(context)
+            .pushNamed(ProductDetailsScreen.routeName, arguments: {
+          'productId': widget.id,
+          'productName': widget.title,
+        });
+      },
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.end,
           children: [
             //image
             Container(
-              //height: 100,
+              height: 200,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
                 borderRadius: const BorderRadius.only(
@@ -62,19 +60,16 @@ class _ProductWidgetState extends State<ProductWidget> {
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
-                child: Image.network(
+                child: Image.asset(
                   widget.imageUrl,
-                  height: 130,
-      
+                  height: 200,
+
                   //fit: BoxFit.cover,
                 ),
               ),
             ),
             Container(
-              
-              padding: EdgeInsets.only(
-                left: 10
-              ),
+              padding: EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 //color: Theme.of(context).colorScheme.primary,
                 borderRadius: const BorderRadius.only(
@@ -85,10 +80,12 @@ class _ProductWidgetState extends State<ProductWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  
                   Text(
                     '${widget.price} SYP',
-                    style:  TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: 15,fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                     onPressed: () {
