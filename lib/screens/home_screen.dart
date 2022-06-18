@@ -141,12 +141,15 @@ class HomeScreen extends StatelessWidget {
                           Container(
                             child: FittedBox(
                               child: Center(
-                                  child: Text(
-                                _categories[i],
-                                softWrap: true,
-                                style: TextStyle(
-                                    color: Theme.of(context).colorScheme.primary),
-                              )),
+                                child: Text(
+                                  _categories[i],
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                                ),
+                              ),
                             ),
                           ),
                         ],

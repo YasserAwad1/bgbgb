@@ -14,6 +14,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   Color myBlue = Color.fromARGB(255, 6, 30, 163);
+  Color pink = Color.fromARGB(255, 227, 99, 99);
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,9 +30,9 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-           // primary: const Color.fromARGB(255, 29, 14, 70),
-           primary: Colors.black,
-            secondary: myBlue,
+            // primary: const Color.fromARGB(255, 29, 14, 70),
+            primary: Colors.black,
+            secondary: pink,
           ),
         ),
         routes: {
