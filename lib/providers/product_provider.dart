@@ -11,10 +11,8 @@ class ProductProvider with ChangeNotifier {
       title: 'shirt men',
       price: 150000,
       rating: 3.5,
-      comments: [
+      comments: 
         'this is a good product, ljslfksdflkjsldkjf',
-        'sdfgjhslkdjgh lksjdfg;kjs hdlkjhdk jh',
-      ],
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -26,10 +24,8 @@ class ProductProvider with ChangeNotifier {
       title: 'chain logo T-Shirt',
       price: 130000,
       rating: 3.0,
-      comments: [
+      comments: 
         'this is a good product, ljslfksdflkjsldkjf',
-        'sdfgjhslkdjgh lksjdfg;kjs hdlkjhdk jh',
-      ],
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -41,10 +37,8 @@ class ProductProvider with ChangeNotifier {
       title: 'long sleeved shirt',
       price: 256000,
       rating: 3.6,
-      comments: [
+      comments: 
         'this is a good product, ljslfksdflkjsldkjf',
-        'sdfgjhslkdjgh lksjdfg;kjs hdlkjhdk jh',
-      ],
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -56,10 +50,8 @@ class ProductProvider with ChangeNotifier {
       title: 'sport pants',
       price: 60000,
       rating: 3.8,
-      comments: [
+      comments: 
         'this is a good product, ljslfksdflkjsldkjf',
-        'sdfgjhslkdjgh lksjdfg;kjs hdlkjhdk jh',
-      ],
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -71,10 +63,8 @@ class ProductProvider with ChangeNotifier {
       title: 'sandals',
       price: 75000,
       rating: 4.2,
-      comments: [
+      comments: 
         'this is a good product, ljslfksdflkjsldkjf',
-        'sdfgjhslkdjgh lksjdfg;kjs hdlkjhdk jh',
-      ],
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,

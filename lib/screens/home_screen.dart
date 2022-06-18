@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../providers/product_provider.dart';
 import '../screens/cart_screen.dart';
-import '../widgets/product_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   List<CategoryModel> categories = [

@@ -8,7 +8,7 @@ class Product with ChangeNotifier {
   final String imageUrl;
   final String description;
   final double rating;
-  final List<String> comments;
+  final String comments;
 
   Product({
     required this.id,
