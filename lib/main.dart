@@ -13,6 +13,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  Color gold = const Color.fromRGBO(163, 138, 0, 1);
   Color myBlue = Color.fromARGB(255, 6, 30, 163);
   Color pink = Color.fromARGB(255, 227, 99, 99);
   @override
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch().copyWith(
             // primary: const Color.fromARGB(255, 29, 14, 70),
             primary: Colors.black,
-            secondary: Color.fromARGB(255, 227, 99, 99),
+            secondary: gold,
           ),
         ),
         routes: {

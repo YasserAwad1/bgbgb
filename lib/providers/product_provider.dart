@@ -10,9 +10,9 @@ class ProductProvider with ChangeNotifier {
           'https://americaneagle.online/wp-content/uploads/2017/07/AE-T-shirt-Front-Mockup-Men-.jpg',
       title: 'shirt men',
       price: 150000,
-      rating: 3.5,
-      comments: 
-        'this is a good product, ljslfksdflkjsldkjf',
+      rating: 0.0,
+      comments:
+          'this is a good product, delivery is fast. i love this shop but ahmad afif is a fucking bitch ',
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -22,10 +22,9 @@ class ProductProvider with ChangeNotifier {
       imageUrl:
           'https://images.ikrix.com/product_images/original/michael-kors-t-shirts-chain-logo-t-shirt-00000237630f00s001.jpg',
       title: 'chain logo T-Shirt',
-      price: 130000,
+      price: 1650000,
       rating: 3.0,
-      comments: 
-        'this is a good product, ljslfksdflkjsldkjf',
+      comments: 'this is a good product, ljslfksdflkjsldkjf',
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -37,8 +36,7 @@ class ProductProvider with ChangeNotifier {
       title: 'long sleeved shirt',
       price: 256000,
       rating: 3.6,
-      comments: 
-        'this is a good product, ljslfksdflkjsldkjf',
+      comments: 'this is a good product, ljslfksdflkjsldkjf',
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -50,8 +48,7 @@ class ProductProvider with ChangeNotifier {
       title: 'sport pants',
       price: 60000,
       rating: 3.8,
-      comments: 
-        'this is a good product, ljslfksdflkjsldkjf',
+      comments: 'this is a good product, ljslfksdflkjsldkjf',
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -63,8 +60,7 @@ class ProductProvider with ChangeNotifier {
       title: 'sandals',
       price: 75000,
       rating: 4.2,
-      comments: 
-        'this is a good product, ljslfksdflkjsldkjf',
+      comments: 'this is a good product, ljslfksdflkjsldkjf',
       description:
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
       // isFavorite: false,
@@ -78,5 +74,4 @@ class ProductProvider with ChangeNotifier {
   Product findById(String productId) {
     return products.firstWhere((product) => product.id == productId);
   }
-
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CartWidget extends StatelessWidget {
   final String id;
@@ -44,7 +45,7 @@ class CartWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(title),
-                  Text('${price} x${quantity}'),
+                  Text('${NumberFormat().format(price)} x${quantity}'),
                 ],
               ),
             ),
