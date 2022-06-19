@@ -7,7 +7,7 @@ class Product with ChangeNotifier {
   bool? isFavorite;
   final String imageUrl;
   final String description;
-  final double rating;
+  double rating;
   final String comments;
 
   Product({

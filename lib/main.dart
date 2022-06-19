@@ -16,6 +16,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  Color gold = const Color.fromRGBO(163, 138, 0, 1);
   Color myBlue = Color.fromARGB(255, 6, 30, 163);
   Color pink = Color.fromARGB(255, 227, 99, 99);
   @override
