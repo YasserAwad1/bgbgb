@@ -1,18 +1,18 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:kay_sy/models/category_model.dart';
-import 'package:kay_sy/widgets/category_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/models/section_model.dart';
+import 'package:kay_sy/providers/cart_provider.dart';
+import 'package:kay_sy/providers/sections_provider.dart';
+import 'package:kay_sy/widgets/search_bar.dart';
+import 'package:kay_sy/widgets/section_widget.dart';
+import 'package:kay_sy/widgets/popular_product_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/product_provider.dart';
 import '../screens/cart_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  List<CategoryModel> categories = [
-    CategoryModel(id: "c1", title: "Accessories", image: "images/watch.png"),
-    CategoryModel(id: "c2", title: "Tech", image: "images/tech.png"),
-    CategoryModel(id: "c3", title: "Kitchen", image: "images/kitchen.png"),
-    CategoryModel(id: "c4", title: "Furniture", image: "images/furniture.png"),
-  ];
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
@@ -80,91 +80,105 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  color: Colors.grey[300],
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text('search'),
-                        Icon(
-                          Icons.search,
-                        ),
-                      ],
+              SearchBar(),
+              SizedBox(
+                height: 20.h,
+              ),
+              Align(
+                alignment: Alignment(-1, 1),
+                child: Container(
+                  padding: EdgeInsets.all(10.w),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: Text(
+                    "Trending ",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              CarouselSlider.builder(
+                  itemCount: productProvider.trendingProducts.length,
+                  itemBuilder: (context, index, e) {
+                    return PopularProductWidget(
+                        id: productProvider.trendingProducts[index].id,
+                        title: productProvider.trendingProducts[index].title,
+                        imageUrl:
+                            productProvider.trendingProducts[index].imageUrl,
+                        description:
+                            productProvider.trendingProducts[index].description,
+                        price: productProvider.trendingProducts[index].price,
+                        index: index);
+                  },
+                  options: CarouselOptions(
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                      height: 200.h,
+                      viewportFraction: 0.5,
+                      enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                      clipBehavior: Clip.none)),
+              SizedBox(
+                height: 20.h,
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  padding: EdgeInsets.all(10.w),
+                  child: Text(
+                    "Sections ",
+                    style: TextStyle(
+                        fontFamily: 'AnekMalayalam',
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              SizedBox(
+                height: 220.h,
+                child: Padding(
+                  padding: EdgeInsets.all(25.0.w),
+                  child: GridView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 120.w,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      childAspectRatio: 1,
+                    ),
+                    itemCount: Provider.of<SectionsProvider>(context)
+                        .categories
+                        .length,
+                    itemBuilder: (ctx, index) => SectionWidget(
+                      id: Provider.of<SectionsProvider>(context)
+                          .categories[index]
+                          .id,
+                      icon: Provider.of<SectionsProvider>(context)
+                          .categories[index]
+                          .icon,
+                      title: Provider.of<SectionsProvider>(context)
+                          .categories[index]
+                          .title,
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                height: 20,
-              ),
-              Align(
-                alignment: Alignment(-0.9, 1),
-                child: Text(
-                  "Categories:",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 300,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    //physics: NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 200,
-                        childAspectRatio: 1,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20),
-                    itemCount: categories.length,
-                    itemBuilder: (ctx, index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 13),
-                        child: CategoryWidget(
-                          image: categories[index].image,
-                          title: categories[index].title,
-                        )),
-                  ),
-                ),
-              ),
-              // const Padding(
-              //   padding: EdgeInsets.all(8.0),
-              //   child: Align(
-              //     alignment: Alignment.topLeft,
-              //     child: Text(
-              //       'All',
-              //       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              //     ),
-              //   ),
-              // ),
-              // GridView.builder(
-              //   physics: NeverScrollableScrollPhysics(),
-              //   shrinkWrap: true,
-              //   itemCount: productProvider.products.length,
-              //   itemBuilder: (ctx, index) => ProductWidget(
-              //     id: productProvider.products[index].id,
-              //     title: productProvider.products[index].title,
-              //     imageUrl: productProvider.products[index].imageUrl,
-              //     description: productProvider.products[index].description,
-              //     price: productProvider.products[index].price,
-              //     index: index,
-              //   ),
-              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              //     crossAxisCount: 2,
-              //     childAspectRatio: 1,
-              //     crossAxisSpacing: 10,
-              //     mainAxisSpacing: 10,
-              //   ),
-              // ),
+                height: 20.h,
+              )
             ],
           ),
         ),
