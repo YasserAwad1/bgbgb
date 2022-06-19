@@ -9,9 +9,11 @@ class Product with ChangeNotifier {
   final String description;
   double rating;
   final String comments;
+  final String section;
 
   Product({
     required this.id,
+    required this.section,
     required this.title,
     required this.price,
     required this.imageUrl,

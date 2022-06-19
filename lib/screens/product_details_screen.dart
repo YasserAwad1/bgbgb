@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/providers/sections_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
@@ -15,16 +19,17 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  double pRating = 3;
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    final String? productId = routeArgs['productId'];
+    final id = ModalRoute.of(context)!.settings.arguments as String;
 
-    final loadedProduct = Provider.of<ProductProvider>(context, listen: true)
-        .findById(productId!);
+    final loadedProduct =
+        Provider.of<ProductProvider>(context, listen: true).findById(id);
 
     final cartProvider = Provider.of<CartProvider>(context);
+    final section =
+        Provider.of<SectionsProvider>(context).findById(loadedProduct.section);
 
     return SafeArea(
       child: Scaffold(
@@ -100,12 +105,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: 15.h,
               ),
               //SMALL IMAGES
               SizedBox(
-                height: 50,
+                height: 50.h,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -137,193 +142,191 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               //CATEGORY
-              Padding(
-                padding: const EdgeInsets.only(left: 12, top: 8, right: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('category'),
-                    // TITLE AND RATING
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              // TITLE AND RATING
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        section.title,
+                        style:
+                            TextStyle(fontSize: 15.sp, color: Colors.grey[700]),
+                      ),
+                      Text(
+                        loadedProduct.title,
+                        style: TextStyle(
+                            fontSize: 25.sp, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Container(
+                    width: 80.w,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          loadedProduct.title,
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                        ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10,
-                            right: 8,
-                          ),
-                          child: Container(
-                            width: 60,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    '${loadedProduct.rating}',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    Icons.star_rate_rounded,
-                                    color: Colors.amber[500],
-                                  )
-                                ],
-                              ),
-                            ),
+                          padding: EdgeInsets.only(top: 5.h),
+                          child: Text(
+                            '${loadedProduct.rating}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.sp),
                           ),
                         ),
+                        Icon(
+                          Icons.star_rate_rounded,
+                          color: Colors.amber[500],
+                          size: 25.sp,
+                        )
                       ],
                     ),
-                    //DESCRIPTON
-                    Text(
-                      'Information',
+                  ),
+                ],
+              ),
+              Divider(
+                thickness: 2,
+              ),
+              //DESCRIPTON
+              SizedBox(
+                height: 10.h,
+              ),
+              Align(
+                alignment: Alignment(-0.9, 1),
+                child: Text(
+                  'Information',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.sp,
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0.w),
+                child: Text(
+                  loadedProduct.description,
+                  style: TextStyle(fontSize: 15.sp),
+                ),
+              ),
+              Divider(
+                thickness: 1,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              Align(
+                  alignment: Alignment(-0.9, 1),
+                  child: Container(
+                    child: Text(
+                      "Reviews",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Theme.of(context).colorScheme.secondary),
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
+                  )),
+              SizedBox(
+                height: 10.h,
+              ),
+
+              Container(
+                padding: EdgeInsets.all(15.h),
+                margin: EdgeInsets.only(left: 30.w, right: 30.w),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text(
-                      loadedProduct.description,
-                      style: TextStyle(color: Colors.grey[700], fontSize: 15),
+                      '$pRating',
+                      style: TextStyle(fontSize: 25.sp),
                     ),
-                    Divider(thickness: 2, color: Theme.of(context).colorScheme.primary,),
+                    SizedBox(
+                      width: 15.w,
+                    ),
+                    RatingBar.builder(
+                      initialRating: pRating,
+                      glow: false,
+                      ignoreGestures: true,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        setState(() {
+                          pRating = rating;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20.h,
+              ),
               //REVIEWS
-              ListView.builder(
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 6,
-                itemBuilder: (ctx, i) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text('userName', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                          SizedBox(width: 4),
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: StarRating(
-                              onRatingChanged: ((rating) => setState(() {
-                                    loadedProduct.rating = rating;
-                                  })),
-                              color: Colors.amber,
-                              rating: loadedProduct.rating,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 6,
+                  itemBuilder: (ctx, i) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'userName',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18.sp),
                             ),
-                          ),
-                          Spacer(),
-                          Text(
-                            DateFormat('dd/MM/yyyy').format(
-                              DateTime.now(),
+                            SizedBox(width: 4.w),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: StarRating(
+                                onRatingChanged: ((rating) => setState(() {
+                                      loadedProduct.rating = rating;
+                                    })),
+                                color: Colors.amber,
+                                rating: loadedProduct.rating,
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 3,),
-                      Text(loadedProduct.comments),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: ListView.builder(
-                      //         scrollDirection: Axis.horizontal,
-                      //         itemCount: 3,
-                      //         physics: NeverScrollableScrollPhysics(),
-                      //         shrinkWrap: true,
-                      //         // gridDelegate:
-                      //         //     const SliverGridDelegateWithFixedCrossAxisCount(
-                      //         //         crossAxisCount: 1),
-                      //         itemBuilder: (ctx, i) => Container(
-                      //           height: 50,
-                      //           width: 50,
-                      //           child: Image.network(
-                      //             loadedProduct.imageUrl,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      Divider(),
-                    ],
+                            Spacer(),
+                            Text(
+                              DateFormat('dd/MM/yyyy').format(
+                                DateTime.now(),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(
+                          loadedProduct.comments,
+                          style: TextStyle(fontSize: 15.sp),
+                        ),
+                        Divider(
+                          thickness: 3,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Column(
-              //     children: [
-              //       ListView.builder(
-              //         shrinkWrap: true,
-              //         physics: NeverScrollableScrollPhysics(),
-              //         itemCount: 5,
-              //         itemBuilder: (ctx, i) => Card(
-              //           color: Colors.grey[300],
-              //           child: ListTile(
-              //               title: Text(
-              //                 'username',
-              //                 style: TextStyle(fontWeight: FontWeight.bold),
-              //               ),
-              //               subtitle: Padding(
-              //                 padding: const EdgeInsets.all(2.0),
-              //                 child: Text(
-              //                   loadedProduct.comments,
-              //                   maxLines: 3,
-              //                 ),
-              //               ),
-              //               trailing: FittedBox(
-              //                 fit: BoxFit.scaleDown,
-              //                 child: StarRating(
-              //                   onRatingChanged: ((rating) => setState(() {
-              //                         loadedProduct.rating = rating;
-              //                       })),
-              //                   color: Colors.amber,
-              //                   rating: loadedProduct.rating,
-              //                 ),
-              //               )
-              //               // Container(
-              //               //   width: 60,
-              //               //   decoration: BoxDecoration(
-              //               //       color: Colors.grey[200],
-              //               //       borderRadius: BorderRadius.circular(15)),
-              //               //   child: Padding(
-              //               //     padding: const EdgeInsets.all(5.0),
-              //               //     child: Row(
-              //               //       mainAxisAlignment:
-              //               //           MainAxisAlignment.spaceAround,
-              //               //       children: [
-              //               //         Text(
-              //               //           '${loadedProduct.rating}',
-              //               //           style:
-              //               //               TextStyle(fontWeight: FontWeight.bold),
-              //               //         ),
-              //               //         Icon(
-              //               //           Icons.star_rate_rounded,
-              //               //           color: Colors.amber[500],
-              //               //         )
-              //               //       ],
-              //               //     ),
-              //               //   ),
-              //               // ),
-              //               ),
-              //         ),
-              //       )
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -340,7 +343,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     text: TextSpan(
                       text: '${NumberFormat().format(loadedProduct.price)}',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
                         fontSize: 23,
                       ),
                       children: [
@@ -348,7 +352,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           text: 'SYP',
                           style: TextStyle(
                             fontSize: 10,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.secondary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
