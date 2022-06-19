@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../providers/product_provider.dart';
 import '../providers/cart_provider.dart';
@@ -9,7 +10,6 @@ import '../widgets/rating_star_widget.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   static const routeName = 'product-details-screen';
-
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
@@ -50,7 +50,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Details',
                     style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   ),
@@ -196,7 +196,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       loadedProduct.description,
                       style: TextStyle(color: Colors.grey[700], fontSize: 15),
                     ),
-                    Divider(thickness: 2, color: Theme.of(context).colorScheme.primary,),
+                    Divider(
+                      thickness: 2,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ],
                 ),
               ),
@@ -213,7 +216,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Row(
                         children: [
-                          Text('userName', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                          Text(
+                            'userName',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
                           SizedBox(width: 4),
                           FittedBox(
                             fit: BoxFit.scaleDown,
@@ -233,7 +240,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           )
                         ],
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(
+                        height: 3,
+                      ),
                       Text(loadedProduct.comments),
                       // Row(
                       //   children: [
@@ -330,7 +339,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         //BOTTOM NAVIGATION BAR
         bottomNavigationBar: BottomAppBar(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               //PRICE WIDGET
               Padding(
@@ -359,32 +368,74 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               //ADD TO CART BUTTON
               Flexible(
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  height: 50,
-                  width: double.infinity,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                      ),
-                      onPressed: () {
-                        cartProvider.addItem(
-                            loadedProduct.id,
-                            loadedProduct.title,
-                            loadedProduct.price,
-                            loadedProduct.imageUrl);
-                      },
-                      child: const Center(
-                        child: Text(
-                          'Add to cart',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                child: cartProvider.isItemInCart(loadedProduct.id)
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    cartProvider
+                                        .removeSingleItem(loadedProduct.id);
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.remove,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                )),
+                            Text(
+                              '${cartProvider.itemQuantity(loadedProduct.id)}',
+                              style: TextStyle(fontSize: 20.sp),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    cartProvider.addItem(
+                                        loadedProduct.id,
+                                        loadedProduct.title,
+                                        loadedProduct.price,
+                                        loadedProduct.imageUrl);
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.add,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                )),
+                          ],
+                        ),
+                      )
+                    : Container(
+                        margin: EdgeInsets.all(10),
+                        height: 50.h,
+                        width: double.infinity,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                            ),
+                            onPressed: () {
+                              cartProvider.addItem(
+                                  loadedProduct.id,
+                                  loadedProduct.title,
+                                  loadedProduct.price,
+                                  loadedProduct.imageUrl);
+                            },
+                            child: const Center(
+                              child: Text(
+                                'Add to cart',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
