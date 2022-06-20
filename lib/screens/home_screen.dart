@@ -89,8 +89,11 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      )),
                   child: Text(
                     "Trending ",
                     style: TextStyle(
@@ -130,6 +133,10 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Container(
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   padding: EdgeInsets.all(10.w),
