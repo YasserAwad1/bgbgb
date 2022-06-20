@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:kay_sy/models/product.dart';
 import 'package:kay_sy/screens/product_details_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/product_provider.dart';
 
 class ProductWidget extends StatelessWidget {
   final Product product;
@@ -16,10 +18,14 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final price = NumberFormat('#,###,000').format(product.price);
+    // final p = Provider.of<Product>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetailsScreen.routeName,
-            arguments: product.id);
+        Navigator.pushNamed(
+          context,
+          ProductDetailsScreen.routeName,
+          arguments: product.id,
+        );
       },
       child: Column(
         children: [
@@ -40,8 +46,20 @@ class ProductWidget extends StatelessWidget {
                 "$price SYP",
                 style: TextStyle(fontSize: 15.sp),
               ),
-              IconButton(
-                  onPressed: () {}, icon: Icon(Icons.favorite_border_outlined))
+              Consumer<ProductProvider>(builder: (context, p, _) {
+                return IconButton(
+                    onPressed: () {
+                      p.toggleFavoriteStatus(product);
+                    },
+                    icon: Icon(
+                      product.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                      color: product.isFavorite
+                          ? Colors.red
+                          : Theme.of(context).colorScheme.primary,
+                    ));
+              })
             ],
           ),
         ],

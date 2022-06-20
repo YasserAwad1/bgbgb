@@ -8,6 +8,7 @@ import 'package:kay_sy/widgets/search_bar.dart';
 import 'package:kay_sy/widgets/section_widget.dart';
 import 'package:kay_sy/widgets/popular_product_widget.dart';
 import 'package:provider/provider.dart';
+import '../widgets/badge.dart';
 
 import '../providers/product_provider.dart';
 import '../screens/cart_screen.dart';
@@ -52,13 +53,19 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(CartScreen.routeName);
-                      },
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        color: Theme.of(context).colorScheme.primary,
+                    Consumer<CartProvider>(
+                      builder: (_, cart, ch) => Badge(
+                          child: ch!,
+                          value: cart.itemCount.toString(),
+                          color: Theme.of(context).colorScheme.secondary),
+                      child: IconButton(
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(CartScreen.routeName),
+                        icon: const Icon(
+                          Icons.shopping_cart_outlined,
+                          color: Colors.black,
+                          size: 32,
+                        ),
                       ),
                     ),
                   ],
@@ -85,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                 height: 20.h,
               ),
               Align(
-                alignment: Alignment(-1, 1),
+                alignment: const Alignment(-1, 1),
                 child: Container(
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(

@@ -59,7 +59,7 @@ class CartScreen extends StatelessWidget {
                     imageUrl: cartProvider.items.values.toList()[i].imageUrl,
                     quantity: cartProvider.items.values.toList()[i].quantity,
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 2,
                   ),
                 ],
@@ -73,27 +73,38 @@ class CartScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: FittedBox(
-                  child: RichText(
-                    text: TextSpan(
-                      text:
-                          'Total:${NumberFormat().format(cartProvider.cartTotal)}',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 18.sp,
-                        fontFamily: 'AnekMalayalam',
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'SYP',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontWeight: FontWeight.bold,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Total:',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
                             fontFamily: 'AnekMalayalam',
-                          ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.sp),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: NumberFormat().format(cartProvider.cartTotal),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18.sp,
+                              fontFamily: 'AnekMalayalam',
+                              fontWeight: FontWeight.bold),
+                          children: [
+                            TextSpan(
+                              text: 'SYP',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'AnekMalayalam',
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

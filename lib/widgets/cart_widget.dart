@@ -131,6 +131,9 @@ class _CartWidgetState extends State<CartWidget> {
                           () {
                             cartProvider.addItem(widget.id, widget.title,
                                 widget.price, widget.imageUrl);
+                            totalDouble = widget.quantity * widget.price;
+                            total =
+                                NumberFormat('#,###,000').format(totalDouble);
                           },
                         );
                       },

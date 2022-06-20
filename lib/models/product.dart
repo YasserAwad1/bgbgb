@@ -4,7 +4,7 @@ class Product with ChangeNotifier {
   final String id;
   final String title;
   final int price;
-  bool? isFavorite;
+  bool isFavorite;
   final String imageUrl;
   final String description;
   double rating;
@@ -20,11 +20,8 @@ class Product with ChangeNotifier {
     required this.description,
     required this.rating,
     required this.comments,
-    this.isFavorite,
+    this.isFavorite = false,
   });
 
-  // void toggleFavoriteStatus() {
-  //   isFavorite = !isFavorite;
-  //   notifyListeners();
-  // }
+  
 }

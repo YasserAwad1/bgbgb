@@ -66,9 +66,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10)),
                     child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite_border,
+                      onPressed: () {
+                        setState(() {
+                          Provider.of<ProductProvider>(context, listen: false)
+                              .toggleFavoriteStatus(loadedProduct);
+                        });
+                      },
+                      icon: Icon(
+                        loadedProduct.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: loadedProduct.isFavorite
+                            ? Colors.red
+                            : Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
