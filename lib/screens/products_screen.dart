@@ -39,7 +39,7 @@ class ProductsScreen extends StatelessWidget {
                   Spacer(),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.shopping_cart_outlined))
+                      icon: const Icon(Icons.shopping_cart_outlined))
                 ],
               ),
             ),
@@ -73,7 +73,7 @@ class ProductsScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: products.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     childAspectRatio: 0.5,

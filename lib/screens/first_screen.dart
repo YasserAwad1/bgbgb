@@ -72,6 +72,6 @@ class _FirstScreenState extends State<FirstScreen> {
   final List<Widget> _listOfWidget = <Widget>[
     HomeScreen(),
     FavoritesScreen(),
-    const SettingsScreen(),
+    SettingsScreen(),
   ];
 }

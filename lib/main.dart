@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/config.dart';
 import 'package:kay_sy/screens/products_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,21 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentTheme.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -32,6 +47,8 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: MaterialApp(
+          themeMode: currentTheme.currentTheme(),
+          darkTheme: ThemeData.dark(),
           builder: (context, child) => SafeArea(child: child!),
           title: 'Flutter Demo',
           theme: ThemeData(

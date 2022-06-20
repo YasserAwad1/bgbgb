@@ -24,7 +24,7 @@ class CartScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.arrow_back_ios_new_rounded),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded),
                   ),
                   const SizedBox(
                     width: 100,
@@ -37,7 +37,7 @@ class CartScreen extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '5 items',
+                        '${cartProvider.itemCount} Items',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary),
                       ),
@@ -78,7 +78,7 @@ class CartScreen extends StatelessWidget {
                       Text(
                         'Total:',
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.secondary,
                             fontFamily: 'AnekMalayalam',
                             fontWeight: FontWeight.bold,
                             fontSize: 17.sp),
@@ -110,7 +110,7 @@ class CartScreen extends StatelessWidget {
               ),
               Flexible(
                 child: Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   height: 50,
                   width: double.infinity,
                   child: ClipRRect(
@@ -136,30 +136,6 @@ class CartScreen extends StatelessWidget {
               ),
             ],
           ),
-          // child: Row(
-          //   children: [
-          //     Container(
-          //       margin: EdgeInsets.all(10),
-          //       height: 50,
-          //       width: double.infinity,
-          //       child: ClipRRect(
-          //         borderRadius: BorderRadius.circular(10),
-          //         child: TextButton(
-          //           style: TextButton.styleFrom(
-          //             backgroundColor: Theme.of(context).colorScheme.primary,
-          //           ),
-          //           onPressed: () {},
-          //           child: const Center(
-          //             child: Text(
-          //               'Order Now',
-          //               style: TextStyle(fontSize: 20, color: Colors.white),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ),
       ),
     );
