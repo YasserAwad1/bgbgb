@@ -3,7 +3,7 @@ import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 import '../screens/favorites_screen.dart';
 import '../screens/home_screen.dart';
-import '../screens/profile_screen.dart';
+import 'settings_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -59,8 +59,8 @@ class _FirstScreenState extends State<FirstScreen> {
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
           BarItem(
-            icon: Icons.person,
-            title: 'Profile',
+            icon: Icons.settings,
+            title: 'Settings',
             activeColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
@@ -71,7 +71,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   final List<Widget> _listOfWidget = <Widget>[
     HomeScreen(),
-    const FavoritesScreen(),
-    const ProfileScreen(),
+    FavoritesScreen(),
+    SettingsScreen(),
   ];
 }

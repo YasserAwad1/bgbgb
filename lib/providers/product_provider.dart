@@ -110,4 +110,12 @@ class ProductProvider with ChangeNotifier {
   List<Product> findbySection(String id) {
     return _products.where((element) => element.section == id).toList();
   }
+  void toggleFavoriteStatus(Product p) {
+    p.isFavorite = !p.isFavorite;
+    notifyListeners();
+  }
+
+  List<Product> get favoriteItems {
+    return _products.where((product) => product.isFavorite).toList();
+  }
 }

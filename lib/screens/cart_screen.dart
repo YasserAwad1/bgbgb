@@ -24,7 +24,7 @@ class CartScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.arrow_back_ios_new_rounded),
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded),
                   ),
                   const SizedBox(
                     width: 100,
@@ -37,7 +37,7 @@ class CartScreen extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '5 items',
+                        '${cartProvider.itemCount} Items',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary),
                       ),
@@ -59,7 +59,7 @@ class CartScreen extends StatelessWidget {
                     imageUrl: cartProvider.items.values.toList()[i].imageUrl,
                     quantity: cartProvider.items.values.toList()[i].quantity,
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 2,
                   ),
                 ],
@@ -73,33 +73,44 @@ class CartScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: FittedBox(
-                  child: RichText(
-                    text: TextSpan(
-                      text:
-                          'Total:${NumberFormat().format(cartProvider.cartTotal)}',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 18.sp,
-                        fontFamily: 'AnekMalayalam',
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'SYP',
-                          style: TextStyle(
-                            fontSize: 10,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Total:',
+                        style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
-                            fontWeight: FontWeight.bold,
                             fontFamily: 'AnekMalayalam',
-                          ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.sp),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: NumberFormat().format(cartProvider.cartTotal),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 18.sp,
+                              fontFamily: 'AnekMalayalam',
+                              fontWeight: FontWeight.bold),
+                          children: [
+                            TextSpan(
+                              text: 'SYP',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'AnekMalayalam',
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
               Flexible(
                 child: Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   height: 50,
                   width: double.infinity,
                   child: ClipRRect(
@@ -125,30 +136,6 @@ class CartScreen extends StatelessWidget {
               ),
             ],
           ),
-          // child: Row(
-          //   children: [
-          //     Container(
-          //       margin: EdgeInsets.all(10),
-          //       height: 50,
-          //       width: double.infinity,
-          //       child: ClipRRect(
-          //         borderRadius: BorderRadius.circular(10),
-          //         child: TextButton(
-          //           style: TextButton.styleFrom(
-          //             backgroundColor: Theme.of(context).colorScheme.primary,
-          //           ),
-          //           onPressed: () {},
-          //           child: const Center(
-          //             child: Text(
-          //               'Order Now',
-          //               style: TextStyle(fontSize: 20, color: Colors.white),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ),
       ),
     );

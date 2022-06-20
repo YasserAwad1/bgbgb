@@ -4,7 +4,7 @@ class Product {
   final String id;
   final String title;
   final int price;
-  bool? isFavorite;
+  bool isFavorite;
   final String imageUrl;
   final String description;
   double rating;
@@ -20,8 +20,6 @@ class Product {
     required this.description,
     required this.rating,
     required this.comments,
-    this.isFavorite,
+    this.isFavorite = false,
   });
-
- 
 }
