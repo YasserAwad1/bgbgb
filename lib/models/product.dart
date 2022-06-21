@@ -6,14 +6,13 @@ class Product with ChangeNotifier {
   final String id;
   final String title;
   final int price;
-  bool isFavorite;
   final List<String> imageUrls;
   final String description;
-  double rating;
-
   final String section;
   final List<ReviewModel>? reviews;
   final CustomProduct? custom;
+  bool isFavorite;
+  double rating;
 
   Product(
       {required this.id,

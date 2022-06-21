@@ -95,7 +95,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     fontWeight: FontWeight.bold),
               ),
               trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   icon: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Theme.of(context).colorScheme.primary,

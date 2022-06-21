@@ -32,7 +32,7 @@ class SectionWidget extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                  height: 50.h,
+                  height: 49.h,
                   width: 90.w,
                   child: Icon(
                     IconData(icon, fontFamily: 'MaterialIcons'),
