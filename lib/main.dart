@@ -4,6 +4,7 @@ import 'package:kay_sy/config.dart';
 import 'package:kay_sy/screens/products_screen.dart';
 import 'package:provider/provider.dart';
 
+
 import './providers/product_provider.dart';
 import './providers/cart_provider.dart';
 import '../screens/first_screen.dart';
@@ -33,6 +34,21 @@ class _MyAppState extends State<MyApp> {
       setState(() {});
     });
   }
+  // final darkTheme = ThemeData(
+  //   colorScheme: ColorScheme.fromSwatch().copyWith(
+  //             // primary: const Color.fromARGB(255, 29, 14, 70),
+  //             primary: Colors.black,
+  //             secondary: Color.fromARGB(255, 227, 99, 99),
+  //           ),
+  //   iconTheme: IconThemeData(color: Color.fromARGB(255, 227, 99, 99)),
+  //   primarySwatch: Colors.grey,
+  //   primaryColor: Colors.white,
+  //   brightness: Brightness.dark,
+  //   backgroundColor: Colors.black,
+  //   accentColor: Colors.white,
+  //   accentIconTheme: IconThemeData(color: Colors.black),
+  //   dividerColor: Colors.black12,
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +70,10 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child: MaterialApp(
+          // localizationsDelegates:
+          //     translator.delegates,
+          // locale: translator.activeLocale,
+          // supportedLocales: translator.locals(),
           themeMode: currentTheme.currentTheme(),
           darkTheme: ThemeData.dark(),
           builder: (context, child) => SafeArea(child: child!),

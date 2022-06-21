@@ -67,13 +67,13 @@ class _CartWidgetState extends State<CartWidget> {
                     text: TextSpan(
                       text: '${NumberFormat().format(widget.price)}',
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 15.sp),
+                          color: Colors.grey[600],
+                          fontSize: 12.sp),
                       children: [
                         TextSpan(
                           text: ' SYP',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Colors.grey[600],
                             fontSize: 12,
                             fontFamily: 'AnekMalayalam',
                           ),

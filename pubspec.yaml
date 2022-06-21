@@ -71,6 +71,8 @@ flutter:
     - images/tech.png
     - images/watch.png
     - images/furniture.png
+    - assets/languages/en.json
+    - assets/languages/ar.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
