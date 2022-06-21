@@ -75,15 +75,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             ),
             favoriteProducts.isEmpty
                 ? SizedBox(
-                  height: 500.h,
-                  child: Center(
+                    height: 500.h,
+                    child: Center(
                       child: Text(
                         'No favorites yet, start adding some!',
                         style: TextStyle(
                             fontFamily: "AnekMalayalam", fontSize: 20.sp),
                       ),
                     ),
-                )
+                  )
                 : Expanded(
                     child: ListView.builder(
                       itemCount: favoriteProducts.length,
@@ -110,7 +110,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     offset: Offset(6, 6))
                               ], color: Colors.grey[300]),
                               child: Image.network(
-                                favoriteProducts[i].imageUrl,
+                                favoriteProducts[i].imageUrls[0],
                               ),
                             ),
                             title: Text(
@@ -128,7 +128,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                       favoriteProducts[i].id,
                                       favoriteProducts[i].title,
                                       favoriteProducts[i].price,
-                                      favoriteProducts[i].imageUrl,
+                                      favoriteProducts[i].imageUrls[0],
                                     );
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();

@@ -10,9 +10,11 @@ import '../screens/first_screen.dart';
 import './screens/product_details_screen.dart';
 import './screens/cart_screen.dart';
 import 'providers/sections_provider.dart';
+import 'providers/user_provider.dart';
 
-void main() {
+Future<void> main() async {
   Provider.debugCheckInvalidValueType = null;
+
   runApp(MyApp());
 }
 
@@ -25,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     currentTheme.addListener(() {
       setState(() {});
@@ -34,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      minTextAdapt: true,
       builder: (context, child) => MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -44,7 +48,10 @@ class _MyAppState extends State<MyApp> {
           ),
           ChangeNotifierProvider(
             create: (ctx) => SectionsProvider(),
-          )
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => UserProvider(),
+          ),
         ],
         child: MaterialApp(
           themeMode: currentTheme.currentTheme(),

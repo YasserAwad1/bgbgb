@@ -119,8 +119,8 @@ class HomeScreen extends StatelessWidget {
                     return PopularProductWidget(
                         id: productProvider.trendingProducts[index].id,
                         title: productProvider.trendingProducts[index].title,
-                        imageUrl:
-                            productProvider.trendingProducts[index].imageUrl,
+                        imageUrl: productProvider
+                            .trendingProducts[index].imageUrls[0],
                         description:
                             productProvider.trendingProducts[index].description,
                         price: productProvider.trendingProducts[index].price,
@@ -169,8 +169,8 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 120.w,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20.h,
+                      crossAxisSpacing: 20.w,
                       childAspectRatio: 1,
                     ),
                     itemCount: Provider.of<SectionsProvider>(context)

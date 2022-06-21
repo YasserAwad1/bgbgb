@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:kay_sy/models/product.dart';
+
+import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
+import 'package:kay_sy/widgets/custom_product_widget.dart';
+import 'package:kay_sy/widgets/review_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
@@ -13,24 +18,31 @@ import '../providers/cart_provider.dart';
 import '../widgets/rating_star_widget.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  static const routeName = 'product-details-screen';
+  static const routeName = 'loadedProduct-details-screen';
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   double pRating = 3;
+
+  int currentIndex = 0;
+  CarouselController controller = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     final id = ModalRoute.of(context)!.settings.arguments as String;
 
-    final loadedProduct =
-        Provider.of<ProductProvider>(context, listen: true).findById(id);
-
+    final Product loadedProduct =
+        Provider.of<ProductProvider>(context).findById(id);
     final cartProvider = Provider.of<CartProvider>(context);
-    final section =
-        Provider.of<SectionsProvider>(context).findById(loadedProduct.section);
 
+    final SectionModel section =
+        Provider.of<SectionsProvider>(context).findById(loadedProduct.section);
+    int total = 0;
+    loadedProduct.custom!.chosenProducts.forEach(
+      (element) => total += element.price,
+    );
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -86,132 +98,187 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               //CAROUSEL SLIDER
               SizedBox(
-                height: 250,
-                child: CarouselSlider.builder(
-                  itemBuilder: (ctx, i, e) => Material(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    elevation: 6,
-                    shadowColor: Theme.of(context).colorScheme.secondary,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.transparent,
-                      ),
-                      margin: const EdgeInsets.all(2),
-                      width: 320,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          loadedProduct.imageUrl,
-                          fit: BoxFit.cover,
+                height: 230.h,
+                child: loadedProduct.custom != null
+                    ? Container(
+                        color: Colors.white,
+                        width: 180.w,
+                        child: StaggeredGrid.count(
+                          crossAxisCount: 2,
+                          children: List.generate(
+                              loadedProduct.custom!.chosenProducts.length,
+                              (index) => Image.network(
+                                    loadedProduct.custom!.chosenProducts[index]
+                                        .imageUrls[0],
+                                    fit: BoxFit.contain,
+                                  )),
+                          // scatter them randomly
+                        ),
+                      )
+                    : CarouselSlider.builder(
+                        carouselController: controller,
+                        itemBuilder: (ctx, i, e) => Material(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          elevation: 6,
+                          shadowColor: Theme.of(context).colorScheme.secondary,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.transparent,
+                            ),
+                            margin: const EdgeInsets.all(2),
+                            width: 320.w,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                loadedProduct.imageUrls[i],
+                              ),
+                            ),
+                          ),
+                        ),
+                        itemCount: loadedProduct.imageUrls.length,
+                        options: CarouselOptions(
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          },
+                          autoPlay: false,
                         ),
                       ),
-                    ),
-                  ),
-                  itemCount: 3,
-                  options: CarouselOptions(
-                    autoPlay: false,
-                  ),
-                ),
               ),
               SizedBox(
                 height: 15.h,
               ),
               //SMALL IMAGES
-              SizedBox(
-                height: 50.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 4,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (ctx, i) => Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Container(
-                          width: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 2,
-                                color: Theme.of(context).colorScheme.primary),
-                            borderRadius: BorderRadius.circular(13),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image.network(
-                              loadedProduct.imageUrl,
-                              fit: BoxFit.scaleDown,
+              if (loadedProduct.custom == null)
+                SizedBox(
+                  height: 50.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: loadedProduct.imageUrls.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (ctx, i) => Padding(
+                          padding: EdgeInsets.only(right: 8.w),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                controller.animateToPage(i);
+                                currentIndex = i;
+                              });
+                            },
+                            child: Container(
+                              width: 50.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2,
+                                    color: currentIndex == i
+                                        ? Colors.red
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .primary),
+                                borderRadius: BorderRadius.circular(13),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  loadedProduct.imageUrls[i],
+                                  fit: BoxFit.scaleDown,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              SizedBox(
+                height: 20.h,
+              ),
+              //title and category
+              Align(
+                alignment: Alignment(-0.9, 1),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      section.title,
+                      style:
+                          TextStyle(fontSize: 15.sp, color: Colors.grey[700]),
+                    ),
+                    Text(
+                      loadedProduct.title,
+                      style: TextStyle(
+                          fontSize: 25.sp, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ),
-              //CATEGORY
-
-              // TITLE AND RATING
-              Row(
-                children: [
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        section.title,
-                        style:
-                            TextStyle(fontSize: 15.sp, color: Colors.grey[700]),
-                      ),
-                      Text(
-                        loadedProduct.title,
-                        style: TextStyle(
-                            fontSize: 25.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  Container(
-                    width: 80.w,
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.h),
-                          child: Text(
-                            '${loadedProduct.rating}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20.sp),
-                          ),
-                        ),
-                        Icon(
-                          Icons.star_rate_rounded,
-                          color: Colors.amber[500],
-                          size: 25.sp,
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
               Divider(
                 thickness: 2,
               ),
-              //DESCRIPTON
+
               SizedBox(
                 height: 10.h,
               ),
+              //adding products to screen
+              if (loadedProduct.custom != null)
+                Column(
+                  children: [
+                    Align(
+                      alignment: Alignment(-0.9, 1),
+                      child: Text(
+                        "SELECT PRODUCTS TO ADD THEM",
+                        style: TextStyle(
+                            fontSize: 20.sp, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Container(
+                      height: 100.h,
+                      child: GridView.builder(
+                          scrollDirection: Axis.horizontal,
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 120.w,
+                            mainAxisSpacing: 20.h,
+                            crossAxisSpacing: 20.w,
+                            childAspectRatio: 1,
+                          ),
+                          itemCount: loadedProduct.custom!.products.length,
+                          itemBuilder: (context, index) {
+                            return CustomProductWidget(
+                                isSelected: loadedProduct.custom!.chosenProducts
+                                    .any((product) {
+                                  return loadedProduct
+                                          .custom!.products[index].id ==
+                                      product.id;
+                                }),
+                                product: loadedProduct.custom!.products[index],
+                                onTap: () {
+                                  Provider.of<ProductProvider>(context,
+                                          listen: false)
+                                      .tapOnCustomProduct(
+                                          loadedProduct,
+                                          loadedProduct
+                                              .custom!.products[index]);
+                                });
+                          }),
+                    ),
+                  ],
+                ),
+              //DESCRIPTON
               Align(
                 alignment: Alignment(-0.9, 1),
                 child: Text(
-                  'Information',
+                  'INFORMATION',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25.sp,
@@ -241,9 +308,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               SizedBox(
                 height: 10.h,
               ),
+              //Rating
 
               Container(
                 padding: EdgeInsets.all(15.h),
+                width: 300.w,
                 margin: EdgeInsets.only(left: 30.w, right: 30.w),
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
@@ -253,12 +322,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   children: [
                     Text(
                       '$pRating',
-                      style: TextStyle(fontSize: 25.sp),
+                      style: TextStyle(fontSize: 20.sp),
                     ),
                     SizedBox(
                       width: 15.w,
                     ),
                     RatingBar.builder(
+                      itemSize: 30.sp,
                       initialRating: pRating,
                       glow: false,
                       ignoreGestures: true,
@@ -284,59 +354,27 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 height: 20.h,
               ),
               //REVIEWS
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 6,
-                  itemBuilder: (ctx, i) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'userName',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18.sp),
-                            ),
-                            SizedBox(width: 4.w),
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: StarRating(
-                                onRatingChanged: ((rating) => setState(() {
-                                      loadedProduct.rating = rating;
-                                    })),
-                                color: Colors.amber,
-                                rating: loadedProduct.rating,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              DateFormat('dd/MM/yyyy').format(
-                                DateTime.now(),
-                              ),
-                            )
-                          ],
+              loadedProduct.reviews == null
+                  ? Center(
+                      child: SizedBox(
+                        width: 150.w,
+                        child: Text(
+                          "NO REVIEWS FOR THIS PRODUCT....",
+                          style: TextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Text(
-                          loadedProduct.comments,
-                          style: TextStyle(fontSize: 15.sp),
-                        ),
-                        Divider(
-                          thickness: 3,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: loadedProduct.reviews!.length,
+                          itemBuilder: (ctx, i) =>
+                              ReviewWidget(review: loadedProduct.reviews![i])),
+                    )
             ],
           ),
         ),
@@ -351,7 +389,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: FittedBox(
                   child: RichText(
                     text: TextSpan(
-                      text: '${NumberFormat().format(loadedProduct.price)}',
+                      text: NumberFormat().format(total),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -402,7 +440,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         loadedProduct.id,
                                         loadedProduct.title,
                                         loadedProduct.price,
-                                        loadedProduct.imageUrl);
+                                        loadedProduct.imageUrls[0]);
                                   });
                                 },
                                 icon: Icon(
@@ -429,7 +467,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   loadedProduct.id,
                                   loadedProduct.title,
                                   loadedProduct.price,
-                                  loadedProduct.imageUrl);
+                                  loadedProduct.imageUrls[0]);
                             },
                             child: const Center(
                               child: Text(

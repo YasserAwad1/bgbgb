@@ -33,7 +33,7 @@ class SectionWidget extends StatelessWidget {
             children: [
               Container(
                   height: 50.h,
-                  width: 90,
+                  width: 90.w,
                   child: Icon(
                     IconData(icon, fontFamily: 'MaterialIcons'),
                     color: Colors.white,
@@ -42,11 +42,10 @@ class SectionWidget extends StatelessWidget {
               Center(
                   child: Text(
                 title,
-                softWrap: true,
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 12.sp),
+                    fontSize: 12.w),
               )),
             ],
           ),

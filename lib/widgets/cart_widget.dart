@@ -28,10 +28,6 @@ class CartWidget extends StatefulWidget {
 class _CartWidgetState extends State<CartWidget> {
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
-    int totalDouble = widget.quantity * widget.price;
-    String total = NumberFormat('#,###,000').format(totalDouble);
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -39,6 +35,7 @@ class _CartWidgetState extends State<CartWidget> {
         width: double.infinity,
         child: Row(
           children: [
+            //image
             Container(
               height: 100.h,
               width: 100.w,
@@ -51,7 +48,7 @@ class _CartWidgetState extends State<CartWidget> {
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
+            ), //title
             Padding(
               padding: const EdgeInsets.only(left: 8.0, bottom: 8),
               child: Column(
@@ -85,6 +82,7 @@ class _CartWidgetState extends State<CartWidget> {
                     ),
                   ),
                   Spacer(),
+                  //total
                   RichText(
                     text: TextSpan(
                       text: 'Total: ',
@@ -95,7 +93,8 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                       children: [
                         TextSpan(
-                            text: "${NumberFormat().format(totalDouble)}",
+                            text:
+                                "${Provider.of<CartProvider>(context).itemTotal(widget.id)}",
                             style: TextStyle(
                                 color:
                                     Theme.of(context).colorScheme.secondary)),
@@ -125,14 +124,11 @@ class _CartWidgetState extends State<CartWidget> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    //add button
                     IconButton(
                       onPressed: () {
-                        setState(
-                          () {
-                            cartProvider.addItem(widget.id, widget.title,
-                                widget.price, widget.imageUrl);
-                          },
-                        );
+                        Provider.of<CartProvider>(context, listen: false)
+                            .addQuantity(widget.id);
                       },
                       icon: Icon(
                         Icons.add,
@@ -140,17 +136,17 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                     ),
                     Text(
-                      '${cartProvider.itemQuantity(widget.id)}',
+                      '${Provider.of<CartProvider>(context).itemQuantity(widget.id)}',
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontFamily: 'AnekMalayalam',
                       ),
                     ),
+                    //remove button
                     IconButton(
                       onPressed: () {
-                        setState(() {
-                          cartProvider.removeSingleItem(widget.id);
-                        });
+                        Provider.of<CartProvider>(context, listen: false)
+                            .decreaseQuantity(widget.id);
                       },
                       icon: Icon(
                         Icons.remove,
