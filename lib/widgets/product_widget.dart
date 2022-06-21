@@ -37,6 +37,15 @@ class ProductWidget extends StatelessWidget {
             ], color: Colors.grey[300]),
             child: Image.network(
               product.imageUrl,
+              frameBuilder: (_, image, loadingBuilder, __) {
+                if (loadingBuilder == null) {
+                  return SizedBox(
+                    height: 200.h,
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
+                return image;
+              },
             ),
           ),
           Row(
