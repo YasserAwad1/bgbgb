@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/config.dart';
 import '../my_theme.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
 
 //21/6 7:00 PM
 
