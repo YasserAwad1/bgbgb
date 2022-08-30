@@ -5,7 +5,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:kay_sy/models/product.dart';
+
 import 'package:kay_sy/screens/product_details_screen.dart';
+import 'package:kay_sy/widgets/custom_product/custom_product_image.dart';
 import 'package:provider/provider.dart';
 import '../providers/product_provider.dart';
 
@@ -18,6 +20,7 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final price = NumberFormat('#,###,000').format(product.price);
+
     // final p = Provider.of<Product>(context);
     return GestureDetector(
       onTap: () {

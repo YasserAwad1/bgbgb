@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/config.dart';
+import 'package:kay_sy/providers/address_provider.dart';
+import 'package:kay_sy/screens/edit_profile_screen.dart';
+import 'package:kay_sy/screens/locations_screen.dart';
+
 import 'package:kay_sy/screens/products_screen.dart';
 import 'package:provider/provider.dart';
-
 
 import './providers/product_provider.dart';
 import './providers/cart_provider.dart';
 import '../screens/first_screen.dart';
 import './screens/product_details_screen.dart';
 import './screens/cart_screen.dart';
+
 import 'providers/sections_provider.dart';
 import 'providers/user_provider.dart';
 
@@ -68,6 +72,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(
             create: (ctx) => UserProvider(),
           ),
+          ChangeNotifierProvider(create: (ctx) => AddressProvider())
         ],
         child: MaterialApp(
           // localizationsDelegates:
@@ -89,7 +94,9 @@ class _MyAppState extends State<MyApp> {
           routes: {
             ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
             CartScreen.routeName: (ctx) => CartScreen(),
-            ProductsScreen.routeName: (ctx) => ProductsScreen()
+            ProductsScreen.routeName: (ctx) => ProductsScreen(),
+            LocationsScreen.routeName: (ctx) => LocationsScreen(),
+            EditProfileScreen.routeName: (context) => EditProfileScreen(),
           },
           home: FirstScreen(),
         ),

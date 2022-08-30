@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/config.dart';
+import 'package:kay_sy/screens/edit_profile_screen.dart';
+import 'package:kay_sy/screens/locations_screen.dart';
+import 'package:kay_sy/widgets/custom_listtile.dart';
 import '../my_theme.dart';
 
 //21/6 7:00 PM
@@ -82,65 +85,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
               endIndent: 18.w,
               color: Theme.of(context).colorScheme.secondary,
             ),
-            ListTile(
-              horizontalTitleGap: 0.3.w,
-              leading: Icon(
-                Icons.edit,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              title: Text(
-                'Edit your profile',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold),
-              ),
-              trailing: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Theme.of(context).colorScheme.primary,
-                  )),
-            ),
-            ListTile(
-              horizontalTitleGap: 0.3.w,
-              leading: Icon(
-                Icons.location_on,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              title: Text(
-                'Edit your locations',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold),
-              ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            ListTile(
-              horizontalTitleGap: 0.3.w,
-              leading: Icon(
-                Icons.shopping_basket_rounded,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              title: Text(
-                'My orders',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold),
-              ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
+            CustomListTile(
+                title: "Edit Your Profile",
+                icon: Icons.person,
+                onTap: () {
+                  Navigator.of(context).pushNamed(EditProfileScreen.routeName);
+                }),
+            CustomListTile(
+                title: "Edit your locations",
+                icon: Icons.location_on,
+                onTap: () {
+                  Navigator.pushNamed(context, LocationsScreen.routeName);
+                }),
+            CustomListTile(
+                title: "My Orders",
+                icon: Icons.shopping_basket_rounded,
+                onTap: () {}),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Center(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kay_sy/screens/product_details_screen.dart';
+import 'package:kay_sy/widgets/custom_product/custom_product_image.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -101,18 +102,24 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                   arguments: favoriteProducts[i].id);
                             },
                             contentPadding: const EdgeInsets.all(5),
-                            leading: Container(
-                              margin: EdgeInsets.all(5.w),
-                              decoration: BoxDecoration(boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 7,
-                                    offset: Offset(6, 6))
-                              ], color: Colors.grey[300]),
-                              child: Image.network(
-                                favoriteProducts[i].imageUrls[0],
-                              ),
-                            ),
+                            leading: favoriteProducts[i].custom != null
+                                ? SizedBox(
+                                    width: 50.w,
+                                    child: CustomProductImage(
+                                        loadedProduct: favoriteProducts[i]),
+                                  )
+                                : Container(
+                                    margin: EdgeInsets.all(5.w),
+                                    decoration: BoxDecoration(boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 7,
+                                          offset: Offset(6, 6))
+                                    ], color: Colors.grey[300]),
+                                    child: Image.network(
+                                      favoriteProducts[i].imageUrls[0],
+                                    ),
+                                  ),
                             title: Text(
                               favoriteProducts[i].title,
                               style: TextStyle(
