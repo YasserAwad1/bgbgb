@@ -24,7 +24,9 @@ class ProductDetailsScreen extends StatefulWidget {
   static const routeName = 'loadedProduct-details-screen';
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+  
 }
+// YASSER UPDATE 22/6 1:11AM
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   double pRating = 3;
