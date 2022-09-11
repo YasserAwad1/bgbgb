@@ -101,6 +101,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title: "My Orders",
                 icon: Icons.shopping_basket_rounded,
                 onTap: () {}),
+            ListTile(
+              horizontalTitleGap: 0.3.w,
+              leading: Icon(
+                Icons.edit,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              title: Text(
+                'Edit your profile',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold),
+              ),
+              trailing: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                  )),
+            ),
+            ListTile(
+              horizontalTitleGap: 0.3.w,
+              leading: Icon(
+                Icons.location_on,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              title: Text(
+                'Edit your locations',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold),
+              ),
+              trailing: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
+            ListTile(
+              horizontalTitleGap: 0.3.w,
+              leading: Icon(
+                Icons.shopping_basket_rounded,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              title: Text(
+                'My orders',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold),
+              ),
+              trailing: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Center(

@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
           //     translator.delegates,
           // locale: translator.activeLocale,
           // supportedLocales: translator.locals(),
-          themeMode: currentTheme.currentTheme(),
+          themeMode: ThemeMode.light,
           darkTheme: ThemeData.dark(),
           builder: (context, child) => SafeArea(child: child!),
           title: 'Flutter Demo',

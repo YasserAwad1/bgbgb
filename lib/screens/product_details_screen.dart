@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:kay_sy/models/product.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
 import 'package:kay_sy/widgets/custom_button.dart';
@@ -27,16 +30,34 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   double pRating = 3;
+  double userRating = 0.0;
+  bool expandForReview = false;
 
   int currentIndex = 0;
   CarouselController controller = CarouselController();
 
+  File? _pickedImage;
+  ImageSource? source;
+
+  Future pickImage() async {
+    try {
+      final selectedImage = await ImagePicker().pickImage(source: source!);
+      if (selectedImage == null) return;
+      final image = File(selectedImage.path);
+      setState(() {
+        _pickedImage = image;
+      });
+    } on PlatformException catch (e) {
+      //FAILED TO PICK IMAGE
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final id = ModalRoute.of(context)!.settings.arguments as String;
-
     final Product loadedProduct =
         Provider.of<ProductProvider>(context).findById(id);
+
     final cartProvider = Provider.of<CartProvider>(context);
 
     final SectionModel section =
@@ -48,6 +69,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       );
     }
 
+    loadedProduct.custom?.chosenProducts.forEach(
+      (element) => total += element.price,
+    );
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -314,6 +338,144 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               SizedBox(
                 height: 20.h,
               ),
+              //WRITE A COMMENT
+              // IF A PERSON ORDERS THIS PRODUCT, ONLY THEN HE CAN WRITE A COMMENT
+              if (!expandForReview)
+                ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).colorScheme.secondary),
+                    onPressed: () {
+                      setState(() {
+                        expandForReview = true;
+                        print(expandForReview);
+                      });
+                    },
+                    icon: Icon(Icons.add_comment_rounded),
+                    label: Text('Add a review')),
+              if (expandForReview)
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  shadowColor: Theme.of(context).colorScheme.primary,
+                  elevation: 20,
+                  color: Colors.white.withOpacity(0.65),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+                    height: 200.h,
+                    width: 300.w,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text(
+                              'Rating ',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                            StarRating(
+                                rating: userRating,
+                                onRatingChanged: (newRating) {
+                                  setState(() {
+                                    userRating = newRating;
+                                  });
+                                },
+                                color: Colors.amber),
+                            Spacer(),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  expandForReview = false;
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.delete_forever_rounded,
+                                color: Colors.red,
+                              ),
+                            )
+                          ],
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                            label: Text('Comment'),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Container(
+                                height: 50.h,
+                                width: 50.w,
+                                decoration:
+                                    BoxDecoration(border: Border.all(width: 2)),
+                                child: _pickedImage != null
+                                    ? Image.file(
+                                        _pickedImage!,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const FittedBox(
+                                        child: Center(
+                                        child: Text('no image'),
+                                      )),
+                              ),
+                            ),
+                            Spacer(),
+                            ElevatedButton.icon(
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) => Wrap(children: [
+                                            Column(
+                                              children: [
+                                                ListTile(
+                                                  leading: const Icon(
+                                                      Icons.camera_alt),
+                                                  title: const Text('Camera'),
+                                                  onTap: () {
+                                                    source = ImageSource.camera;
+                                                    pickImage();
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading:
+                                                      const Icon(Icons.photo),
+                                                  title: const Text('Gallery'),
+                                                  onTap: () {
+                                                    source =
+                                                        ImageSource.gallery;
+                                                    pickImage();
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ]));
+                                },
+                                icon: const Icon(
+                                    Icons.add_photo_alternate_rounded),
+                                label: const Text('Add photo')),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
+                                onPressed: () {},
+                                icon: const Icon(Icons.add),
+                                label: const Text('Post review')),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               //REVIEWS
               loadedProduct.reviews == null
                   ? Center(
@@ -350,9 +512,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: FittedBox(
                   child: RichText(
                     text: TextSpan(
-                      text: NumberFormat().format(loadedProduct.custom != null
-                          ? total
-                          : loadedProduct.price),
+                      text: NumberFormat().format(loadedProduct.custom == null
+                          ? loadedProduct.price
+                          : total),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -421,7 +583,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       )
                     : Container(
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         height: 50.h,
                         width: double.infinity,
                         child: ClipRRect(
@@ -446,14 +608,3 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 }
-// Container(
-//   width: double.infinity,
-//   height: 300,
-//   child: AspectRatio(
-//     aspectRatio: 16 / 9,
-//     child: Image.network(
-//       loadedProduct.imageUrl,
-//       fit: BoxFit.contain,
-//     ),
-//   ),
-// ),

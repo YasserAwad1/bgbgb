@@ -5,15 +5,14 @@ import 'package:kay_sy/models/review_model.dart';
 class Product with ChangeNotifier {
   final String id;
   final String title;
-  int price;
-  bool isFavorite;
+  final int price;
   final List<String> imageUrls;
   final String description;
-  double rating;
-
   final String section;
   final List<ReviewModel>? reviews;
   final CustomProduct? custom;
+  bool isFavorite;
+  double rating;
 
   Product(
       {required this.id,
