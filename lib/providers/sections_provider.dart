@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kay_sy/models/category_model.dart';
 import 'package:kay_sy/models/section_model.dart';
 
 class SectionsProvider with ChangeNotifier {
@@ -8,7 +9,12 @@ class SectionsProvider with ChangeNotifier {
         id: "c1",
         title: "Accessories",
         icon: Icons.auto_awesome.codePoint,
-        quote: "ACCESSORIES ARE LIKE VITAMINS TO FASHION"),
+        quote: "ACCESSORIES ARE LIKE VITAMINS TO FASHION",
+        categories: [
+          CategoryModel(id: "cc1", title: "All"),
+          CategoryModel(id: "cc2", title: "Watches"),
+          CategoryModel(id: "cc3", title: "Bracelets"),
+        ]),
     SectionModel(
         id: "c2",
         title: "Tech",
@@ -43,4 +49,6 @@ class SectionsProvider with ChangeNotifier {
   SectionModel findById(String id) {
     return _categories.firstWhere((element) => element.id == id);
   }
+
+  void selectCategory() {}
 }

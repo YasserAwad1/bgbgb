@@ -9,14 +9,36 @@ import 'package:kay_sy/widgets/section_widget.dart';
 import 'package:kay_sy/widgets/popular_product_widget.dart';
 import 'package:provider/provider.dart';
 import '../widgets/badge.dart';
+import '../models/address_model.dart';
 
 import '../providers/product_provider.dart';
+import '../providers/address_provider.dart';
 import '../screens/cart_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  // String _selectedLocation = '';
+  String selectedLocation = '';
+
+  void selectLocation(String value) {
+      Navigator.of(context).pop();
+      setState(() {
+        selectedLocation = value;
+      });
+    }
+
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
+    var addressProvider = Provider.of<AddressProvider>(context);
+    var addressList = addressProvider.addresses;
+    // var selectedLocation = addressList.first;
+    
+
     return SafeArea(
       child: Scaffold(
         //  bottomNavigationBar: DemoMWBottomNavigationScreen5(),
@@ -30,29 +52,181 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      height: 60,
-                      width: 200,
-                      child: ListTile(
-                        horizontalTitleGap: 1,
-                        onTap: null,
-                        leading: Icon(
-                          Icons.location_on_outlined,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        title: Text(
-                          'Deliver to',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          overflow: TextOverflow.clip,
-                          'Mazzeh, mohafaza builing no.7 ',
-                          style: TextStyle(fontSize: 14, color: Colors.black),
-                        ),
-                      ),
-                    ),
+                        height: 60,
+                        width: 200,
+                        child: ListTile(
+                          horizontalTitleGap: 1,
+                          onTap: null,
+                          leading: Icon(
+                            Icons.location_on_outlined,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          title: Text(
+                            'Deliver to',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            overflow: TextOverflow.clip,
+                            selectedLocation,
+                            style:
+                                TextStyle(fontSize: 14.sp, color: Colors.black),
+                          ),
+                          trailing: IconButton(
+                              onPressed: () => showModalBottomSheet(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(25),
+                                  )),
+                                  context: context,
+                                  builder: (builder) {
+                                    return Container(
+                                      height: 250.h,
+                                      child: Column(children: [
+                                        Text(
+                                          'Your Addresses',
+                                          style: TextStyle(
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Expanded(
+                                          child: ListView.builder(
+                                            itemCount: addressList.length,
+                                            itemBuilder: (context, i) =>
+                                                GestureDetector(
+                                              onTap: () {
+                                                selectLocation(addressList[i].street);
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15,
+                                                        vertical: 4),
+                                                child: Card(
+                                                    child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    RichText(
+                                                      text: TextSpan(
+                                                          text: 'Street: ',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .secondary),
+                                                          children: [
+                                                            TextSpan(
+                                                                text:
+                                                                    addressList[
+                                                                            i]
+                                                                        .street,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .primary)),
+                                                          ]),
+                                                    ),
+                                                    RichText(
+                                                      text: TextSpan(
+                                                          text:
+                                                              'Building number: ',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .secondary),
+                                                          children: [
+                                                            TextSpan(
+                                                                text: addressList[
+                                                                        i]
+                                                                    .buildingNumber,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .primary)),
+                                                          ]),
+                                                    ),
+                                                    RichText(
+                                                      text: TextSpan(
+                                                          text: 'Floor: ',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .secondary),
+                                                          children: [
+                                                            TextSpan(
+                                                                text:
+                                                                    addressList[
+                                                                            i]
+                                                                        .floor,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .primary)),
+                                                          ]),
+                                                    ),
+                                                    RichText(
+                                                      text: TextSpan(
+                                                          text: 'Description: ',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .secondary),
+                                                          children: [
+                                                            TextSpan(
+                                                                text: addressList[
+                                                                        i]
+                                                                    .description,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .primary)),
+                                                          ]),
+                                                    ),
+                                                  ],
+                                                )),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ]),
+                                    );
+                                  }),
+                              icon: const Icon(Icons.expand_more_rounded)),
+                        )),
                     Consumer<CartProvider>(
                       builder: (_, cart, ch) => Badge(
                           child: ch!,
@@ -74,20 +248,20 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 1,
               ),
-              const Align(
+              Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'What are you looking for ?',
                     style: TextStyle(
-                      fontSize: 23,
+                      fontSize: 23.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-              SearchBar(),
+              const SearchBar(),
               SizedBox(
                 height: 20.h,
               ),
@@ -97,7 +271,7 @@ class HomeScreen extends StatelessWidget {
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(15),
                         bottomRight: Radius.circular(15),
                       )),
@@ -140,7 +314,7 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(15),
                       bottomRight: Radius.circular(15),
                     ),

@@ -9,7 +9,9 @@ import 'package:kay_sy/models/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
-import 'package:kay_sy/widgets/custom_product_widget.dart';
+import 'package:kay_sy/widgets/custom_button.dart';
+import 'package:kay_sy/widgets/custom_product/custom_product_image.dart';
+import 'package:kay_sy/widgets/custom_product/custom_product_widget.dart';
 import 'package:kay_sy/widgets/review_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -63,9 +65,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final SectionModel section =
         Provider.of<SectionsProvider>(context).findById(loadedProduct.section);
     int total = 0;
-    loadedProduct.custom?.chosenProducts.forEach(
-      (element) => total += element.price,
-    );
+    if (loadedProduct.custom != null) {
+      loadedProduct.custom!.chosenProducts.forEach(
+        (element) => total += element.price,
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -77,7 +82,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 children: [
                   Container(
                     width: 45,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10)),
@@ -96,7 +101,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   Container(
                     width: 45,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10)),
@@ -121,111 +126,89 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               //CAROUSEL SLIDER
               SizedBox(
-                height: 248.h,
-                child: loadedProduct.custom != null
-                    ? Container(
-                        color: Colors.white,
-                        width: 180.w,
-                        child: StaggeredGrid.count(
-                          crossAxisCount: 2,
-                          children: List.generate(
-                              loadedProduct.custom!.chosenProducts.length,
-                              (index) => Image.network(
-                                    loadedProduct.custom!.chosenProducts[index]
-                                        .imageUrls[0],
-                                    fit: BoxFit.contain,
-                                  )),
-                          // scatter them randomly
-                        ),
-                      )
-                    : CarouselSlider.builder(
-                        carouselController: controller,
-                        itemBuilder: (ctx, i, e) => Material(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          elevation: 6,
-                          shadowColor: Theme.of(context).colorScheme.secondary,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.transparent,
-                            ),
-                            margin: const EdgeInsets.all(2),
-                            width: 320.w,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                loadedProduct.imageUrls[i],
-                              ),
-                            ),
-                          ),
-                        ),
-                        itemCount: loadedProduct.imageUrls.length,
-                        options: CarouselOptions(
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              currentIndex = index;
-                            });
-                          },
-                          autoPlay: false,
+                height: 230.h,
+                child: CarouselSlider.builder(
+                  carouselController: controller,
+                  itemBuilder: (ctx, i, e) => Material(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    elevation: 6,
+                    shadowColor: Theme.of(context).colorScheme.secondary,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.transparent,
+                      ),
+                      margin: const EdgeInsets.all(2),
+                      width: 320.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          loadedProduct.imageUrls[i],
                         ),
                       ),
+                    ),
+                  ),
+                  itemCount: loadedProduct.imageUrls.length,
+                  options: CarouselOptions(
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    },
+                    autoPlay: false,
+                  ),
+                ),
               ),
               SizedBox(
                 height: 15.h,
               ),
               //SMALL IMAGES
-              if (loadedProduct.custom == null)
-                SizedBox(
-                  height: 50.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: loadedProduct.imageUrls.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (ctx, i) => Padding(
-                          padding: EdgeInsets.only(right: 8.w),
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                controller.animateToPage(i);
-                                currentIndex = i;
-                              });
-                            },
-                            child: Container(
-                              width: 50.w,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 2,
-                                    color: currentIndex == i
-                                        ? Colors.red
-                                        : Theme.of(context)
-                                            .colorScheme
-                                            .primary),
-                                borderRadius: BorderRadius.circular(13),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image.network(
-                                  loadedProduct.imageUrls[i],
-                                  fit: BoxFit.scaleDown,
-                                ),
+
+              SizedBox(
+                height: 50.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: loadedProduct.imageUrls.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (ctx, i) => Padding(
+                        padding: EdgeInsets.only(right: 8.w),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              controller.animateToPage(i);
+                              currentIndex = i;
+                            });
+                          },
+                          child: Container(
+                            width: 50.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 2,
+                                  color: currentIndex == i
+                                      ? Colors.red
+                                      : Theme.of(context).colorScheme.primary),
+                              borderRadius: BorderRadius.circular(13),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.network(
+                                loadedProduct.imageUrls[i],
+                                fit: BoxFit.scaleDown,
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              SizedBox(
-                height: 20.h,
               ),
-              //title and category
               Align(
-                alignment: Alignment(-0.9, 1),
+                alignment: const Alignment(-0.9, 1),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -242,64 +225,42 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ],
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
 
               SizedBox(
                 height: 10.h,
               ),
-              //adding products to screen
               if (loadedProduct.custom != null)
-                Column(
-                  children: [
-                    Align(
-                      alignment: Alignment(-0.9, 1),
-                      child: Text(
-                        "SELECT PRODUCTS TO ADD THEM",
-                        style: TextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      height: 100.h,
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 120.w,
-                            mainAxisSpacing: 20.h,
-                            crossAxisSpacing: 20.w,
-                            childAspectRatio: 1,
-                          ),
-                          itemCount: loadedProduct.custom!.products.length,
-                          itemBuilder: (context, index) {
-                            return CustomProductWidget(
-                                isSelected: loadedProduct.custom!.chosenProducts
-                                    .any((product) {
-                                  return loadedProduct
-                                          .custom!.products[index].id ==
-                                      product.id;
-                                }),
-                                product: loadedProduct.custom!.products[index],
-                                onTap: () {
-                                  Provider.of<ProductProvider>(context,
-                                          listen: false)
-                                      .tapOnCustomProduct(
-                                          loadedProduct,
-                                          loadedProduct
-                                              .custom!.products[index]);
-                                });
+                GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: 0.9),
+                    itemCount: loadedProduct.custom!.products.length,
+                    itemBuilder: (context, index) {
+                      return CustomProductWidget(
+                          isSelected: loadedProduct.custom!.chosenProducts
+                              .any((product) {
+                            return loadedProduct.custom!.products[index].id ==
+                                product.id;
                           }),
-                    ),
-                  ],
-                ),
+                          product: loadedProduct.custom!.products[index],
+                          onTap: () {
+                            Provider.of<ProductProvider>(context, listen: false)
+                                .tapOnCustomProduct(loadedProduct,
+                                    loadedProduct.custom!.products[index]);
+                          });
+                    }),
+              SizedBox(
+                height: 20.h,
+              ),
+              //title and category
+
               //DESCRIPTON
               Align(
-                alignment: Alignment(-0.9, 1),
+                alignment: const Alignment(-0.9, 1),
                 child: Text(
                   'INFORMATION',
                   style: TextStyle(
@@ -320,13 +281,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               Align(
-                  alignment: Alignment(-0.9, 1),
-                  child: Container(
-                    child: Text(
-                      "Reviews",
-                      style: TextStyle(
-                          fontSize: 25.sp, fontWeight: FontWeight.bold),
-                    ),
+                  alignment: const Alignment(-0.9, 1),
+                  child: Text(
+                    "Reviews",
+                    style: TextStyle(
+                        fontSize: 25.sp, fontWeight: FontWeight.bold),
                   )),
               SizedBox(
                 height: 10.h,
@@ -359,8 +318,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                      itemBuilder: (context, _) => Icon(
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
@@ -388,8 +347,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         print(expandForReview);
                       });
                     },
-                    icon: Icon(Icons.add_comment_rounded),
-                    label: Text('Add a review')),
+                    icon: const Icon(Icons.add_comment_rounded),
+                    label: const Text('Add a review')),
               if (expandForReview)
                 Card(
                   shape: RoundedRectangleBorder(
@@ -399,7 +358,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   elevation: 20,
                   color: Colors.white.withOpacity(0.65),
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
                     height: 200.h,
                     width: 300.w,
                     child: Column(
@@ -419,7 +378,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   });
                                 },
                                 color: Colors.amber),
-                            Spacer(),
+                            const Spacer(),
                             IconButton(
                               onPressed: () {
                                 setState(() {
@@ -433,7 +392,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             )
                           ],
                         ),
-                        TextField(
+                        const TextField(
                           decoration: InputDecoration(
                             label: Text('Comment'),
                           ),
@@ -461,7 +420,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       )),
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             ElevatedButton.icon(
                                 onPressed: () {
                                   showModalBottomSheet(
@@ -530,7 +489,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: loadedProduct.reviews!.length,
                           itemBuilder: (ctx, i) =>
@@ -550,9 +509,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: FittedBox(
                   child: RichText(
                     text: TextSpan(
-                      text: NumberFormat().format(loadedProduct.custom == null
-                          ? loadedProduct.price
-                          : total),
+                      text: NumberFormat().format(loadedProduct.custom != null
+                          ? total
+                          : loadedProduct.price),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -599,11 +558,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    cartProvider.addItem(
-                                        loadedProduct.id,
-                                        loadedProduct.title,
-                                        loadedProduct.price,
-                                        loadedProduct.imageUrls[0]);
+                                    loadedProduct.custom != null
+                                        ? cartProvider.addItem(
+                                            loadedProduct.id,
+                                            loadedProduct.title,
+                                            loadedProduct.price,
+                                            loadedProduct.imageUrls[0])
+                                        : cartProvider.addItem(
+                                            loadedProduct.id,
+                                            loadedProduct.title,
+                                            total,
+                                            loadedProduct.imageUrls[0]);
                                   });
                                 },
                                 icon: Icon(
@@ -619,28 +584,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         height: 50.h,
                         width: double.infinity,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                            ),
-                            onPressed: () {
-                              cartProvider.addItem(
-                                  loadedProduct.id,
-                                  loadedProduct.title,
-                                  loadedProduct.price,
-                                  loadedProduct.imageUrls[0]);
-                            },
-                            child: const Center(
-                              child: Text(
-                                'Add to cart',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
+                            borderRadius: BorderRadius.circular(10),
+                            child: CustomButton(
+                                text: "Add to cart",
+                                width: 200.w,
+                                height: 50.h,
+                                onTap: () {
+                                  cartProvider.addItem(
+                                      loadedProduct.id,
+                                      loadedProduct.title,
+                                      loadedProduct.price,
+                                      loadedProduct.imageUrls[0]);
+                                })),
                       ),
               ),
             ],

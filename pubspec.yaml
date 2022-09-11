@@ -42,8 +42,9 @@ dependencies:
   flutter_emoji: ^2.4.0
   flutter_rating_bar: ^4.0.1
   flutter_staggered_grid_view: ^0.6.1
+  rive: ^0.9.1
   image_picker: ^0.8.5+3
-  
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,8 @@ flutter:
     - images/furniture.png
     - assets/languages/en.json
     - assets/languages/ar.json
+    - assets/edit.riv
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

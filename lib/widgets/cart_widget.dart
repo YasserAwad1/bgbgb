@@ -65,10 +65,9 @@ class _CartWidgetState extends State<CartWidget> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: '${NumberFormat().format(widget.price)}',
-                      style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.sp),
+                      text: NumberFormat().format(widget.price),
+                      style:
+                          TextStyle(color: Colors.grey[600], fontSize: 12.sp),
                       children: [
                         TextSpan(
                           text: ' SYP',
@@ -94,7 +93,7 @@ class _CartWidgetState extends State<CartWidget> {
                       children: [
                         TextSpan(
                             text:
-                                "${Provider.of<CartProvider>(context).itemTotal(widget.id)}",
+                                NumberFormat().format(Provider.of<CartProvider>(context).itemTotal(widget.id)),
                             style: TextStyle(
                                 color:
                                     Theme.of(context).colorScheme.secondary)),

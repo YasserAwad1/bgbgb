@@ -7,6 +7,7 @@ import 'settings_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
+  static const routeName = '/first-screen';
 
   @override
   State<FirstScreen> createState() => _FirstScreenState();

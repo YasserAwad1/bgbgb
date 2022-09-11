@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/config.dart';
+import 'package:kay_sy/providers/order_provider.dart';
+import 'package:kay_sy/screens/become_seller_screen.dart';
+import 'package:kay_sy/screens/edit_profile_screen.dart';
+import 'package:kay_sy/screens/locations_screen.dart';
+import 'package:kay_sy/screens/logIn_screen.dart';
+import 'package:kay_sy/screens/orders_screen.dart';
+import 'package:kay_sy/screens/walkThrough_scree.dart';
+import 'package:kay_sy/widgets/custom_listtile.dart';
 import '../my_theme.dart';
 
 //21/6 7:00 PM
@@ -57,7 +65,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).colorScheme.primary,
                             onPrimary: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(LogInScreen.routeName);
+                        },
                         label: Text(
                           'Logout',
                           style: TextStyle(
@@ -82,80 +93,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
               endIndent: 18.w,
               color: Theme.of(context).colorScheme.secondary,
             ),
-            ListTile(
-              horizontalTitleGap: 0.3.w,
-              leading: Icon(
-                Icons.edit,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              title: Text(
-                'Edit your profile',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold),
-              ),
-              trailing: IconButton(
-                  onPressed: () {
-                  },
-                  icon: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Theme.of(context).colorScheme.primary,
-                  )),
-            ),
-            ListTile(
-              horizontalTitleGap: 0.3.w,
-              leading: Icon(
-                Icons.location_on,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              title: Text(
-                'Edit your locations',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold),
-              ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            ListTile(
-              horizontalTitleGap: 0.3.w,
-              leading: Icon(
-                Icons.shopping_basket_rounded,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              title: Text(
-                'My orders',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold),
-              ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
+            CustomListTile(
+                title: "Edit Your Profile",
+                icon: Icons.person,
+                onTap: () {
+                  Navigator.of(context).pushNamed(EditProfileScreen.routeName);
+                }),
+            CustomListTile(
+                title: "Edit your locations",
+                icon: Icons.location_on,
+                onTap: () {
+                  Navigator.pushNamed(context, LocationsScreen.routeName);
+                }),
+            CustomListTile(
+                title: "My Orders",
+                icon: Icons.shopping_basket_rounded,
+                onTap: () {
+                  Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                }),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Center(
                 child: FloatingActionButton.extended(
                   elevation: 13,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(BecomeASellerScreen.routeName);
+                  },
                   label: Text(
                     'Become a seller',
                     style: TextStyle(fontSize: 16.sp),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.secondary,
-                  icon: Icon(Icons.sell_rounded),
+                  icon: const Icon(Icons.sell_rounded),
                 ),
               ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(WalkThroughScreen.routeName);
+              },
+              icon: Icon(Icons.abc),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 12, top: 15),
@@ -196,23 +174,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 CustomRadioButton('English')
               ],
             ),
-            Row(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                  child: Text(
-                    'Dark Mode',
-                    style: TextStyle(fontSize: 18.sp),
-                  ),
-                ),
-                IconButton(
-                    onPressed: () {
-                      currentTheme.switchTheme();
-                    },
-                    icon: Icon(Icons.dark_mode))
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Padding(
+            //       padding:
+            //           const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+            //       child: Text(
+            //         'Dark Mode',
+            //         style: TextStyle(fontSize: 18.sp),
+            //       ),
+            //     ),
+            //     IconButton(
+            //         onPressed: () {
+            //           currentTheme.switchTheme();
+            //         },
+            //         icon: Icon(Icons.dark_mode))
+            //   ],
+            // ),
           ],
         ),
       ),
