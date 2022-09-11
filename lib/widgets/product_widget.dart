@@ -33,6 +33,8 @@ class ProductWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            height: 150.h,
+            width: 150.w,
             margin: EdgeInsets.all(5.w),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
@@ -40,6 +42,7 @@ class ProductWidget extends StatelessWidget {
             ], color: Colors.grey[300]),
             child: Image.network(
               product.imageUrls[0],
+              fit: BoxFit.contain,
               frameBuilder: (_, image, loadingBuilder, __) {
                 if (loadingBuilder == null) {
                   return SizedBox(

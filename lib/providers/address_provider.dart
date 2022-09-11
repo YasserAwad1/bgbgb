@@ -9,8 +9,9 @@ class AddressProvider with ChangeNotifier {
         street: "Mezzeh",
         buildingNumber: "34",
         floor: "2",
-        description: "مقابل سفارة جنوب افؤقيا")
+        description: "مقابل سفارة جنوب افرقيا")
   ];
+
   List<AddressModel> get addresses {
     return [..._addresses];
   }
@@ -31,5 +32,9 @@ class AddressProvider with ChangeNotifier {
     _addresses.removeWhere((address) => address.id == id);
     _addresses.add(address);
     notifyListeners();
+  }
+
+  AddressModel findById(String addressId) {
+    return _addresses.firstWhere((address) => address.id == addressId);
   }
 }

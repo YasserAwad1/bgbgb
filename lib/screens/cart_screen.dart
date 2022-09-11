@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/screens/checkOut_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -119,7 +120,10 @@ class CartScreen extends StatelessWidget {
                       style: TextButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(CheckOutScreen.routeName);
+                      },
                       child: Center(
                         child: Text(
                           'CheckOut',

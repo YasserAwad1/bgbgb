@@ -26,7 +26,7 @@ class SectionWidget extends StatelessWidget {
         child: Container(
           height: 50.h,
           decoration: BoxDecoration(
-              boxShadow: [BoxShadow(blurRadius: 4)],
+              // boxShadow: [BoxShadow(blurRadius: 4)],
               color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(20)),
           child: Column(

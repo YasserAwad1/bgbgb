@@ -27,6 +27,7 @@ class ProductDetailsScreen extends StatefulWidget {
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
+// YASSER UPDATE 22/6 1:11AM
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   double pRating = 3;
@@ -83,7 +84,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 children: [
                   Container(
                     width: 45,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10)),
@@ -102,7 +103,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   Container(
                     width: 45,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(10)),
@@ -209,7 +210,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
               ),
               Align(
-                alignment: Alignment(-0.9, 1),
+                alignment: const Alignment(-0.9, 1),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -226,7 +227,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ],
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 2,
               ),
 
@@ -235,10 +236,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               if (loadedProduct.custom != null)
                 GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, childAspectRatio: 0.9),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 0.9),
                     itemCount: loadedProduct.custom!.products.length,
                     itemBuilder: (context, index) {
                       return CustomProductWidget(
@@ -261,7 +263,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
               //DESCRIPTON
               Align(
-                alignment: Alignment(-0.9, 1),
+                alignment: const Alignment(-0.9, 1),
                 child: Text(
                   'INFORMATION',
                   style: TextStyle(
@@ -282,13 +284,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               Align(
-                  alignment: Alignment(-0.9, 1),
-                  child: Container(
-                    child: Text(
-                      "Reviews",
-                      style: TextStyle(
-                          fontSize: 25.sp, fontWeight: FontWeight.bold),
-                    ),
+                  alignment: const Alignment(-0.9, 1),
+                  child: Text(
+                    "Reviews",
+                    style:
+                        TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                   )),
               SizedBox(
                 height: 10.h,
@@ -321,8 +321,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                      itemBuilder: (context, _) => Icon(
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
@@ -350,8 +350,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         print(expandForReview);
                       });
                     },
-                    icon: Icon(Icons.add_comment_rounded),
-                    label: Text('Add a review')),
+                    icon: const Icon(Icons.add_comment_rounded),
+                    label: const Text('Add a review')),
               if (expandForReview)
                 Card(
                   shape: RoundedRectangleBorder(
@@ -361,7 +361,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   elevation: 20,
                   color: Colors.white.withOpacity(0.65),
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
                     height: 200.h,
                     width: 300.w,
                     child: Column(
@@ -381,7 +382,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   });
                                 },
                                 color: Colors.amber),
-                            Spacer(),
+                            const Spacer(),
                             IconButton(
                               onPressed: () {
                                 setState(() {
@@ -395,7 +396,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             )
                           ],
                         ),
-                        TextField(
+                        const TextField(
                           decoration: InputDecoration(
                             label: Text('Comment'),
                           ),
@@ -423,7 +424,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       )),
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             ElevatedButton.icon(
                                 onPressed: () {
                                   showModalBottomSheet(
@@ -492,7 +493,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: loadedProduct.reviews!.length,
                           itemBuilder: (ctx, i) =>
@@ -512,9 +513,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: FittedBox(
                   child: RichText(
                     text: TextSpan(
-                      text: NumberFormat().format(loadedProduct.custom == null
-                          ? loadedProduct.price
-                          : total),
+                      text: NumberFormat().format(loadedProduct.custom != null
+                          ? total
+                          : loadedProduct.price),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,

@@ -5,9 +5,12 @@ import 'package:kay_sy/models/product.dart';
 import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/product_provider.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
+import '../providers/cart_provider.dart';
 import 'package:kay_sy/widgets/product_widget.dart';
 import 'package:kay_sy/widgets/search_bar.dart';
+import '../widgets/badge.dart';
 import 'package:provider/provider.dart';
+import '../screens/cart_screen.dart';
 
 class ProductsScreen extends StatefulWidget {
   static const routeName = '/productsScreen';
@@ -43,9 +46,21 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
                   ),
                   Spacer(),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.shopping_cart_outlined))
+                  Consumer<CartProvider>(
+                    builder: (_, cart, ch) => Badge(
+                        child: ch!,
+                        value: cart.itemCount.toString(),
+                        color: Theme.of(context).colorScheme.secondary),
+                    child: IconButton(
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed(CartScreen.routeName),
+                      icon: const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Colors.black,
+                        size: 32,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -81,7 +96,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               height: 50.h,
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: section.categories!.length,
+                  itemCount: section.categories?.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -99,12 +114,13 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         padding: EdgeInsets.fromLTRB(10.w, 5.h, 10.w, 5.h),
                         child: Text(
                           section.categories![index].title,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     );
                   }),
             ),
+            SizedBox(height: 10.h,),
             if (products.isNotEmpty)
               //products
               GridView.builder(
@@ -114,7 +130,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
-                      childAspectRatio: 0.5,
+                      childAspectRatio: 0.95,
                       mainAxisSpacing: 10),
                   itemBuilder: (context, index) {
                     return ProductWidget(product: products[index]);

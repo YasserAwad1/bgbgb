@@ -19,8 +19,8 @@ class EditProfileScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: 45,
-                margin: EdgeInsets.all(10),
+                width: 45.w,
+                margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(10)),
@@ -45,15 +45,15 @@ class EditProfileScreen extends StatelessWidget {
             height: 20.h,
           ),
           SizedBox(
-              height: 250.h, child: RiveAnimation.asset('assets/edit.riv')),
+              height: 250.h, child: const RiveAnimation.asset('assets/edit.riv')),
           CustomTextField(label: "Edit your name"),
           SizedBox(
             height: 20.h,
           ),
-          CustomTextField(label: "Edit your email"),
-          SizedBox(
-            height: 20.h,
-          ),
+          // CustomTextField(label: "Edit your email"),
+          // SizedBox(
+          //   height: 20.h,
+          // ),
           CustomTextField(label: "Edit your number"),
           SizedBox(
             height: 20.h,

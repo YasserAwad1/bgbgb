@@ -7,6 +7,32 @@ import '../models/product.dart';
 class ProductProvider with ChangeNotifier {
   final List<Product> _products = [
     Product(
+      section: "c1",
+      id: '4',
+      imageUrls: [
+        'https://m.media-amazon.com/images/I/51N6YHeigOS._AC_SY580_.jpg'
+      ],
+      title: 'sport pants',
+      price: 60000,
+      rating: 3.8,
+      description:
+          'it is a shirt thats full cotton, we manufactures theses shirts in our company',
+    ),
+    Product(
+      section: "c1",
+      id: '5',
+      imageUrls: [
+        'https://paylessus.vtexassets.com/arquivos/ids/219458-800-800?v=637572182932500000&width=800&height=800&aspect=true.jpg'
+      ],
+      title: 'sandals',
+      price: 75000,
+      rating: 4.2,
+
+      description:
+          'it is a shirt thats full cotton, we manufactures theses shirts in our company',
+      // isFavorite: false,
+    ),
+    Product(
       section: 'c1',
       id: '1',
       imageUrls: [

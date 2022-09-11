@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kay_sy/config.dart';
-import 'package:kay_sy/providers/address_provider.dart';
-import 'package:kay_sy/screens/edit_profile_screen.dart';
-import 'package:kay_sy/screens/locations_screen.dart';
-
-import 'package:kay_sy/screens/products_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'package:kay_sy/config.dart';
+
+import './providers/address_provider.dart';
 import './providers/product_provider.dart';
 import './providers/cart_provider.dart';
-import '../screens/first_screen.dart';
-import './screens/product_details_screen.dart';
-import './screens/cart_screen.dart';
-
 import 'providers/sections_provider.dart';
 import 'providers/user_provider.dart';
+import './providers/order_provider.dart';
+
+import './screens/products_screen.dart';
+import './screens/first_screen.dart';
+import './screens/product_details_screen.dart';
+import './screens/cart_screen.dart';
+import './screens/edit_address_screen.dart';
+import './screens/add_address_screen.dart';
+import './screens/checkOut_screen.dart';
+import './screens/orders_screen.dart';
+import './screens/become_seller_screen.dart';
+import './screens/edit_profile_screen.dart';
+import './screens/locations_screen.dart';
+import './screens/logIn_screen.dart';
+import './screens/walkThrough_scree.dart';
 
 Future<void> main() async {
   Provider.debugCheckInvalidValueType = null;
@@ -72,7 +80,12 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(
             create: (ctx) => UserProvider(),
           ),
-          ChangeNotifierProvider(create: (ctx) => AddressProvider())
+          ChangeNotifierProvider(
+            create: (ctx) => AddressProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => OrderProvider(),
+          ),
         ],
         child: MaterialApp(
           // localizationsDelegates:
@@ -92,11 +105,19 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           routes: {
+            FirstScreen.routeName: (ctx) => FirstScreen(),
             ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
             CartScreen.routeName: (ctx) => CartScreen(),
             ProductsScreen.routeName: (ctx) => ProductsScreen(),
             LocationsScreen.routeName: (ctx) => LocationsScreen(),
             EditProfileScreen.routeName: (context) => EditProfileScreen(),
+            EditAddressScreen.routeName: (ctx) => EditAddressScreen(),
+            AddAddressScreen.routeName: (ctx) => AddAddressScreen(),
+            CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
+            OrdersScreen.routeName: (ctx) => OrdersScreen(),
+            BecomeASellerScreen.routeName: (ctx) => BecomeASellerScreen(),
+            LogInScreen.routeName: (ctx) => LogInScreen(),
+            WalkThroughScreen.routeName: (ctx) => WalkThroughScreen(),
           },
           home: FirstScreen(),
         ),
