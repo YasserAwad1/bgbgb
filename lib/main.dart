@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kay_sy/config.dart';
@@ -118,6 +119,7 @@ class _MyAppState extends State<MyApp> {
             BecomeASellerScreen.routeName: (ctx) => BecomeASellerScreen(),
             LogInScreen.routeName: (ctx) => LogInScreen(),
             WalkThroughScreen.routeName: (ctx) => WalkThroughScreen(),
+            SearchScreen.routeName: (ctx) => SearchScreen(),
           },
           home: FirstScreen(),
         ),

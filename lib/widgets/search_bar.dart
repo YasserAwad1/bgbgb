@@ -14,7 +14,7 @@ class SearchBar extends StatelessWidget {
           color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
       child: TextField(
         decoration: InputDecoration(
-            suffixIcon: Icon(Icons.search),
+            suffixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.primary,),
             border: InputBorder.none,
             hintText: "Search",
             contentPadding: EdgeInsets.only(left: 10.w, top: 10.h)),

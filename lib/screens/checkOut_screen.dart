@@ -2,19 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:kay_sy/providers/order_provider.dart';
+import 'package:kay_sy/screens/add_address_screen.dart';
+import 'package:kay_sy/screens/first_screen.dart';
 import 'package:kay_sy/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import '../models/address_model.dart';
 
 import '../providers/cart_provider.dart';
 import '../providers/address_provider.dart';
 
-class CheckOutScreen extends StatelessWidget {
+class CheckOutScreen extends StatefulWidget {
   static const routeName = '/checkOutScreen';
+
+  @override
+  State<CheckOutScreen> createState() => _CheckOutScreenState();
+}
+
+class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
-    final addressList = Provider.of<AddressProvider>(context).addresses.first;
+    final addressList = Provider.of<AddressProvider>(context).addresses;
     var shipping;
+    var firstLocation = addressList.first;
+
+    void changeLocation(AddressModel newAddress) {
+      setState(() {
+        firstLocation = newAddress;
+      });
+    }
 
     Row CustomRadioButton(String text) {
       return Row(
@@ -107,7 +123,7 @@ class CheckOutScreen extends StatelessWidget {
             // ),
             Container(
               color: Colors.transparent,
-              height: 235.h,
+              height: 230.h,
               width: 250.w,
               child: Card(
                 margin: const EdgeInsets.all(0),
@@ -238,22 +254,27 @@ class CheckOutScreen extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                 ),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
+                  addressList.isEmpty
+                      ? showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
+                            title: const Text(
+                              'You haven\'t added a shipping address !',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            content:
+                                const Text('Please add an address to continue'),
                             actions: [
                               TextButton(
                                   onPressed: () {
-                                    Provider.of<OrderProvider>(context, listen: false)
-                                        .addOrder(cart.items.values.toList(),
-                                            cart.cartTotal.toDouble());
-                                    cart.clearCart();
-                                    Navigator.of(context).pop();
+                                    Navigator.of(context)
+                                        .restorablePopAndPushNamed(
+                                            AddAddressScreen.routeName);
                                   },
                                   child: Text(
-                                    'Submit',
+                                    'add address',
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -265,92 +286,254 @@ class CheckOutScreen extends StatelessWidget {
                                   },
                                   child: const Text('Cancel'))
                             ],
-                            title: const Text(
-                                'Are you sure you want to submit this order ?'),
-                            content: SizedBox(
-                              height: 120.h,
-                              width: 400.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      'Your total is ${cart.cartTotal}, it will be shipped to the following address:'),
-                                  RichText(
-                                    text: TextSpan(
-                                        text: 'Street: ',
+                          ),
+                        )
+                      : showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Provider.of<OrderProvider>(context,
+                                                listen: false)
+                                            .addOrder(
+                                                cart.items.values.toList(),
+                                                cart.cartTotal.toDouble());
+                                        cart.clearCart();
+                                        Navigator.of(context)
+                                            .pushReplacementNamed(
+                                                FirstScreen.routeName);
+                                        SnackBar(content: Text('your order has been submitted'));
+                                      },
+                                      child: Text(
+                                        'Submit',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .secondary),
-                                        children: [
-                                          TextSpan(
-                                              text: addressList.street,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary)),
-                                        ]),
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                        text: 'Building number: ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary),
-                                        children: [
-                                          TextSpan(
-                                              text: addressList.buildingNumber,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary)),
-                                        ]),
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                        text: 'Floor: ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary),
-                                        children: [
-                                          TextSpan(
-                                              text: addressList.floor,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary)),
-                                        ]),
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                        text: 'Description: ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary),
-                                        children: [
-                                          TextSpan(
-                                              text: addressList.description,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary)),
-                                        ]),
-                                  ),
+                                      )),
+                                  TextButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => SimpleDialog(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        25)),
+                                                    titlePadding:
+                                                        EdgeInsets.only(
+                                                            left: 8.sp,
+                                                            top: 5.sp),
+                                                    title: Text(
+                                                      'choose an address: ',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    children: [
+                                                      Container(
+                                                        height: 250.h,
+                                                        width: 300.w,
+                                                        child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: addressList
+                                                              .length,
+                                                          itemBuilder:
+                                                              (context, i) =>
+                                                                  Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10.sp),
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () {
+                                                                changeLocation(
+                                                                    addressList[
+                                                                        i]);
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: Card(
+                                                                  child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  RichText(
+                                                                    text: TextSpan(
+                                                                        text:
+                                                                            'Street: ',
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Theme.of(context).colorScheme.secondary),
+                                                                        children: [
+                                                                          TextSpan(
+                                                                              text: addressList[i].street,
+                                                                              style: TextStyle(fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.primary)),
+                                                                        ]),
+                                                                  ),
+                                                                  RichText(
+                                                                    text: TextSpan(
+                                                                        text:
+                                                                            'Building number: ',
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Theme.of(context).colorScheme.secondary),
+                                                                        children: [
+                                                                          TextSpan(
+                                                                              text: addressList[i].buildingNumber,
+                                                                              style: TextStyle(fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.primary)),
+                                                                        ]),
+                                                                  ),
+                                                                  RichText(
+                                                                    text: TextSpan(
+                                                                        text:
+                                                                            'Floor: ',
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Theme.of(context).colorScheme.secondary),
+                                                                        children: [
+                                                                          TextSpan(
+                                                                              text: addressList[i].floor,
+                                                                              style: TextStyle(fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.primary)),
+                                                                        ]),
+                                                                  ),
+                                                                  RichText(
+                                                                    text: TextSpan(
+                                                                        text:
+                                                                            'Description: ',
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Theme.of(context).colorScheme.secondary),
+                                                                        children: [
+                                                                          TextSpan(
+                                                                              text: addressList[i].description,
+                                                                              style: TextStyle(fontWeight: FontWeight.normal, color: Theme.of(context).colorScheme.primary)),
+                                                                        ]),
+                                                                  ),
+                                                                ],
+                                                              )),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ]));
+                                      },
+                                      child: const Text(
+                                        'Change location',
+                                        style: TextStyle(color: Colors.grey),
+                                      )),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Cancel'))
                                 ],
-                              ),
-                            ),
-                          ));
+                                title: const Text(
+                                  'Are you sure you want to submit this order ?',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                content: SizedBox(
+                                  height: 120.h,
+                                  width: 400.w,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          'Your total is ${NumberFormat().format(cart.cartTotal)}, it will be shipped to the following address:'),
+                                      RichText(
+                                        text: TextSpan(
+                                            text: 'Street: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary),
+                                            children: [
+                                              TextSpan(
+                                                  text:
+                                                      firstLocation.street,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary)),
+                                            ]),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                            text: 'Building number: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary),
+                                            children: [
+                                              TextSpan(
+                                                  text: firstLocation.buildingNumber,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary)),
+                                            ]),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                            text: 'Floor: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary),
+                                            children: [
+                                              TextSpan(
+                                                  text: firstLocation.floor,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary)),
+                                            ]),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                            text: 'Description: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary),
+                                            children: [
+                                              TextSpan(
+                                                  text: firstLocation.description,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary)),
+                                            ]),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ));
                 },
                 child: Center(
                   child: Text(

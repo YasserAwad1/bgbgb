@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/screens/search_screen.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
 import '../screens/favorites_screen.dart';
@@ -54,6 +55,12 @@ class _FirstScreenState extends State<FirstScreen> {
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
           BarItem(
+            icon: Icons.search_rounded,
+            title: 'Search',
+            activeColor: Theme.of(context).colorScheme.secondary,
+            inactiveColor: Theme.of(context).colorScheme.primary,
+          ),
+          BarItem(
             icon: Icons.favorite,
             title: 'Favorites',
             activeColor: Theme.of(context).colorScheme.secondary,
@@ -72,6 +79,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   final List<Widget> _listOfWidget = <Widget>[
     HomeScreen(),
+    SearchScreen(),
     FavoritesScreen(),
     SettingsScreen(),
   ];
