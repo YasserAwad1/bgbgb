@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'review_model.g.dart';
+
+@JsonSerializable()
 class ReviewModel {
   final String id;
   final String userId;
@@ -13,4 +18,7 @@ class ReviewModel {
     this.rating = 1,
     required this.date,
   });
+  factory ReviewModel.fromJson(Map<String, dynamic> json) =>
+      _$ReviewModelFromJson(json);
+  Map<String, dynamic> toJson() => _$ReviewModelToJson(this);
 }

@@ -22,22 +22,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // String _selectedLocation = '';
-  String selectedLocation = '';
-
-  void selectLocation(String value) {
-      Navigator.of(context).pop();
-      setState(() {
-        selectedLocation = value;
-      });
-    }
 
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
     var addressProvider = Provider.of<AddressProvider>(context);
     var addressList = addressProvider.addresses;
+
     // var selectedLocation = addressList.first;
-    
 
     return SafeArea(
       child: Scaffold(
@@ -70,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           subtitle: Text(
                             overflow: TextOverflow.clip,
-                            selectedLocation,
+                            Provider.of<AddressProvider>(context)
+                                .selectedAddress,
                             style:
                                 TextStyle(fontSize: 14.sp, color: Colors.black),
                           ),
@@ -97,7 +90,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             itemBuilder: (context, i) =>
                                                 GestureDetector(
                                               onTap: () {
-                                                selectLocation(addressList[i].street);
+                                                Provider.of<AddressProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .selectLocation(
+                                                        addressList[i].street);
                                               },
                                               child: Padding(
                                                 padding:
@@ -334,36 +331,47 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 10.h,
               ),
-              SizedBox(
-                height: 220.h,
-                child: Padding(
-                  padding: EdgeInsets.all(25.0.w),
-                  child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 120.w,
-                      mainAxisSpacing: 20.h,
-                      crossAxisSpacing: 20.w,
-                      childAspectRatio: 1,
-                    ),
-                    itemCount: Provider.of<SectionsProvider>(context)
-                        .categories
-                        .length,
-                    itemBuilder: (ctx, index) => SectionWidget(
-                      id: Provider.of<SectionsProvider>(context)
-                          .categories[index]
-                          .id,
-                      icon: Provider.of<SectionsProvider>(context)
-                          .categories[index]
-                          .icon,
-                      title: Provider.of<SectionsProvider>(context)
-                          .categories[index]
-                          .title,
-                    ),
-                  ),
-                ),
-              ),
+              FutureBuilder(
+                  future: Provider.of<SectionsProvider>(context, listen: false)
+                      .getSections(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return SizedBox(
+                      height: 220.h,
+                      child: Padding(
+                        padding: EdgeInsets.all(25.0.w),
+                        child: GridView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 120.w,
+                            mainAxisSpacing: 20.h,
+                            crossAxisSpacing: 20.w,
+                            childAspectRatio: 1,
+                          ),
+                          itemCount: Provider.of<SectionsProvider>(context)
+                              .sections
+                              .length,
+                          itemBuilder: (ctx, index) => SectionWidget(
+                            id: Provider.of<SectionsProvider>(context)
+                                .sections[index]
+                                .id,
+                            icon: Provider.of<SectionsProvider>(context)
+                                .sections[index]
+                                .icon,
+                            title: Provider.of<SectionsProvider>(context)
+                                .sections[index]
+                                .title,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
               SizedBox(
                 height: 20.h,
               )

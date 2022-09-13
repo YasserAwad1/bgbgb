@@ -61,8 +61,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
     final cartProvider = Provider.of<CartProvider>(context);
 
-    final SectionModel section =
-        Provider.of<SectionsProvider>(context).findById(loadedProduct.section);
     int total = 0;
     if (loadedProduct.custom != null) {
       loadedProduct.custom!.chosenProducts.forEach(
@@ -214,11 +212,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      section.title,
-                      style:
-                          TextStyle(fontSize: 15.sp, color: Colors.grey[700]),
-                    ),
+                    // Text(
+                    //   section.title,
+                    //   style:
+                    //       TextStyle(fontSize: 15.sp, color: Colors.grey[700]),
+                    // ),
                     Text(
                       loadedProduct.title,
                       style: TextStyle(

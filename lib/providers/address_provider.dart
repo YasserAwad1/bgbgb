@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:kay_sy/models/address_model.dart';
 
 class AddressProvider with ChangeNotifier {
+  String selectedAddress = '';
   final List<AddressModel> _addresses = [
     AddressModel(
         id: 'a1',
@@ -14,6 +15,11 @@ class AddressProvider with ChangeNotifier {
 
   List<AddressModel> get addresses {
     return [..._addresses];
+  }
+
+  void selectLocation(String value) {
+    selectedAddress = value;
+    notifyListeners();
   }
 
   void addAddress(AddressModel address) {
