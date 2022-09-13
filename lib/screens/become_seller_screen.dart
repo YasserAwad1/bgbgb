@@ -50,7 +50,10 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(Icons.sell, size: 50.r,),
+                Icon(
+                  Icons.sell,
+                  size: 50.r,
+                ),
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
@@ -59,32 +62,55 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
                     maxLines: 9,
                     overflow: TextOverflow.visible,
                     style: TextStyle(
-                      fontSize: 20.sp,
-                      fontFamily: 'AnekMalayalam',
-                      color: Theme.of(context).colorScheme.secondary
-                    ),
+                        fontSize: 20.sp,
+                        fontFamily: 'AnekMalayalam',
+                        color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 5.h),
-            CustomRichText(context, '1-', 'Becoming a seller is a monthly plan payment of 40,000 syp.'),
-            SizedBox(height: 6.h,),
+            CustomRichText(context, '1-',
+                'Becoming a seller is a monthly plan payment of 40,000 syp.'),
+            SizedBox(
+              height: 6.h,
+            ),
             CustomRichText(context, '2-', 'We require a photo of your id.'),
-            SizedBox(height: 6.h,),
-            CustomRichText(context, '3-', 'When you are accepted, we will contact you for signing some papers, and payment will be made then.'),
-            SizedBox(height: 6.h,),
-            CustomRichText(context, '4-', 'If your product is sold, we will be responsible for the shipping, you just display them and we\'ll take care of the rest.'),
-            SizedBox(height: 6.h,),
-            CustomRichText(context, '5-', 'Not all products are accepted. When you display a product, we will accept it or deny it.'),
-            SizedBox(height: 6.h,),
-            CustomRichText(context, '6-', 'Only new and sealed products are allowed, used products will be denied immediately.'),
-            SizedBox(height: 6.h,),
-            CustomRichText(context, '7-', 'Products shouldn\'t be very large in size.(maximum 1 meter in height, 0.5 meters in width).'),
-            SizedBox(height: 6.h,),
-            CustomRichText(context, '8-', 'All products should have a clear photo, with a nice background (white or grey is preferred).'),
-            SizedBox(height: 6.h,),
-            CustomRichText(context, '9-', 'Price should be in syrian pounds (syp).'),
+            SizedBox(
+              height: 6.h,
+            ),
+            CustomRichText(context, '3-',
+                'When you are accepted, we will contact you for signing some papers, and payment will be made then.'),
+            SizedBox(
+              height: 6.h,
+            ),
+            CustomRichText(context, '4-',
+                'If your product is sold, we will be responsible for the shipping, you just display them and we\'ll take care of the rest.'),
+            SizedBox(
+              height: 6.h,
+            ),
+            CustomRichText(context, '5-',
+                'Not all products are accepted. When you display a product, we will accept it or deny it.'),
+            SizedBox(
+              height: 6.h,
+            ),
+            CustomRichText(context, '6-',
+                'Only new and sealed products are allowed, used products will be denied immediately.'),
+            SizedBox(
+              height: 6.h,
+            ),
+            CustomRichText(context, '7-',
+                'Products shouldn\'t be very large in size.(maximum 1 meter in height, 0.5 meters in width).'),
+            SizedBox(
+              height: 6.h,
+            ),
+            CustomRichText(context, '8-',
+                'All products should have a clear photo, with a nice background (white or grey is preferred).'),
+            SizedBox(
+              height: 6.h,
+            ),
+            CustomRichText(
+                context, '9-', 'Price should be in syrian pounds (syp).'),
             CheckboxListTile(
               activeColor: Theme.of(context).colorScheme.secondary,
               title: Text(
@@ -134,21 +160,22 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
 
   RichText CustomRichText(BuildContext context, String text1, String text2) {
     return RichText(
-          text: TextSpan(
-              text: text1,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 21),
-              children: [
-                TextSpan(
-                    text: text2,
-                    style: TextStyle(
-                      height: 1.3.h,
-                      fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.primary)),
-              ]),
-        );
+      text: TextSpan(
+          text: text1,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 21,
+          ),
+          children: [
+            TextSpan(
+                text: text2,
+                style: TextStyle(
+                    height: 1.3.h,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.primary)),
+          ]),
+    );
   }
 }

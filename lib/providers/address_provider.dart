@@ -10,7 +10,21 @@ class AddressProvider with ChangeNotifier {
         street: "Mezzeh",
         buildingNumber: "34",
         floor: "2",
-        description: "مقابل سفارة جنوب افرقيا")
+        description: "مقابل سفارة جنوب افرقيا"),
+    AddressModel(
+        id: 'a2',
+        city: "Damascus",
+        street: "tijara",
+        buildingNumber: "21",
+        floor: "6",
+        description: "dlfgkjdflgkjdfglkj"),
+    AddressModel(
+        id: 'a3',
+        city: "Damascus",
+        street: "malki",
+        buildingNumber: "15",
+        floor: "4",
+        description: "dlfgkjdflgkjdfglkj"),
   ];
 
   List<AddressModel> get addresses {
