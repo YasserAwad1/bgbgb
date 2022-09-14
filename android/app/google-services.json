@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "17205498875",
+    "project_id": "kaystore-272e2",
+    "storage_bucket": "kaystore-272e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17205498875:android:514a665e9e30881e9f315e",
+        "android_client_info": {
+          "package_name": "com.example.kay_sy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17205498875-sr6n2iqmrr41gbvc6de9590h4ld03dmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemmL2lfwu8-uDsApiaLWUsnmEBatRmP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17205498875-sr6n2iqmrr41gbvc6de9590h4ld03dmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
