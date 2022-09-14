@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/screens/otp_screen.dart';
 import 'package:kay_sy/screens/search_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 
 import 'package:kay_sy/config.dart';
 
@@ -25,10 +28,12 @@ import './screens/edit_profile_screen.dart';
 import './screens/locations_screen.dart';
 import './screens/logIn_screen.dart';
 import './screens/walkThrough_scree.dart';
+import './screens/become_a_seller_form_screen.dart';
 
-Future<void> main() async {
-  Provider.debugCheckInvalidValueType = null;
-
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
+  // Provider.debugCheckInvalidValueType = null;
   runApp(MyApp());
 }
 
@@ -120,8 +125,10 @@ class _MyAppState extends State<MyApp> {
             LogInScreen.routeName: (ctx) => LogInScreen(),
             WalkThroughScreen.routeName: (ctx) => WalkThroughScreen(),
             SearchScreen.routeName: (ctx) => SearchScreen(),
+            BecomeASellerFormScreen.routeName: (ctx) =>
+                BecomeASellerFormScreen(),
           },
-          home: FirstScreen(),
+          home: LogInScreen(),
         ),
       ),
     );

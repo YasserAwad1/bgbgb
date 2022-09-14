@@ -121,8 +121,14 @@ class CartScreen extends StatelessWidget {
                         backgroundColor: Theme.of(context).colorScheme.primary,
                       ),
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(CheckOutScreen.routeName);
+                        cartProvider.items.isEmpty
+                            ? ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(
+                                content: const Text('Your cart is empty !'),
+                                backgroundColor: Theme.of(context).errorColor,
+                              ))
+                            : Navigator.of(context)
+                                .pushNamed(CheckOutScreen.routeName);
                       },
                       child: Center(
                         child: Text(

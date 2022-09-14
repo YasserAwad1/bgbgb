@@ -597,6 +597,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       loadedProduct.title,
                                       loadedProduct.price,
                                       loadedProduct.imageUrls[0]);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text('Item added succesfully')));
                                 })),
                       ),
               ),
