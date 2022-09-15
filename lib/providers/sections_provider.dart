@@ -6,7 +6,7 @@ import 'package:kay_sy/services/sections_services.dart';
 
 class SectionsProvider with ChangeNotifier {
   List<SectionModel> _sections = [];
-  int? selectedCategory;
+  int selectedCategory = 0;
   final _service = SectionsServices();
   List<SectionModel> get sections {
     return [..._sections];

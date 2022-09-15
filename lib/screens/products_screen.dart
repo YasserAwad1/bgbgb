@@ -22,11 +22,17 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   int? selectedCategory;
+  late final String id;
+  @override
+  Future<void> didChangeDependencies() async {
+    id = ModalRoute.of(context)!.settings.arguments as String;
+    await Provider.of<ProductProvider>(context, listen: false)
+        .findbySection(id);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final String id = ModalRoute.of(context)!.settings.arguments as String;
-
     return Scaffold(
       body: FutureBuilder(
           future: Provider.of<SectionsProvider>(context, listen: false)
@@ -116,10 +122,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             return GestureDetector(
                               onTap: () async {
                                 c.selectCategory(index);
-
-                                await Provider.of<ProductProvider>(context,
-                                        listen: false)
-                                    .findbySection(id);
+                                if (categories[index].id == '1') {
+                                  await Provider.of<ProductProvider>(context,
+                                          listen: false)
+                                      .findbySection(id);
+                                } else {
+                                  await Provider.of<ProductProvider>(context,
+                                          listen: false)
+                                      .getProductsByCategory(
+                                          categories[index].id);
+                                }
                               },
                               child: Container(
                                 alignment: Alignment.center,

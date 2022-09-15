@@ -23,14 +23,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // String _selectedLocation = '';
-  String selectedLocation = '';
-
-  void selectLocation(String street, String description) {
-    Navigator.of(context).pop();
-    setState(() {
-      selectedLocation = street + ' ' + description;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -275,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         subtitle: Text(
                           overflow: TextOverflow.clip,
-                          selectedLocation,
+                          Provider.of<AddressProvider>(context).selectedAddress,
                           style:
                               TextStyle(fontSize: 14.sp, color: Colors.black),
                         ),

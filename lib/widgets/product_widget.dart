@@ -19,7 +19,7 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final price = NumberFormat('#,###,000').format(product.price);
+    final price = NumberFormat().format(product.price);
 
     // final p = Provider.of<Product>(context);
     return GestureDetector(

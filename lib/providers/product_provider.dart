@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kay_sy/models/custom_product.dart';
 import 'package:kay_sy/models/review_model.dart';
+import 'package:kay_sy/services/product_service.dart';
 import 'package:kay_sy/services/sections_services.dart';
 
 import '../models/product.dart';
 
 class ProductProvider with ChangeNotifier {
   final _sectionsService = SectionsServices();
+  final _service = ProductService();
   List<Product> _products = [
     // Product(
     //   section: "c1",
@@ -265,5 +267,22 @@ class ProductProvider with ChangeNotifier {
       outerProduct.custom!.chosenProducts.add(innerProduct);
       notifyListeners();
     }
+  }
+
+  getProductsByCategory(String id) async {
+    isLoading = true;
+    notifyListeners();
+    _products = await _service.getProductsByCategory(id);
+    isLoading = false;
+    notifyListeners();
+  }
+
+  getProductById(String id) async {
+    isLoading = true;
+    notifyListeners();
+    final product = await _service.getProductById(id);
+    isLoading = false;
+    notifyListeners();
+    return product;
   }
 }
