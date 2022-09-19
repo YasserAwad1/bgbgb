@@ -11,6 +11,8 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../l10n/l10n.dart';
+
 class OTPScreen extends StatefulWidget {
   // static const routeName = '/otp-screen';
   final String phone;
@@ -238,7 +240,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   _verifyPhone() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+1${widget.phone}',
+        phoneNumber: '+963${widget.phone}',
         verificationCompleted: (PhoneAuthCredential credential) async {
           await FirebaseAuth.instance
               .signInWithCredential(credential)

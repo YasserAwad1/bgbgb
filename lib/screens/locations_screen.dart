@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/models/address_model.dart';
 import 'package:kay_sy/providers/address_provider.dart';
 import 'package:kay_sy/screens/add_address_screen.dart';
@@ -17,10 +18,11 @@ class LocationsScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: BottomAppBar(
+          // ADD ADDRESS
           child: CustomButton(
             height: 50.h,
             width: 200.w,
-            text: "Add Address",
+            text: AppLocalizations.of(context)!.addAddress,
             onTap: () {
               Navigator.of(context).pushNamed(AddAddressScreen.routeName);
             },
@@ -46,20 +48,21 @@ class LocationsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Spacer(),
-                const Text(
-                  'Edit Your adresses',
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                const Spacer(),
+                 Text(
+                   // EDIT YOUR ADDRESSES
+                  AppLocalizations.of(context)!.editLocations,
+                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                 ),
-                Spacer()
+               const Spacer()
               ],
             ),
             SizedBox(
               height: 20.h,
             ),
             addresses.isEmpty
-                ? const Center(
-                    child: Text('No Locations yet, try to add one'),
+                ?  Center(
+                    child: Text(AppLocalizations.of(context)!.noLocations),
                   )
                 : Expanded(
                     child: ListView.builder(

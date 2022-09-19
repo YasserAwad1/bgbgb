@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../providers/address_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,8 +44,8 @@ class AddressWidget extends StatelessWidget {
           ),
         ),
         children: [
-          Text("Building: ${address.buildingNumber}"),
-          if (address.description != null)  Text("Description: ${address.description!}"),
+          Text("${AppLocalizations.of(context)!.bn} ${address.buildingNumber}"),
+          if (address.description != null)  Text("${AppLocalizations.of(context)!.details} ${address.description!}"),
         ],
       ),
     );

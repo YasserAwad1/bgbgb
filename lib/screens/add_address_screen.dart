@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/providers/address_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -92,9 +93,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     ),
                   ),
                   const Spacer(),
-                  const Text(
-                    'Add a new address',
-                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                   Text(
+                    AppLocalizations.of(context)!.addNewAddress,
+                    style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   ),
                   const Spacer()
                 ],
@@ -109,8 +110,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   child: Column(
                     children: [
                       CustomTextFormField(
+                        // city
                           context: context,
-                          labelText: 'City',
+                          labelText: AppLocalizations.of(context)!.city,
                           initVal: 'Damascus',
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -130,8 +132,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           myController: null,
                           isEnabled: false),
                       CustomTextFormField(
+                        // street
                           context: context,
-                          labelText: 'Street',
+                          labelText: AppLocalizations.of(context)!.street,
                           initVal: null,
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -144,7 +147,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               description: newAddress.description),
                           myValidator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please provider a value';
+                              return AppLocalizations.of(context)!.pleaseAddStreet;
                             }
                             return null;
                           },
@@ -152,7 +155,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           isEnabled: true),
                       CustomTextFormField(
                           context: context,
-                          labelText: 'Building number',
+                          labelText: AppLocalizations.of(context)!.bn,
                           initVal: null,
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -165,7 +168,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               description: newAddress.description),
                           myValidator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please provider a value';
+                              return AppLocalizations.of(context)!.pleaseAddBn;
                             }
                             return null;
                           },
@@ -173,7 +176,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           isEnabled: true),
                       CustomTextFormField(
                           context: context,
-                          labelText: 'Floor',
+                          labelText: AppLocalizations.of(context)!.floor,
                           initVal: null,
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -186,7 +189,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               description: newAddress.description),
                           myValidator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please provider a value';
+                              return AppLocalizations.of(context)!.pleaseAddFloor;
                             }
                             return null;
                           },
@@ -194,7 +197,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           isEnabled: true),
                       CustomTextFormField(
                           context: context,
-                          labelText: 'Description',
+                          labelText: AppLocalizations.of(context)!.details,
                           initVal: null,
                           inputAction: TextInputAction.done,
                           myKeyboardType: TextInputType.multiline,
@@ -207,7 +210,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               description: value),
                           myValidator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please provider a value';
+                              return AppLocalizations.of(context)!.pleaseAddDetails;
                             }
                             return null;
                           },
@@ -222,7 +225,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         ),
         bottomNavigationBar: BottomAppBar(
           child: CustomButton(
-              text: "Submit", onTap: _saveForm, width: 200.w, height: 50.h)
+              text: AppLocalizations.of(context)!.save, onTap: _saveForm, width: 200.w, height: 50.h)
         ),
       ),
     );

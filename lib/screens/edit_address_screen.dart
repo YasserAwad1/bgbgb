@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/custom_button.dart';
 import 'package:kay_sy/widgets/custom_textformfield.dart';
 import 'package:provider/provider.dart';
@@ -106,8 +107,9 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                 child: Column(
                   children: [
                     CustomTextFormField(
+                      // CITY
                         context: context,
-                        labelText: 'City',
+                        labelText: AppLocalizations.of(context)!.city,
                         initVal: loadedAddress.city,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.text,
@@ -116,8 +118,9 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         myController: null,
                         isEnabled: false),
                     CustomTextFormField(
+                      // STREET
                       context: context,
-                      labelText: 'Street',
+                      labelText: AppLocalizations.of(context)!.street,
                       initVal: loadedAddress.street,
                       inputAction: TextInputAction.next,
                       myKeyboardType: TextInputType.text,
@@ -138,8 +141,9 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       isEnabled: true,
                     ),
                     CustomTextFormField(
+                      // BUILDING NUMBER
                         context: context,
-                        labelText: 'Building number',
+                        labelText: AppLocalizations.of(context)!.bn,
                         initVal: loadedAddress.buildingNumber,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.number,
@@ -154,8 +158,9 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         myController: null,
                         isEnabled: true),
                     CustomTextFormField(
+                      // FLOOR
                         context: context,
-                        labelText: 'Floor',
+                        labelText: AppLocalizations.of(context)!.floor,
                         initVal: loadedAddress.floor,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.number,
@@ -170,8 +175,9 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         myController: null,
                         isEnabled: true),
                     CustomTextFormField(
+                      // DESCRIPTION
                         context: context,
-                        labelText: 'Description',
+                        labelText: AppLocalizations.of(context)!.details,
                         initVal: loadedAddress.description!,
                         inputAction: TextInputAction.done,
                         myKeyboardType: TextInputType.multiline,

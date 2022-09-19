@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class SearchBar extends StatelessWidget {
         decoration: InputDecoration(
             suffixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.primary,),
             border: InputBorder.none,
-            hintText: "Search",
+            hintText: AppLocalizations.of(context)!.search,
             contentPadding: EdgeInsets.only(left: 10.w, top: 10.h)),
       ),
     );

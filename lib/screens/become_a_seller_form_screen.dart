@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/screens/first_screen.dart';
 import 'package:kay_sy/widgets/custom_button.dart';
 
@@ -33,8 +34,9 @@ class BecomeASellerFormScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
                           title: Text(
-                            'Are you sure you want to cancel ?',
-                            style: TextStyle(
+                            // sure you want ot cancel
+                            AppLocalizations.of(context)!.sureToCancel,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -43,19 +45,22 @@ class BecomeASellerFormScreen extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context).pushReplacementNamed(
                                       FirstScreen.routeName);
+                                      // formKey.currentState!.dispose();
                                 },
                                 child: Text(
-                                  'Yes',
+                                  //   yes
+                                  AppLocalizations.of(context)!.yes,
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary),
                                 )),
                             TextButton(
+                              // no
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Text('No'))
+                                child: Text(AppLocalizations.of(context)!.no))
                           ],
                         ),
                       );
@@ -66,26 +71,26 @@ class BecomeASellerFormScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Spacer(),
-                const Text(
-                  'Become a seller',
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                const Spacer(),
+                 Text(
+                  AppLocalizations.of(context)!.becomeSeller,
+                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
             CustomTextFormField(
                 context: context,
-                labelText: 'Full Name',
+                labelText: AppLocalizations.of(context)!.fullName,
                 initVal: null,
                 inputAction: TextInputAction.next,
                 myKeyboardType: TextInputType.name,
                 myOnSaved: null,
                 myValidator: (val) {
                   if (val!.isEmpty) {
-                    return 'Please enter your name';
+                    return AppLocalizations.of(context)!.enterName;
                   } else if (val.length < 5) {
-                    return 'name must be atleast 5 characters long';
+                    return AppLocalizations.of(context)!.nameMustBe;
                   }
                   return null;
                 },
@@ -93,26 +98,26 @@ class BecomeASellerFormScreen extends StatelessWidget {
                 isEnabled: true),
             CustomTextFormField(
                 context: context,
-                labelText: 'Contact Number',
+                labelText: AppLocalizations.of(context)!.contactNumber,
                 initVal: null,
                 inputAction: TextInputAction.done,
                 myKeyboardType: TextInputType.phone,
                 myOnSaved: null,
                 myValidator: (val) {
                   if (val!.isEmpty) {
-                    return 'please enter your phone number';
+                    return AppLocalizations.of(context)!.pleaseEnterPhone;
                   } else if (val.trim().length != 10) {
-                    return 'phone number must be 10 characters long';
+                    return AppLocalizations.of(context)!.phoneMustBe;
                   }
                   return null;
                 },
                 myController: null,
                 isEnabled: true),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+             Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                'We will contact you and set a meeting so you can sign some papers, the contact number you entered must be valid.',
-                style: TextStyle(
+                AppLocalizations.of(context)!.sellerLastLine,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -122,7 +127,7 @@ class BecomeASellerFormScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
           child: CustomButton(
-              text: 'Sumbit',
+              text: AppLocalizations.of(context)!.submit,
               onTap: () {},
               width: double.infinity.w,
               height: 50.h)),

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/providers/language_provider.dart';
 import 'package:kay_sy/screens/otp_screen.dart';
 import 'package:kay_sy/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'firebase_options.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:kay_sy/config.dart';
+import 'l10n/l10n.dart';
 
 import './providers/address_provider.dart';
 import './providers/product_provider.dart';
@@ -92,43 +96,57 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(
             create: (ctx) => OrderProvider(),
           ),
+          ChangeNotifierProvider<LanguageProvider>(
+            create: (ctx) => LanguageProvider(),
+          )
         ],
-        child: MaterialApp(
-          // localizationsDelegates:
-          //     translator.delegates,
-          // locale: translator.activeLocale,
-          // supportedLocales: translator.locals(),
-          themeMode: ThemeMode.light,
-          darkTheme: ThemeData.dark(),
-          builder: (context, child) => SafeArea(child: child!),
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            fontFamily: "AnekMalayalam",
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-              // primary: const Color.fromARGB(255, 29, 14, 70),
-              primary: Colors.black,
-              secondary: Color.fromARGB(255, 227, 99, 99),
+        child: Builder(
+          builder: (context) => MaterialApp(
+            locale: Provider.of<LanguageProvider>(context, listen: true)
+                .currentLocale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            // localizationsDelegates:
+            //     translator.delegates,
+            // locale: translator.activeLocale,
+            // supportedLocales: translator.locals(),
+            themeMode: ThemeMode.light,
+            darkTheme: ThemeData.dark(),
+            builder: (context, child) => SafeArea(child: child!),
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              fontFamily: "AnekMalayalam",
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                // primary: const Color.fromARGB(255, 29, 14, 70),
+                primary: Colors.black,
+                secondary: Color.fromARGB(255, 227, 99, 99),
+              ),
             ),
+            routes: {
+              FirstScreen.routeName: (ctx) => FirstScreen(),
+              ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
+              CartScreen.routeName: (ctx) => CartScreen(),
+              ProductsScreen.routeName: (ctx) => ProductsScreen(),
+              LocationsScreen.routeName: (ctx) => LocationsScreen(),
+              EditProfileScreen.routeName: (context) => EditProfileScreen(),
+              EditAddressScreen.routeName: (ctx) => EditAddressScreen(),
+              AddAddressScreen.routeName: (ctx) => AddAddressScreen(),
+              CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
+              OrdersScreen.routeName: (ctx) => OrdersScreen(),
+              BecomeASellerScreen.routeName: (ctx) => BecomeASellerScreen(),
+              LogInScreen.routeName: (ctx) => LogInScreen(),
+              WalkThroughScreen.routeName: (ctx) => WalkThroughScreen(),
+              SearchScreen.routeName: (ctx) => SearchScreen(),
+              BecomeASellerFormScreen.routeName: (ctx) =>
+                  BecomeASellerFormScreen(),
+            },
+            home: FirstScreen(),
           ),
-          routes: {
-            FirstScreen.routeName: (ctx) => FirstScreen(),
-            ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
-            CartScreen.routeName: (ctx) => CartScreen(),
-            ProductsScreen.routeName: (ctx) => ProductsScreen(),
-            LocationsScreen.routeName: (ctx) => LocationsScreen(),
-            EditProfileScreen.routeName: (context) => EditProfileScreen(),
-            EditAddressScreen.routeName: (ctx) => EditAddressScreen(),
-            AddAddressScreen.routeName: (ctx) => AddAddressScreen(),
-            CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
-            OrdersScreen.routeName: (ctx) => OrdersScreen(),
-            BecomeASellerScreen.routeName: (ctx) => BecomeASellerScreen(),
-            LogInScreen.routeName: (ctx) => LogInScreen(),
-            WalkThroughScreen.routeName: (ctx) => WalkThroughScreen(),
-            SearchScreen.routeName: (ctx) => SearchScreen(),
-            BecomeASellerFormScreen.routeName: (ctx) =>
-                BecomeASellerFormScreen(),
-          },
-          home: LogInScreen(),
         ),
       ),
     );

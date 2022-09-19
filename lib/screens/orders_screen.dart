@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kay_sy/screens/first_screen.dart';
-import 'package:kay_sy/screens/home_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,12 +35,13 @@ class OrdersScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Spacer(),
-                const Text(
-                  'My orders',
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                const Spacer(),
+                Text(
+                  AppLocalizations.of(context)!.myOrders,
+                  style: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.bold),
                 ),
-                Spacer()
+                const Spacer()
               ],
             ),
             orderData.orders.isEmpty
@@ -51,17 +52,21 @@ class OrdersScreen extends StatelessWidget {
                       children: [
                         Center(
                           child: Text(
-                            'No orders yet, start shopping now!',
+                            AppLocalizations.of(context)!.noOrders,
                             style: TextStyle(
                                 fontFamily: "AnekMalayalam", fontSize: 20.sp),
                           ),
                         ),
                         TextButton.icon(
                             onPressed: () {
-                              Navigator.of(context).pushReplacementNamed(FirstScreen.routeName);
+                              Navigator.of(context)
+                                  .pushReplacementNamed(FirstScreen.routeName);
                             },
-                            icon: Icon(Icons.shopping_basket_outlined, color: Theme.of(context).colorScheme.secondary,),
-                            label: const Text('Go to shop'))
+                            icon: Icon(
+                              Icons.shopping_basket_outlined,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            label: Text(AppLocalizations.of(context)!.goToShop))
                       ],
                     ),
                   )

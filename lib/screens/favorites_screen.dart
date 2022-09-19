@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/providers/language_provider.dart';
 import 'package:kay_sy/screens/product_details_screen.dart';
 import 'package:kay_sy/widgets/custom_product/custom_product_image.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
@@ -31,6 +33,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       ),
     );
 
+    var isArabic = Provider.of<LanguageProvider>(context).isArabic();
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -46,10 +49,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
                         borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(15),
-                            bottomRight: Radius.circular(15))),
+                          topRight:
+                              isArabic ? Radius.zero : Radius.circular(15.sp),
+                          bottomRight:
+                              isArabic ? Radius.zero : Radius.circular(15.sp),
+                          topLeft:
+                              isArabic ? Radius.circular(15.sp) : Radius.zero,
+                          bottomLeft:
+                              isArabic ? Radius.circular(15.sp) : Radius.zero,
+                        )),
+                        // YOUR FAVORITES 
                     child: Text(
-                      "Your Favorites ",
+                      AppLocalizations.of(context)!.yourfav,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15.sp,
@@ -74,12 +85,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 ],
               ),
             ),
+            // NO FAVORITES YET START ADDING SOME
             favoriteProducts.isEmpty
                 ? SizedBox(
                     height: 500.h,
                     child: Center(
                       child: Text(
-                        'No favorites yet, start adding some!',
+                        AppLocalizations.of(context)!.no_favs,
                         style: TextStyle(
                             fontFamily: "AnekMalayalam", fontSize: 20.sp),
                       ),

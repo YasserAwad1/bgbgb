@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/models/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kay_sy/models/section_model.dart';
@@ -17,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../providers/language_provider.dart';
 
 import '../providers/product_provider.dart';
 import '../providers/cart_provider.dart';
@@ -60,6 +62,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         Provider.of<ProductProvider>(context).findById(id);
 
     final cartProvider = Provider.of<CartProvider>(context);
+    bool isArabic = Provider.of<LanguageProvider>(context).isArabic();
 
     int total = 0;
     if (loadedProduct.custom != null) {
@@ -96,7 +99,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ),
                   const Text(
-                    'Details',
+                    'KAY',
                     style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   ),
                   Container(
@@ -259,11 +262,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               //title and category
 
-              //DESCRIPTON
+              //INFORMATION
               Align(
-                alignment: const Alignment(-0.9, 1),
+                alignment: isArabic ? const Alignment(0.9, -1):  const Alignment(-0.9, 1),
                 child: Text(
-                  'INFORMATION',
+                  AppLocalizations.of(context)!.information,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25.sp,
@@ -281,10 +284,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 thickness: 1,
                 color: Theme.of(context).colorScheme.primary,
               ),
+              // REVIWES
               Align(
-                  alignment: const Alignment(-0.9, 1),
+                  alignment: isArabic ? const Alignment(0.9, -1):  const Alignment(-0.9, 1),
                   child: Text(
-                    "Reviews",
+                    AppLocalizations.of(context)!.reviews,
                     style:
                         TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                   )),
@@ -349,7 +353,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       });
                     },
                     icon: const Icon(Icons.add_comment_rounded),
-                    label: const Text('Add a review')),
+                    label:  Text(AppLocalizations.of(context)!.addReview)),
               if (expandForReview)
                 Card(
                   shape: RoundedRectangleBorder(
@@ -365,11 +369,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     width: 300.w,
                     child: Column(
                       children: [
+                        // RATING
                         Row(
                           children: [
-                            const Text(
-                              'Rating ',
-                              style: TextStyle(
+                             Text(
+                              AppLocalizations.of(context)!.rating,
+                              style: const TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                             StarRating(
@@ -394,9 +399,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             )
                           ],
                         ),
-                        const TextField(
+                        // COMMENT
+                         TextField(
                           decoration: InputDecoration(
-                            label: Text('Comment'),
+                            label: Text(AppLocalizations.of(context)!.comment),
                           ),
                         ),
                         SizedBox(
@@ -416,9 +422,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         _pickedImage!,
                                         fit: BoxFit.cover,
                                       )
-                                    : const FittedBox(
+                                      //  NO IMAGE
+                                    : FittedBox(
                                         child: Center(
-                                        child: Text('no image'),
+                                        child: Text(AppLocalizations.of(context)!.noImage),
                                       )),
                               ),
                             ),
@@ -430,20 +437,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       builder: (context) => Wrap(children: [
                                             Column(
                                               children: [
+                                                // CAMERA 
                                                 ListTile(
                                                   leading: const Icon(
                                                       Icons.camera_alt),
-                                                  title: const Text('Camera'),
+                                                  title:  Text(AppLocalizations.of(context)!.camera),
                                                   onTap: () {
                                                     source = ImageSource.camera;
                                                     pickImage();
                                                     Navigator.of(context).pop();
                                                   },
                                                 ),
+                                                // GALLERY 
                                                 ListTile(
                                                   leading:
                                                       const Icon(Icons.photo),
-                                                  title: const Text('Gallery'),
+                                                  title: Text(AppLocalizations.of(context)!.galley),
                                                   onTap: () {
                                                     source =
                                                         ImageSource.gallery;
@@ -455,9 +464,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             ),
                                           ]));
                                 },
+                                // ADD PHOTO
                                 icon: const Icon(
                                     Icons.add_photo_alternate_rounded),
-                                label: const Text('Add photo')),
+                                label: Text(AppLocalizations.of(context)!.addPhoto)),
                             SizedBox(
                               width: 5.w,
                             ),
@@ -467,8 +477,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         .colorScheme
                                         .secondary),
                                 onPressed: () {},
+                                // POST REVIEW 
                                 icon: const Icon(Icons.add),
-                                label: const Text('Post review')),
+                                label: Text(AppLocalizations.of(context)!.postReview)),
                           ],
                         ),
                       ],
@@ -478,13 +489,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               //REVIEWS
               loadedProduct.reviews == null
                   ? Center(
-                      child: SizedBox(
-                        width: 150.w,
-                        child: Text(
-                          "NO REVIEWS FOR THIS PRODUCT....",
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
-                        ),
+                      child: Text(
+                        AppLocalizations.of(context)!.noReviews,
+                        style: TextStyle(
+                            fontSize: 20.sp, fontWeight: FontWeight.bold),
                       ),
                     )
                   : Padding(
@@ -521,7 +529,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       children: [
                         TextSpan(
-                          text: 'SYP',
+                          text: AppLocalizations.of(context)!.currency,
                           style: TextStyle(
                             fontSize: 10,
                             color: Theme.of(context).colorScheme.secondary,
@@ -582,13 +590,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       )
                     : Container(
+                      // ADD TO CART
                         margin: const EdgeInsets.all(10),
                         height: 50.h,
                         width: double.infinity,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: CustomButton(
-                                text: "Add to cart",
+                                text: AppLocalizations.of(context)!.addToCart,
                                 width: 200.w,
                                 height: 50.h,
                                 onTap: () {
@@ -597,10 +606,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       loadedProduct.title,
                                       loadedProduct.price,
                                       loadedProduct.imageUrls[0]);
+                                      // ITEM ADDED SUCCESFULLY
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content:
-                                              Text('Item added succesfully')));
+                                              Text(AppLocalizations.of(context)!.itemAdded)));
                                 })),
                       ),
               ),
