@@ -18,9 +18,11 @@ class Product {
   final List<ReviewModel>? reviews;
   final CustomProduct? custom;
   double rating;
+  final String category;
 
   Product(
       {required this.id,
+      required this.category,
       required this.section,
       required this.title,
       required this.price,

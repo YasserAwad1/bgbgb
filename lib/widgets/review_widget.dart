@@ -15,7 +15,6 @@ class ReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).findUserById(review.userId);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -23,10 +22,10 @@ class ReviewWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                user.name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
-              ),
+              // Text(
+              //   user.name,
+              //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+              // ),
               SizedBox(width: 4.w),
               RatingBar.builder(
                 onRatingUpdate: (value) {},

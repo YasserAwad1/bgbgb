@@ -200,6 +200,7 @@ class ProductProvider with ChangeNotifier {
   ];
   List<Product> trendingProducts = [
     Product(
+      category: 'ss',
       section: "c1",
       id: '4',
       imageUrls: [
@@ -212,6 +213,7 @@ class ProductProvider with ChangeNotifier {
           'it is a shirt thats full cotton, we manufactures theses shirts in our company',
     ),
     Product(
+      category: 'ss',
       section: "c1",
       id: '5',
       imageUrls: [

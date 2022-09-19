@@ -17,12 +17,13 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       description: json['description'] as String,
       rating: (json['rating'] as num).toDouble(),
       reviews: (json['reviews'] as List<dynamic>?)
-          ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ReviewModel.fromJson(e))
           .toList(),
       isFavorite: json['isFavorite'] as bool? ?? false,
       custom: json['custom'] == null
           ? null
           : CustomProduct.fromJson(json['custom'] as Map<String, dynamic>),
+      category: json['category'] as String,
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -33,7 +34,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'imageUrls': instance.imageUrls,
       'description': instance.description,
       'section': instance.section,
-      'reviews': instance.reviews,
       'custom': instance.custom,
       'rating': instance.rating,
+      'category': instance.category,
     };

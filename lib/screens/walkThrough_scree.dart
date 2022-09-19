@@ -81,7 +81,7 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                       child: SmoothPageIndicator(
                         controller: controller,
                         count: 3,
-                        effect: ExpandingDotsEffect(
+                        effect: WormEffect(
                           spacing: 10,
                           activeDotColor:
                               Theme.of(context).colorScheme.secondary,

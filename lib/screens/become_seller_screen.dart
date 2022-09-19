@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/screens/become_a_seller_form_screen.dart';
 
 class BecomeASellerScreen extends StatefulWidget {
   static const routeName = '/become-a-seller';
@@ -111,6 +112,10 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
             ),
             CustomRichText(
                 context, '9-', 'Price should be in syrian pounds (syp).'),
+            Divider(
+              color: Theme.of(context).colorScheme.secondary,
+              thickness: 1,
+            ),
             CheckboxListTile(
               activeColor: Theme.of(context).colorScheme.secondary,
               title: Text(
@@ -140,7 +145,10 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
                           : Colors.grey,
                     ),
                     onPressed: () {
-                      agree ? Navigator.of(context).pop() : null;
+                      agree
+                          ? Navigator.of(context)
+                              .pushNamed(BecomeASellerFormScreen.routeName)
+                          : null;
                     },
                     child: const Center(
                       child: Text(

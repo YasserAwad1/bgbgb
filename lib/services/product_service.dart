@@ -22,13 +22,10 @@ class ProductService {
       final response = await http.get(url);
 
       final jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
+      print(jsonResponse['product']['reviews']);
 
       Product product = Product.fromJson(jsonResponse['product']);
-      print(
-          '*****************************Product*****************************');
 
-      print(product.toJson());
       return product;
     } catch (e) {
       print(e);

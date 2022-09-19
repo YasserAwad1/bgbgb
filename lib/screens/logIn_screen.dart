@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/models/user_model.dart';
 import 'package:kay_sy/providers/user_provider.dart';
 import 'package:kay_sy/screens/first_screen.dart';
+import 'package:kay_sy/screens/home_screen.dart';
 import 'package:kay_sy/screens/walkThrough_scree.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/otp_screen.dart';
 
 enum authMode {
   logIn,
@@ -20,6 +23,7 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  final TextEditingController _controller = TextEditingController();
   static final formKey = GlobalKey<FormState>();
   var _authMode = authMode.signUp;
   bool isLoading = false;
@@ -29,15 +33,17 @@ class _LogInScreenState extends State<LogInScreen> {
     phoneNumber: '',
   );
 
+  void signUp() {
+    Provider.of<UserProvider>(context, listen: false).addUser(user);
+  }
+
   void _saveForm() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      Navigator.of(context).pushReplacementNamed(FirstScreen.routeName);
+      signUp();
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => OTPScreen(_controller.text)));
     }
-  }
-
-  void signUp() {
-    Provider.of<UserProvider>(context, listen: false).addUser(user);
   }
 
   void switchAuthMode() {
@@ -128,7 +134,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       Text('Don\'t have an account ?'),
                       TextButton(
                           onPressed: () {
-                            switchAuthMode();
+                            //switchAuthMode();
+                            Navigator.pushReplacementNamed(
+                                context, FirstScreen.routeName);
                           },
                           child: Text(
                             'Signup instead',
@@ -191,7 +199,12 @@ class _LogInScreenState extends State<LogInScreen> {
                   },
                 ),
                 TextFormField(
+                  controller: _controller,
                   decoration: InputDecoration(
+                    prefix: const Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Text('+963'),
+                    ),
                     helperText: 'ex:09XXXXXXXX',
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -221,9 +234,6 @@ class _LogInScreenState extends State<LogInScreen> {
                 TextButton(
                   onPressed: () {
                     _saveForm();
-                    signUp();
-                    // Navigator.of(context)
-                    //     .pushReplacementNamed(WalkThroughScreen.routeName);
                   },
                   child: isLoading
                       ? CircularProgressIndicator(

@@ -78,7 +78,7 @@ class _OrderWidgetState extends State<OrderWidget> {
                                   fontWeight: FontWeight.bold, fontSize: 15.sp),
                             ),
                             Text(
-                              '${prod.quantity} x \$${prod.price}',
+                              '${prod.quantity} x ${NumberFormat().format(prod.price)}',
                               style:
                                  TextStyle(fontSize: 15.sp, color: Colors.grey),
                             ),

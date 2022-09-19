@@ -49,6 +49,13 @@ dependencies:
   build_runner: ^2.1.11
   json_annotation: ^4.5.0
   http: ^0.13.5
+  firebase_core: ^1.22.0
+  firebase_auth: ^3.8.0
+  pinput: ^2.2.12
+  flutter_countdown_timer: ^4.1.0
+  
+  http_proxy: ^1.2.0
+  
 
 dev_dependencies:
   flutter_test:

@@ -8,17 +8,17 @@ part of 'review_model.dart';
 
 ReviewModel _$ReviewModelFromJson(Map<String, dynamic> json) => ReviewModel(
       id: json['_id'] as String,
-      userId: json['userId'] as String,
+      user: json['user'] as String,
       content: json['content'] as String?,
       image: json['image'] as String?,
       rating: (json['rating'] as num?)?.toDouble() ?? 1,
-      date: DateTime.parse(json['date'] as String),
+      date: DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$ReviewModelToJson(ReviewModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'userId': instance.userId,
+      'user': instance.user,
       'content': instance.content,
       'image': instance.image,
       'rating': instance.rating,

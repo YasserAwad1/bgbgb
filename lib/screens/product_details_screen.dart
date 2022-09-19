@@ -4,19 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:kay_sy/models/product.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kay_sy/models/section_model.dart';
-import 'package:kay_sy/providers/sections_provider.dart';
+
 import 'package:kay_sy/widgets/custom_button.dart';
-import 'package:kay_sy/widgets/custom_product/custom_product_image.dart';
 import 'package:kay_sy/widgets/custom_product/custom_product_widget.dart';
 import 'package:kay_sy/widgets/review_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../providers/product_provider.dart';
 import '../providers/cart_provider.dart';
@@ -64,9 +61,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           future: Provider.of<ProductProvider>(context, listen: false)
               .getProductById(id),
           builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
             final loadedProduct = snapshot.data as Product;
             print('***************');
-            print(loadedProduct.toJson());
+            print(loadedProduct.reviews);
             int total = 0;
             if (loadedProduct.custom != null) {
               loadedProduct.custom!.chosenProducts.forEach(
@@ -497,7 +497,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ),
                     //REVIEWS
-                    loadedProduct.reviews == null
+                    loadedProduct.reviews!.isEmpty
                         ? Center(
                             child: SizedBox(
                               width: 150.w,
@@ -524,9 +524,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               //BOTTOM NAVIGATION BAR
               bottomNavigationBar: BottomAppBar(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
                     //PRICE WIDGET
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -623,12 +623,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             loadedProduct.title,
                                             loadedProduct.price,
                                             loadedProduct.imageUrls[0]);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    'Item added succesfully')));
                                       })),
                             ),
                     ),
-                  ],
-                ),
-              ),
+                  ])),
             );
           }),
     );

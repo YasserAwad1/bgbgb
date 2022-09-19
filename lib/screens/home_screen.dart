@@ -17,6 +17,7 @@ import '../screens/cart_screen.dart';
 import './add_address_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/home-screen';
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
