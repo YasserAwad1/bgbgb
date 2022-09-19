@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/models/user_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/providers/user_provider.dart';
 import 'package:kay_sy/screens/first_screen.dart';
 import 'package:kay_sy/screens/home_screen.dart';
@@ -95,8 +96,8 @@ class _LogInScreenState extends State<LogInScreen> {
                         borderSide: BorderSide(
                             color: Theme.of(context).colorScheme.secondary),
                       ),
-                      label: const Text(
-                        'Phone number',
+                      label:  Text(
+                        AppLocalizations.of(context)!.phoneNumber,
                       ),
                       prefixIcon: Icon(Icons.phone,
                           color: Theme.of(context).colorScheme.secondary),
@@ -105,9 +106,10 @@ class _LogInScreenState extends State<LogInScreen> {
                     keyboardType: TextInputType.phone,
                     validator: (val) {
                       if (val!.isEmpty) {
-                        return 'please enter your phone number';
+                        //please enter your phone number
+                        return AppLocalizations.of(context)!.pleaseEnterPhone;
                       } else if (val.length != 10) {
-                        return 'phone number must be 10 characters long';
+                        return AppLocalizations.of(context)!.phoneMustBe;
                       }
                       return null;
                     },
@@ -123,23 +125,26 @@ class _LogInScreenState extends State<LogInScreen> {
                           ? CircularProgressIndicator(
                               color: Theme.of(context).colorScheme.primary,
                             )
-                          : const Text(
-                              'login',
-                              style: TextStyle(
+                            // LOGIN
+                          : Text(
+                              AppLocalizations.of(context)!.login,
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Don\'t have an account ?'),
+                      //DONT HAVE AN ACCOUNT
+                      Text(AppLocalizations.of(context)!.dontHaveAccount),
                       TextButton(
                           onPressed: () {
                             //switchAuthMode();
                             Navigator.pushReplacementNamed(
                                 context, FirstScreen.routeName);
                           },
+                          // SIGNUP INSTEAD
                           child: Text(
-                            'Signup instead',
+                            AppLocalizations.of(context)!.signupInstead,
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary),
                           ))
@@ -178,7 +183,8 @@ class _LogInScreenState extends State<LogInScreen> {
                       borderSide: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
                     ),
-                    label: const Text('Full Name'),
+                    // FULL NAME
+                    label: Text(AppLocalizations.of(context)!.fullName),
                     prefixIcon: Icon(
                       Icons.person,
                       color: Theme.of(context).colorScheme.secondary,
@@ -187,9 +193,9 @@ class _LogInScreenState extends State<LogInScreen> {
                   textInputAction: TextInputAction.next,
                   validator: (val) {
                     if (val!.isEmpty) {
-                      return 'please enter your name';
+                      return AppLocalizations.of(context)!.enterName;
                     } else if (val.length < 3) {
-                      return 'Name must be atleast 3 characters long';
+                      return AppLocalizations.of(context)!.nameMustBe;
                     }
                     return null;
                   },
@@ -210,8 +216,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       borderSide: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
                     ),
-                    label: const Text(
-                      'Phone number',
+                    // PHONE NUMBER 
+                    label: Text(
+                      AppLocalizations.of(context)!.phoneNumber,
                     ),
                     prefixIcon: Icon(Icons.phone,
                         color: Theme.of(context).colorScheme.secondary),
@@ -220,9 +227,11 @@ class _LogInScreenState extends State<LogInScreen> {
                   keyboardType: TextInputType.phone,
                   validator: (val) {
                     if (val!.isEmpty) {
-                      return 'please enter your phone number';
+                      // PLEASE ENTER PHONE NUMBER
+                      return AppLocalizations.of(context)!.pleaseEnterPhone;
                     } else if (val.trim().length != 10) {
-                      return 'phone number must be 10 characters long';
+                      //PHNOE NUMBER MUST BE 10 .....
+                      return AppLocalizations.of(context)!.phoneMustBe;
                     }
                     return null;
                   },
@@ -239,22 +248,25 @@ class _LogInScreenState extends State<LogInScreen> {
                       ? CircularProgressIndicator(
                           color: Theme.of(context).colorScheme.primary,
                         )
-                      : const Text(
-                          'Signup',
+                        // SIGNUP 
+                      : Text(
+                          AppLocalizations.of(context)!.signUp,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                 ),
+                // Already have an account ?
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Already have an account ?'),
+                   Text(AppLocalizations.of(context)!.alreadyHaveAccount),
                     TextButton(
                         onPressed: () {
                           switchAuthMode();
                         },
+                        // LOGIN INSTEAD
                         child: Text(
-                          'Login instead',
+                          AppLocalizations.of(context)!.logInInstead,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary),
                         ))

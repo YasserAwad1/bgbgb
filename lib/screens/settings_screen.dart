@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kay_sy/config.dart';
-import 'package:kay_sy/providers/order_provider.dart';
-import 'package:kay_sy/screens/become_seller_screen.dart';
-import 'package:kay_sy/screens/edit_profile_screen.dart';
-import 'package:kay_sy/screens/locations_screen.dart';
-import 'package:kay_sy/screens/logIn_screen.dart';
-import 'package:kay_sy/screens/orders_screen.dart';
-import 'package:kay_sy/screens/walkThrough_scree.dart';
-import 'package:kay_sy/widgets/custom_listtile.dart';
-import '../my_theme.dart';
+import '../providers/language_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../screens/become_seller_screen.dart';
+import '../screens/edit_profile_screen.dart';
+import '../screens/locations_screen.dart';
+import '../screens/logIn_screen.dart';
+import '../screens/orders_screen.dart';
+import '../screens/walkThrough_scree.dart';
+import '../widgets/custom_listtile.dart';
 
 //21/6 7:00 PM
+
+// enum Languages { English, Arabic }
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -19,10 +22,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var language;
+  // var language;
+  var languages;
 
   @override
   Widget build(BuildContext context) {
+    bool isArabic = Provider.of<LanguageProvider>(context).isArabic();
+
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
@@ -46,19 +52,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Icons.person_outline_rounded,
                   size: 35,
                 ),
+                //  ACCOUNT
                 Text(
-                  ' Account',
+                  AppLocalizations.of(context)!.account,
                   style: TextStyle(
                     fontSize: 21.sp,
                     fontFamily: "AnekMalayalam",
                   ),
                 ),
                 Spacer(),
+                // LOGOUT
                 Padding(
                   padding: EdgeInsets.only(right: 7.0.w),
                   child: SizedBox(
                     height: 30.h,
-                    width: 110.w,
+                    width: isArabic ? 140.w : 110.w,
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                           primary: Theme.of(context).colorScheme.primary,
@@ -67,7 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Navigator.of(context).pushNamed(LogInScreen.routeName);
                       },
                       label: Text(
-                        'Logout',
+                        AppLocalizations.of(context)!.logout,
                         style: TextStyle(
                             fontSize: 15.sp,
                             color: Colors.white,
@@ -90,87 +98,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
             endIndent: 18.w,
             color: Theme.of(context).colorScheme.secondary,
           ),
+          //  EDIT YOUR PROFILE
           CustomListTile(
-              title: "Edit Your Profile",
+              title: AppLocalizations.of(context)!.editProfile,
               icon: Icons.person,
               onTap: () {
                 Navigator.of(context).pushNamed(EditProfileScreen.routeName);
               }),
+          //  EDIT YOUR LOCATIONS
           CustomListTile(
-              title: "Edit your locations",
+              title: AppLocalizations.of(context)!.editLocations,
               icon: Icons.location_on,
               onTap: () {
                 Navigator.pushNamed(context, LocationsScreen.routeName);
               }),
+          //   MY ORDERS
           CustomListTile(
-              title: "My Orders",
+              title: AppLocalizations.of(context)!.myOrders,
               icon: Icons.shopping_basket_rounded,
               onTap: () {
                 Navigator.of(context).pushNamed(OrdersScreen.routeName);
               }),
-          // ListTile(
-          //   horizontalTitleGap: 0.3.w,
-          //   leading: Icon(
-          //     Icons.edit,
-          //     color: Theme.of(context).colorScheme.secondary,
-          //   ),
-          //   title: Text(
-          //     'Edit your profile',
-          //     style: TextStyle(
-          //         color: Theme.of(context).colorScheme.primary,
-          //         fontWeight: FontWeight.bold),
-          //   ),
-          //   trailing: IconButton(
-          //       onPressed: () {},
-          //       icon: Icon(
-          //         Icons.arrow_forward_ios_rounded,
-          //         color: Theme.of(context).colorScheme.primary,
-          //       )),
-          // ),
-          // ListTile(
-          //   horizontalTitleGap: 0.3.w,
-          //   leading: Icon(
-          //     Icons.location_on,
-          //     color: Theme.of(context).colorScheme.secondary,
-          //   ),
-          //   title: Text(
-          //     'Edit your locations',
-          //     style: TextStyle(
-          //         color: Theme.of(context).colorScheme.primary,
-          //         fontWeight: FontWeight.bold),
-          //   ),
-          //   trailing: IconButton(
-          //     onPressed: () {},
-          //     icon: Icon(
-          //       Icons.arrow_forward_ios_rounded,
-          //       color: Theme.of(context).colorScheme.primary,
-          //     ),
-          //   ),
-          // ),
-          // ListTile(
-          //   horizontalTitleGap: 0.3.w,
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed(OrdersScreen.routeName);
-          //   },
-          //   leading: Icon(
-          //     Icons.shopping_basket_rounded,
-          //     color: Theme.of(context).colorScheme.secondary,
-          //   ),
-          //   title: Text(
-          //     'My orders',
-          //     style: TextStyle(
-          //         color: Theme.of(context).colorScheme.primary,
-          //         fontWeight: FontWeight.bold),
-          //   ),
-          //   trailing: IconButton(
-          //     onPressed: () {},
-          //     icon: Icon(
-          //       Icons.arrow_forward_ios_rounded,
-          //       color: Theme.of(context).colorScheme.primary,
-          //     ),
-          //   ),
-          // ),
-
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Center(
@@ -180,8 +128,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Navigator.of(context)
                       .pushNamed(BecomeASellerScreen.routeName);
                 },
+                // become a seller
                 label: Text(
-                  'Become a seller',
+                  AppLocalizations.of(context)!.becomeSeller,
                   style: TextStyle(fontSize: 16.sp),
                 ),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -204,8 +153,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Icons.aod_outlined,
                   size: 33,
                 ),
+                // APPLICATION
                 Text(
-                  ' Application',
+                  AppLocalizations.of(context)!.application,
                   style: TextStyle(
                     fontSize: 21.sp,
                     fontFamily: "AnekMalayalam",
@@ -222,65 +172,90 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-            child: Text(
-              'language',
-              style: TextStyle(fontSize: 18.sp),
+            // LANGUAGE
+            child: Row(
+              children: [
+                Text(
+                  '${AppLocalizations.of(context)!.language}  ',
+                  style: TextStyle(fontSize: 18.sp),
+                ),
+                Icon(Icons.language_rounded)
+              ],
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              CustomRadioButton('Arabic'),
-              CustomRadioButton('English')
+              TextButton(
+                onPressed: () {
+                  Provider.of<LanguageProvider>(context, listen: false)
+                      .changeLocale('en');
+                },
+                style: TextButton.styleFrom(
+                  // backgroundColor: isArabic
+                  //     ? Theme.of(context).colorScheme.primary
+                  //     : Theme.of(context).colorScheme.secondary,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: 2.w,
+                      color: isArabic
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary,
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child: const Text(
+                  'English',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Provider.of<LanguageProvider>(context, listen: false)
+                      .changeLocale('ar');
+                },
+                style: TextButton.styleFrom(
+                  // backgroundColor: isArabic
+                  //     ? Theme.of(context).colorScheme.secondary
+                  //     : Theme.of(context).colorScheme.primary,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      width: 2.w,
+                      color: isArabic
+                          ? Theme.of(context).colorScheme.secondary
+                          : Theme.of(context).colorScheme.primary,
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child:
+                    const Text('Arabic', style: TextStyle(color: Colors.black)),
+              )
             ],
           ),
-          // Row(
-          //   children: [
-          //     Padding(
-          //       padding:
-          //           const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-          //       child: Text(
-          //         'Dark Mode',
-          //         style: TextStyle(fontSize: 18.sp),
-          //       ),
-          //     ),
-          //     IconButton(
-          //         onPressed: () {
-          //           currentTheme.switchTheme();
-          //         },
-          //         icon: Icon(Icons.dark_mode))
-          //   ],
-          // ),
         ]),
       ),
     ));
   }
 
-  Row CustomRadioButton(String text) {
-    return Row(
-      children: [
-        Radio(
-          activeColor: Theme.of(context).colorScheme.secondary,
-          groupValue: language,
-          onChanged: (value) {
-            setState(() {
-              language = value;
-            });
-          },
-          value: text,
-        ),
-        Text(text)
-      ],
-    );
-  }
+  // Row CustomRadioButton(String text, String local, Languages lang) {
+  //   return Row(
+  //     children: [
+  //       Radio<Languages>(
+  //         activeColor: Theme.of(context).colorScheme.secondary,
+  //         groupValue: languages,
+  //         onChanged: (Languages? val) {
+  //           Provider.of<LanguageProvider>(context, listen: false)
+  //               .changeLocale(local);
+  //           setState(() {
+  //             languages = lang;
+  //           });
+  //         },
+  //         value: lang,
+  //       ),
+  //       Text(text)
+  //     ],
+  //   );
+  // }
 }
-// IconButton(
-                //     onPressed: () {
-                //       // translator.setNewLanguage(context,
-                //       //     newLanguage: translator.activeLanguageCode == 'ar'
-                //       //         ? 'en'
-                //       //         : 'ar',
-                //       //     remember: true,
-                //       //     restart: true);
-                //     },
-                //     icon: Icon(Icons.language)),

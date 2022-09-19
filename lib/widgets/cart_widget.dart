@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
@@ -70,7 +71,8 @@ class _CartWidgetState extends State<CartWidget> {
                           TextStyle(color: Colors.grey[600], fontSize: 12.sp),
                       children: [
                         TextSpan(
-                          text: ' SYP',
+                          // SYP
+                          text: ' ${AppLocalizations.of(context)!.currency}',
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: 12,
@@ -84,7 +86,7 @@ class _CartWidgetState extends State<CartWidget> {
                   //total
                   RichText(
                     text: TextSpan(
-                      text: 'Total: ',
+                      text: '${AppLocalizations.of(context)!.total}: ',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 15.sp,
@@ -98,7 +100,8 @@ class _CartWidgetState extends State<CartWidget> {
                                 color:
                                     Theme.of(context).colorScheme.secondary)),
                         TextSpan(
-                          text: ' SYP',
+                          // syp 
+                          text: ' ${AppLocalizations.of(context)!.currency}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontSize: 12,

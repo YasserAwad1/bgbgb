@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:kay_sy/providers/order_provider.dart';
 import 'package:kay_sy/screens/add_address_screen.dart';
 import 'package:kay_sy/screens/first_screen.dart';
-import 'package:kay_sy/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import '../models/address_model.dart';
 
@@ -63,8 +64,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   const SizedBox(
                     width: 100,
                   ),
+                  // YOUR ORDER
                   Text(
-                    'Your order',
+                    AppLocalizations.of(context)!.yourOrder,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
                   ),
@@ -98,7 +100,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                             trailing: Column(
                               children: [
-                                Text('Total:',
+                                Text(AppLocalizations.of(context)!.total,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)
@@ -141,8 +143,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         RichText(
+                          // CART TOTAL
                           text: TextSpan(
-                              text: 'Cart Total: ',
+                              text: '${AppLocalizations.of(context)!.cartTotal}: ',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color:
@@ -155,8 +158,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary)),
+                                // SYP
                                 TextSpan(
-                                    text: ' SYP',
+                                    text:
+                                        ' ${AppLocalizations.of(context)!.currency}',
                                     style: TextStyle(
                                         fontSize: 11.sp,
                                         fontWeight: FontWeight.bold,
@@ -168,9 +173,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         const Divider(
                           thickness: 1,
                         ),
+                        //DISCOUNT
                         RichText(
                           text: TextSpan(
-                              text: 'Discount: ',
+                              text: AppLocalizations.of(context)!.discount,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color:
@@ -184,7 +190,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             .colorScheme
                                             .primary)),
                                 TextSpan(
-                                    text: ' SYP',
+                                    text:
+                                        ' ${AppLocalizations.of(context)!.currency}',
                                     style: TextStyle(
                                         fontSize: 11.sp,
                                         fontWeight: FontWeight.bold,
@@ -197,7 +204,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           thickness: 1,
                         ),
                         Text(
-                          'Shipping: ',
+                          AppLocalizations.of(context)!.shipping,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).colorScheme.secondary),
@@ -211,7 +218,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         RichText(
                           text: TextSpan(
-                              text: 'Total: ',
+                              text: AppLocalizations.of(context)!.totalPrice,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color:
@@ -225,7 +232,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             .colorScheme
                                             .primary)),
                                 TextSpan(
-                                    text: ' SYP',
+                                    text:
+                                        ' ${AppLocalizations.of(context)!.currency}',
                                     style: TextStyle(
                                         fontSize: 11.sp,
                                         fontWeight: FontWeight.bold,
@@ -305,10 +313,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         Navigator.of(context)
                                             .pushReplacementNamed(
                                                 FirstScreen.routeName);
-                                        SnackBar(content: Text('your order has been submitted'));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(AppLocalizations.of(context)!.orderSubmitted),
+                                          duration: const Duration(seconds: 5),
+                                        ));
                                       },
                                       child: Text(
-                                        'Submit',
+                                        AppLocalizations.of(context)!.submit,
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .colorScheme
@@ -330,7 +342,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                             left: 8.sp,
                                                             top: 5.sp),
                                                     title: Text(
-                                                      'choose an address: ',
+                                                      // CHOOSE AN ADDRESS
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .chooseAddress,
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -355,7 +370,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                 changeLocation(
                                                                     addressList[
                                                                         i]);
-                                                                Navigator.of(context).pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
                                                               },
                                                               child: Card(
                                                                   child: Column(
@@ -368,12 +385,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                 children: [
                                                                   RichText(
                                                                     text: TextSpan(
-                                                                        text:
-                                                                            'Street: ',
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: Theme.of(context).colorScheme.secondary),
+                                                                        // STREET
+                                                                        text: AppLocalizations.of(context)!.street,
+                                                                        style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.secondary),
                                                                         children: [
                                                                           TextSpan(
                                                                               text: addressList[i].street,
@@ -381,9 +395,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                         ]),
                                                                   ),
                                                                   RichText(
+                                                                    // BUILDING NUMBER
                                                                     text: TextSpan(
-                                                                        text:
-                                                                            'Building number: ',
+                                                                        text: AppLocalizations.of(context)!
+                                                                            .bn,
                                                                         style: TextStyle(
                                                                             fontWeight:
                                                                                 FontWeight.bold,
@@ -395,9 +410,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                         ]),
                                                                   ),
                                                                   RichText(
+                                                                    // FLOOR
                                                                     text: TextSpan(
-                                                                        text:
-                                                                            'Floor: ',
+                                                                        text: AppLocalizations.of(context)!
+                                                                            .floor,
                                                                         style: TextStyle(
                                                                             fontWeight:
                                                                                 FontWeight.bold,
@@ -409,9 +425,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                         ]),
                                                                   ),
                                                                   RichText(
+                                                                    // DETAILS
                                                                     text: TextSpan(
-                                                                        text:
-                                                                            'Description: ',
+                                                                        text: AppLocalizations.of(context)!
+                                                                            .details,
                                                                         style: TextStyle(
                                                                             fontWeight:
                                                                                 FontWeight.bold,
@@ -430,32 +447,39 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                       ),
                                                     ]));
                                       },
-                                      child: const Text(
-                                        'Change location',
-                                        style: TextStyle(color: Colors.grey),
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .changeLocation,
+                                        style:
+                                            const TextStyle(color: Colors.grey),
                                       )),
                                   TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
-                                      child: const Text('Cancel'))
+                                      child: Text(
+                                          AppLocalizations.of(context)!.cancel))
                                 ],
-                                title: const Text(
-                                  'Are you sure you want to submit this order ?',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                title: Text(
+                                  // ARE YOU SURE YOU WANT TO SUBMIT THIS ORDER
+                                  AppLocalizations.of(context)!.submitOrder,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 content: SizedBox(
-                                  height: 120.h,
+                                  height: 140.h,
                                   width: 400.w,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      // YOUR TOTAL IS, IT WILL BE SHIPPED TO THE FOLLOWING ADDRESS
                                       Text(
-                                          'Your total is ${NumberFormat().format(cart.cartTotal)}, it will be shipped to the following address:'),
+                                          '${AppLocalizations.of(context)!.yourTotalIs} ${NumberFormat().format(cart.cartTotal)}, ${AppLocalizations.of(context)!.itWill}'),
                                       RichText(
                                         text: TextSpan(
-                                            text: 'Street: ',
+                                            text: AppLocalizations.of(context)!
+                                                .street,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -463,8 +487,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                     .secondary),
                                             children: [
                                               TextSpan(
-                                                  text:
-                                                      firstLocation.street,
+                                                  text: firstLocation.street,
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.normal,
@@ -475,7 +498,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                       RichText(
                                         text: TextSpan(
-                                            text: 'Building number: ',
+                                            // BUILDING NUMBER
+                                            text: AppLocalizations.of(context)!
+                                                .bn,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -483,7 +508,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                     .secondary),
                                             children: [
                                               TextSpan(
-                                                  text: firstLocation.buildingNumber,
+                                                  text: firstLocation
+                                                      .buildingNumber,
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.normal,
@@ -494,7 +520,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                       RichText(
                                         text: TextSpan(
-                                            text: 'Floor: ',
+                                            // FLOOR
+                                            text: AppLocalizations.of(context)!
+                                                .floor,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -513,7 +541,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                       RichText(
                                         text: TextSpan(
-                                            text: 'Description: ',
+                                            // details
+                                            text: AppLocalizations.of(context)!
+                                                .details,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -521,7 +551,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                     .secondary),
                                             children: [
                                               TextSpan(
-                                                  text: firstLocation.description,
+                                                  text:
+                                                      firstLocation.description,
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.normal,
@@ -537,7 +568,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 },
                 child: Center(
                   child: Text(
-                    'Order Now',
+                    AppLocalizations.of(context)!.orderNow,
                     style: TextStyle(
                       fontSize: 20.sp,
                       color: Colors.black,

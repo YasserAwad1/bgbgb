@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../widgets/badge.dart';
 import 'package:kay_sy/widgets/search_bar.dart';
@@ -22,9 +23,10 @@ class SearchScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // WHAT ARE YOU LOOKING FOR 
               Text(
-                'what are you looking for ?',
-                style: TextStyle(fontFamily: 'AnekMalayalam', fontSize: 25.sp),
+                AppLocalizations.of(context)!.searchqu,
+                style: TextStyle(fontFamily: 'AnekMalayalam', fontSize: 25.sp, color: Theme.of(context).colorScheme.primary),
               ),
               Consumer<CartProvider>(
                 builder: (_, cart, ch) => Badge(

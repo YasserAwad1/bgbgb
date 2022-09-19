@@ -1,13 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kay_sy/l10n/l10n.dart';
 import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/cart_provider.dart';
+import 'package:kay_sy/providers/language_provider.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
 import 'package:kay_sy/widgets/search_bar.dart';
 import 'package:kay_sy/widgets/section_widget.dart';
 import 'package:kay_sy/widgets/popular_product_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/badge.dart';
 import '../models/address_model.dart';
 
@@ -30,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final productProvider = Provider.of<ProductProvider>(context);
     var addressProvider = Provider.of<AddressProvider>(context);
     var addressList = addressProvider.addresses;
+    bool isArabic = Provider.of<LanguageProvider>(context).isArabic();
 
     // var selectedLocation = addressList.first;
 
@@ -61,21 +65,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 250.h,
                                 child: Column(children: [
                                   Text(
-                                    'Your Addresses',
+                                    AppLocalizations.of(context)!
+                                        .your_addresses,
                                     style: TextStyle(
                                         fontSize: 20.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   addressList.isEmpty
                                       ? SizedBox(
-                                          height: 220.h,
+                                          height: 200.h,
                                           child: Center(
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
+                                                // NO ADDRESSES YET
                                                 Text(
-                                                  'No addresses yet',
+                                                  AppLocalizations
+                                                                  .of(context)!.noAddress,
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'AnekMalayalam',
@@ -106,11 +113,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   .secondary,
                                                         ),
                                                         Text(
-                                                          ' Add address',
+                                                          // ADD ADDRESS
+                                                          AppLocalizations
+                                                                  .of(context)!.addAddress,
                                                           style: TextStyle(
                                                               fontFamily:
                                                                   'AnekMalayalam',
-                                                              fontSize: 15.sp),
+                                                              fontSize: 15.sp.sp),
                                                         )
                                                       ],
                                                     ))
@@ -131,17 +140,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                               },
                                               child: Padding(
                                                 padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 15,
-                                                        vertical: 4),
+                                                     EdgeInsets.symmetric(
+                                                        horizontal: 15.h,
+                                                        vertical: 4.w),
                                                 child: Card(
                                                     child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
+                                                    //    STREET
                                                     RichText(
                                                       text: TextSpan(
-                                                          text: 'Street: ',
+                                                          text: AppLocalizations
+                                                                  .of(context)!
+                                                              .street,
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -166,10 +178,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .primary)),
                                                           ]),
                                                     ),
+                                                    //    BUILDING NUMBER
                                                     RichText(
                                                       text: TextSpan(
-                                                          text:
-                                                              'Building number: ',
+                                                          text: AppLocalizations
+                                                                  .of(context)!
+                                                              .bn,
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -193,9 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .primary)),
                                                           ]),
                                                     ),
+                                                    //     FLOOR
                                                     RichText(
                                                       text: TextSpan(
-                                                          text: 'Floor: ',
+                                                          text: AppLocalizations
+                                                                  .of(context)!
+                                                              .floor,
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -220,9 +237,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .primary)),
                                                           ]),
                                                     ),
+                                                    //     DETAILS 
                                                     RichText(
                                                       text: TextSpan(
-                                                          text: 'Description: ',
+                                                          text: AppLocalizations
+                                                                  .of(context)!
+                                                              .details,
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -260,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         title: Text(
-                          'Deliver to',
+                          AppLocalizations.of(context)!.delivery,
                           style: TextStyle(
                               fontSize: 14.sp,
                               color: Theme.of(context).colorScheme.secondary,
@@ -272,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style:
                               TextStyle(fontSize: 14.sp, color: Colors.black),
                         ),
-                        trailing: Icon(Icons.expand_more_rounded),
+                        trailing: const Icon(Icons.expand_more_rounded),
                       ),
                     ),
                     Consumer<CartProvider>(
@@ -296,21 +316,28 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 10.h,
               ),
+              //   TRENDING
               Align(
-                alignment: const Alignment(-1, 1),
+                alignment:
+                    isArabic ? const Alignment(1, -1) : const Alignment(-1, 1),
                 child: Container(
+                  width: isArabic ? 100.w : 90.w,
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        bottomRight: Radius.circular(15),
+                      borderRadius: BorderRadius.only(
+                        topRight: isArabic ? Radius.zero : Radius.circular(15.sp),
+                        bottomRight:
+                            isArabic ? Radius.zero : Radius.circular(15.sp),
+                        topLeft: isArabic ? Radius.circular(15.sp) : Radius.zero,
+                        bottomLeft:
+                            isArabic ? Radius.circular(15.sp) : Radius.zero,
                       )),
                   child: Text(
-                    "Trending ",
+                    AppLocalizations.of(context)!.trending,
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15.sp,
+                        fontSize: 15.sp.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -341,23 +368,26 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20.h,
               ),
+              //   SECTIONS
               Align(
-                alignment: Alignment.topLeft,
+                alignment: isArabic ? const Alignment(1, -1) : const Alignment(-1, 1),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
+                    borderRadius: BorderRadius.only(
+                      topRight: isArabic ? Radius.zero :  Radius.circular(15.sp.sp),
+                      bottomRight: isArabic ? Radius.zero : Radius.circular(15.sp.sp),
+                      topLeft: isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
+                      bottomLeft: isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
                     ),
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   padding: EdgeInsets.all(10.w),
                   child: Text(
-                    "Sections ",
+                    AppLocalizations.of(context)!.sections,
                     style: TextStyle(
                         fontFamily: 'AnekMalayalam',
                         color: Colors.white,
-                        fontSize: 15.sp,
+                        fontSize: 15.sp.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

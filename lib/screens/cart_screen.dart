@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/providers/language_provider.dart';
 import 'package:kay_sy/screens/checkOut_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../providers/cart_provider.dart';
 import '../widgets/cart_widget.dart';
@@ -13,6 +15,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
+    bool isArabic = Provider.of<LanguageProvider>(context).isArabic();
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -25,7 +28,7 @@ class CartScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                    icon: Icon(isArabic ? Icons.arrow_back_ios_outlined : Icons.arrow_back_ios_new_rounded),
                   ),
                   const SizedBox(
                     width: 100,
@@ -33,12 +36,13 @@ class CartScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text(
-                        'Your Cart',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      // YOUR CART 
+                       Text(
+                        AppLocalizations.of(context)!.yourCart,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '${cartProvider.itemCount} Items',
+                        '${cartProvider.itemCount} ${AppLocalizations.of(context)!.items}',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary),
                       ),
@@ -76,8 +80,9 @@ class CartScreen extends StatelessWidget {
                 child: FittedBox(
                   child: Column(
                     children: [
+                      // TOTAL
                       Text(
-                        'Total:',
+                        AppLocalizations.of(context)!.total,
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
                             fontFamily: 'AnekMalayalam',
@@ -93,8 +98,9 @@ class CartScreen extends StatelessWidget {
                               fontFamily: 'AnekMalayalam',
                               fontWeight: FontWeight.bold),
                           children: [
+                            // SYP
                             TextSpan(
-                              text: 'SYP',
+                              text: ' ${AppLocalizations.of(context)!.currency}',
                               style: TextStyle(
                                 fontSize: 13,
                                 color: Theme.of(context).colorScheme.secondary,
@@ -121,18 +127,21 @@ class CartScreen extends StatelessWidget {
                         backgroundColor: Theme.of(context).colorScheme.primary,
                       ),
                       onPressed: () {
+                        // YOUR CART IS EMPTY 
                         cartProvider.items.isEmpty
                             ? ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(
-                                content: const Text('Your cart is empty !'),
+                                  duration: Duration(seconds: 1),
+                                content: Text(AppLocalizations.of(context)!.emptyCart),
                                 backgroundColor: Theme.of(context).errorColor,
                               ))
                             : Navigator.of(context)
                                 .pushNamed(CheckOutScreen.routeName);
                       },
+                      // CHECKOUT 
                       child: Center(
                         child: Text(
-                          'CheckOut',
+                          AppLocalizations.of(context)!.checkout,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: Colors.white,

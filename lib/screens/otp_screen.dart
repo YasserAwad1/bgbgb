@@ -11,6 +11,8 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:pinput/pinput.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../l10n/l10n.dart';
+
 class OTPScreen extends StatefulWidget {
   // static const routeName = '/otp-screen';
   final String phone;

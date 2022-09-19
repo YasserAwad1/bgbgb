@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:kay_sy/models/product.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
 
+import '../providers/language_provider.dart';
 import '../providers/product_provider.dart';
 import '../providers/cart_provider.dart';
 import '../widgets/rating_star_widget.dart';
@@ -55,6 +55,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final id = ModalRoute.of(context)!.settings.arguments as String;
 
     final cartProvider = Provider.of<CartProvider>(context);
+    bool isArabic = Provider.of<LanguageProvider>(context).isArabic();
 
     return SafeArea(
       child: FutureBuilder(

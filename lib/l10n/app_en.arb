@@ -1,0 +1,415 @@
+{
+  "welcomeText" : "Hi welcome",
+  "@welcomeText" :{
+      "description": "this is a welcome text"
+  },
+  "home" : "Home",
+  "@home" :{
+      "description": "for home screen"
+  },
+  "search" : "Search",
+  "@search" :{
+      "description": "none"
+  },
+  "favorites" : "Favorites",
+  "@favorites" :{
+      "description": "none"
+  },
+  "settings" : "Settings",
+  "@settings" :{
+      "description": "none"
+  },
+  "delivery" : "Derilver to",
+  "@delivery" :{
+      "description": "none"
+  },
+  "city" : "City",
+  "@city" :{
+      "description": "none"
+  },
+  "street" : "Street: ",
+  "@street" :{
+      "description": "none"
+  },
+  "bn" : "Building Number: ",
+  "@bn" :{
+      "description": "none"
+  },
+  "floor" : "Floor: ",
+  "@floor" :{
+      "description": "none"
+  },
+  "details" : "Details: ",
+  "@details" :{
+      "description": "none"
+  },
+  "your_addresses" : "Your Addresses",
+  "@your addresses" :{
+      "description": "none"
+  },
+  "trending" : "Trending",
+  "@trending" :{
+      "description": "none"
+  },
+  "sections" : "Sections",
+  "@sections" :{
+      "description": "none"
+  },
+  "searchqu" : "What are you looking for ?",
+  "@searchqu" :{
+      "description": "none"
+  },
+  "yourfav" : "Your favorites",
+  "@yourfav" :{
+      "description": "none"
+  },
+  "no_favs" : "No favorites yet, start adding some !",
+  "@no_favs" :{
+      "description": "none"
+  },
+  "account" : "Account",
+  "@account" :{
+      "description": "none"
+  },
+  "editProfile" : "Edit your profile",
+  "@editProfile" :{
+      "description": "none"
+  },
+  "editLocations" : "Edit your locations",
+  "@editLocations" :{
+      "description": "none"
+  },
+  "myOrders" : "My orders",
+  "@myOrders" :{
+      "description": "none"
+  },
+  "becomeSeller" : "Become a seller",
+  "@becomeSeller" :{
+      "description": "none"
+  },
+  "application" : "Application",
+  "@app" :{
+      "description": "none"
+  },
+  "language" : "Language",
+  "@language" :{
+      "description": "none"
+  },
+  "arabic" : "Arabic",
+  "@arabic" :{
+      "description": "none"
+  },
+  "english" : "English",
+  "@english" :{
+      "description": "none"
+  },
+  "logout" : "Logout",
+  "@logout" :{
+      "description": "none"
+  },
+  "yourCart" : "Your cart",
+  "@yourCart" :{
+      "description": "none"
+  },
+  "items" : "Items",
+  "@items" :{
+      "description": "none"
+  },
+  "checkout" : "Check out",
+  "@checkout" :{
+      "description": "none"
+  },
+  "total" : "Total:",
+  "@total" :{
+      "description": "none"
+  },
+  "emptyCart" : "Your cart is empty !",
+  "@emptyCart" :{
+      "description": "none"
+  },
+  "currency" : "SYP",
+  "@currency" :{
+      "description": "none"
+  },
+  "sellerTopic" : "Are you a tradesman ? Or have products that you want to display in our store ? Becoming a seller in KAY is that right place.\nTerms of becoming a seller:",
+  "@sellerTopic" :{
+      "description": "none"
+  },
+  "terms" : "terms of becoming a seller",
+  "@terms" :{
+      "description": "none"
+  },
+  "term1" : "Becoming a seller is a monthly plan payment of 40,000 syp.",
+  "@term1" :{
+      "description": "none"
+  },
+  "term2" : "We require a valid phone number so we can contact you.",
+  "@term2" :{
+      "description": "none"
+  },
+  "term3" : "When you apply, we will contact you for to set up a meeting so you can sign some papers, and payment will be made then.",
+  "@term3" :{
+      "description": "none"
+  },
+  "term4" : "If your product is sold, we will be responsible for the shipping, you just display them and we'll take care of the rest.",
+  "@term4" :{
+      "description": "none"
+  },
+  "term5" : "Not all products are accepted. When you display a product, we will accept it or deny it.",
+  "@term5" :{
+      "description": "none"
+  },
+  "term6" : "Only new and sealed products are allowed, used products will be denied immediately.",
+  "@term6" :{
+      "description": "none"
+  },
+  "term7" : "Products shouldn't be very large in size.(maximum 1 meter in height, 0.5 meters in width).",
+  "@term7" :{
+      "description": "none"
+  },
+  "term8" : "All products should have a clear photo, with a nice background (white or grey is preferred).",
+  "@term8" :{
+      "description": "none"
+  },
+  "term9" : "Price should be in syrian pounds (syp).",
+  "@term9" :{
+      "description": "none"
+  },
+  "agreeToTerms" : "I have read the terms and I agree",
+  "@agreeToTerms" :{
+      "description": "none"
+  },
+  "next" : "Next",
+  "@next" :{
+      "description": "none"
+  },
+  "yourOrder" : "Your order",
+  "@yourOrder" :{
+      "description": "none"
+  },
+  "cartTotal" : "Cart Total: ",
+  "@cartTotal" :{
+      "description": "none"
+  },
+  "discount" : "Discount",
+  "@discount" :{
+      "description": "none"
+  },
+  "shipping" : "Shipping",
+  "@shipping" :{
+      "description": "none"
+  },
+  "totalPrice" : "Total",
+  "@totalPrice" :{
+      "description": "none"
+  },
+  "orderNow" : "Order Now",
+  "@orderNow" :{
+      "description": "none"
+  },
+  "submitOrder" : "Are you sure you want to submit this order ?",
+  "@submitOrder" :{
+      "description": "alert dialog after order now in checkout screen"
+  },
+  "yourTotalIs" : "Your total is ",
+  "@yourTotalIs" :{
+      "description": "none"
+  },
+  "itWill" : "it will be shipped to the following address: ",
+  "@itWill" :{
+      "description": "none"
+  },
+  "cancel" : "cancel",
+  "@cancel" :{
+      "description": "none"
+  },
+  "changeLocation" : "Change location",
+  "@changeLocation" :{
+      "description": "none"
+  },
+  "submit" : "submit",
+  "@submit" :{
+      "description": "none"
+  },
+  "chooseAddress" : "Choose an address",
+  "@chooseAddress" :{
+      "description": "none"
+  },
+  "orderSubmitted" : "Your order has been submitted, you can check it's state in Settings>My orders",
+  "@orderSubmitted" :{
+      "description": "none"
+  },
+   "noAddress" : "No addresses yet",
+  "@noAddress" :{
+      "description": "none"
+  },
+  "addAddress" : "Add address",
+  "@addAddress" :{
+      "description": "none"
+  },
+  "itemAdded" : "item Added succesfully",
+  "@itemAdded" :{
+      "description": "none"
+  },
+  "addToCart" : "Add to cart",
+  "@addToCart" :{
+      "description": "none"
+  },
+  "information" : "Information",
+  "@information" :{
+      "description": "none"
+  },
+  "reviews" : "Reviews",
+  "@reviews" :{
+      "description": "none"
+  },
+  "addReview" : "Add a review",
+  "@addReview" :{
+      "description": "none"
+  },
+  "rating" : "Rating",
+  "@rating" :{
+      "description": "none"
+  },
+  "comment" : "Comment",
+  "@comment" :{
+      "description": "none"
+  },
+  "postReview" : "Post review",
+  "@postReview" :{
+      "description": "none"
+  },
+  "addPhoto" : "Add photo",
+  "@addPhoto" :{
+      "description": "none"
+  },
+  "noImage" : "No image",
+  "@noImage" :{
+      "description": "none"
+  },
+  "noReviews" : "no reviews for this product",
+  "@noReviews" :{
+      "description": "none"
+  },
+  "camera" : "Camera",
+  "@camera" :{
+      "description": "none"
+  },
+  "galley" : "Gallery",
+  "@gallery" :{
+      "description": "none"
+  },
+  "fullName" : "Full Name",
+  "@fullName" :{
+      "description": "none"
+  },
+  "phoneNumber" : "Phone Number",
+  "@phoneNumber" :{
+      "description": "none"
+  },
+  "signUp" : "Signup",
+  "@signUp" :{
+      "description": "none"
+  },
+  "login" : "Login",
+  "@login" :{
+      "description": "none"
+  },
+  "alreadyHaveAccount" : "Already have an account ?",
+  "@alreadyHaveAccount" :{
+      "description": "none"
+  },
+  "dontHaveAccount" : "Don't have an account",
+  "@dontHaveAccount" :{
+      "description": "none"
+  },
+  "logInInstead" : "Login instead",
+  "@logInInstead" :{
+      "description": "none"
+  },
+  "signupInstead" : "Signup instead",
+  "@signupInstead" :{
+      "description": "none"
+  },
+  "enterName" : "Please enter your name",
+  "@enterName" :{
+      "description": "none"
+  },
+  "pleaseEnterPhone" : "Please enter your phone number",
+  "@pleaseEnterPhone" :{
+      "description": "none"
+  },
+  "nameMustBe" : "Name must be atleast 3 characters long",
+  "@nameMustBe" :{
+      "description": "none"
+  },
+  "phoneMustBe" : "Phone number must be 10 characters long",
+  "@phoneMustBe" :{
+      "description": "none"
+  },
+  "save" : "Save",
+  "@save" :{
+      "description": "none"
+  },
+  "noLocations" : "No locations yet, add one now",
+  "@noLocations" :{
+      "description": "none"
+  },
+  "addNewAddress" : "Add a new address",
+  "@addNewAddress" :{
+      "description": "none"
+  },
+  "pleaseAddStreet" : "Please add a street",
+  "@pleaseAddStreet" :{
+      "description": "none"
+  },
+  "pleaseAddBn" : "Please add a building number",
+  "@pleaseAddBn" :{
+      "description": "none"
+  },
+  "pleaseAddFloor" : "Please add a floor number",
+  "@pleaseAddFloor" :{
+      "description": "none"
+  },
+  "pleaseAddDetails" : "Please add details",
+  "@pleaseAddDetails" :{
+      "description": "none"
+  },
+  "noOrders" : "No orders yet, start shopping now !",
+  "@NoOrders" :{
+      "description": "none"
+  },
+  "goToShop" : "Go to shop",
+  "@goToShop" :{
+      "description": "none"
+  },
+  "contactNumber" : "Contact number",
+  "@contactNumber" :{
+      "description": "none"
+  },
+  "sellerLastLine" : "We will contact to set up a meeting so you can sign some papers, the contact number you entered must be valid",
+  "@sellerLastLine" :{
+      "description": "none"
+  },
+  "sureToCancel" : "Are you sure you want to cancel ?",
+  "@sureToCancel" :{
+      "description": "none"
+  },
+  "yes" : "Yes",
+  "@yes" :{
+      "description": "none"
+  },
+  "no" : "No",
+  "@no" :{
+      "description": "none"
+  },
+  "skip" : "Skip",
+  "@skip" :{
+      "description": "none"
+  },
+  "startShoping" : "Start Shopping",
+  "@startShoping" :{
+      "description": "none"
+  }
+
+}

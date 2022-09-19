@@ -5,7 +5,7 @@ import 'package:kay_sy/providers/product_provider.dart';
 import 'package:kay_sy/widgets/circle_container.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/product_details_screen.dart';
+import '../screens/product_details_screen.dart' as details;
 import '../models/product.dart';
 import '../providers/cart_provider.dart';
 
@@ -38,7 +38,7 @@ class _PopularProductWidgetState extends State<PopularProductWidget> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(ProductDetailsScreen.routeName, arguments: {
+            .pushNamed(details.ProductDetailsScreen.routeName, arguments: {
           'productId': widget.id,
           'productName': widget.title,
         });

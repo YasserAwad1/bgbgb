@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kay_sy/screens/first_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import 'package:kay_sy/screens/first_screen.dart';
 
 class WalkThroughScreen extends StatefulWidget {
   static const routeName = '/walkthrough-screen';
@@ -35,7 +37,27 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
           },
           children: [
             Container(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Fast shipping option',
+                      style: TextStyle(
+                          fontSize: 45.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.secondary),
+                    ),
+                    Image.asset('images/delivery-removebg-preview.png'),
+                    Text(
+                      'Get your order on the same day or within 24 hours',
+                      style: TextStyle(
+                          fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
             ),
             Container(
               color: Colors.amber,
@@ -59,7 +81,8 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                       .pushReplacementNamed(FirstScreen.routeName);
                 },
                 child: Text(
-                  'Start shopping!',
+                  // START SHOPPING
+                  AppLocalizations.of(context)!.startShoping,
                   style: TextStyle(fontSize: 20.sp),
                 ),
               ),
@@ -67,24 +90,28 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
           : Container(
               // decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(90))),
               height: 60.h,
+              color: Theme.of(context).colorScheme.secondary,
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
                         onPressed: () => controller.jumpToPage(2),
                         child: Text(
-                          'Skip',
+                          // SKIP
+                          AppLocalizations.of(context)!.skip,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.sp),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.sp,
+                              color: Colors.white),
                         )),
                     Center(
                       child: SmoothPageIndicator(
                         controller: controller,
                         count: 3,
                         effect: WormEffect(
+                          dotColor: Colors.white,
                           spacing: 10,
-                          activeDotColor:
-                              Theme.of(context).colorScheme.secondary,
+                          activeDotColor: Colors.black,
                         ),
                         onDotClicked: (index) => controller.animateToPage(
                           index,
@@ -98,9 +125,12 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeInOut),
                         child: Text(
-                          'Next',
+                          //  NEXT
+                          AppLocalizations.of(context)!.next,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.sp),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.sp,
+                              color: Colors.white),
                         )),
                   ]),
             ),

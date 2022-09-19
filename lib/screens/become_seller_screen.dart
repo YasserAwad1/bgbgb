@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/providers/language_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/screens/become_a_seller_form_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BecomeASellerScreen extends StatefulWidget {
   static const routeName = '/become-a-seller';
@@ -11,9 +14,11 @@ class BecomeASellerScreen extends StatefulWidget {
 
 class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
   bool agree = false;
+ 
 
   @override
   Widget build(BuildContext context) {
+     bool isArabic = Provider.of<LanguageProvider>(context).isArabic();
     return SafeArea(
         child: Scaffold(
             body: SingleChildScrollView(
@@ -35,14 +40,15 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: const Icon(
+                    icon:  Icon( isArabic ? Icons.arrow_back_ios_new_outlined :
                       Icons.arrow_back_ios_new_rounded,
                     ),
                   ),
                 ),
                 Spacer(),
-                const Text(
-                  'Become a seller',
+                //BECOME A SELLER 
+                 Text(
+                  AppLocalizations.of(context)!.becomeSeller,
                   style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
@@ -58,7 +64,7 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
-                    'Are you a tradesman ? Or have products that you want to display in our store ? Becoming a seller in KAY is that right place.\nTerms of becoming a seller:',
+                    '${AppLocalizations.of(context)!.sellerTopic}\n${AppLocalizations.of(context)!.terms}',
                     softWrap: true,
                     maxLines: 9,
                     overflow: TextOverflow.visible,
@@ -72,46 +78,46 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
             ),
             SizedBox(height: 5.h),
             CustomRichText(context, '1-',
-                'Becoming a seller is a monthly plan payment of 40,000 syp.'),
+                AppLocalizations.of(context)!.term1),
             SizedBox(
               height: 6.h,
             ),
-            CustomRichText(context, '2-', 'We require a photo of your id.'),
+            CustomRichText(context, '2-', AppLocalizations.of(context)!.term2),
             SizedBox(
               height: 6.h,
             ),
             CustomRichText(context, '3-',
-                'When you are accepted, we will contact you for signing some papers, and payment will be made then.'),
+                AppLocalizations.of(context)!.term3),
             SizedBox(
               height: 6.h,
             ),
             CustomRichText(context, '4-',
-                'If your product is sold, we will be responsible for the shipping, you just display them and we\'ll take care of the rest.'),
+                AppLocalizations.of(context)!.term4),
             SizedBox(
               height: 6.h,
             ),
             CustomRichText(context, '5-',
-                'Not all products are accepted. When you display a product, we will accept it or deny it.'),
+                AppLocalizations.of(context)!.term5),
             SizedBox(
               height: 6.h,
             ),
             CustomRichText(context, '6-',
-                'Only new and sealed products are allowed, used products will be denied immediately.'),
+                AppLocalizations.of(context)!.term6),
             SizedBox(
               height: 6.h,
             ),
             CustomRichText(context, '7-',
-                'Products shouldn\'t be very large in size.(maximum 1 meter in height, 0.5 meters in width).'),
+                AppLocalizations.of(context)!.term7),
             SizedBox(
               height: 6.h,
             ),
             CustomRichText(context, '8-',
-                'All products should have a clear photo, with a nice background (white or grey is preferred).'),
+                AppLocalizations.of(context)!.term8),
             SizedBox(
               height: 6.h,
             ),
             CustomRichText(
-                context, '9-', 'Price should be in syrian pounds (syp).'),
+                context, '9-', AppLocalizations.of(context)!.term9),
             Divider(
               color: Theme.of(context).colorScheme.secondary,
               thickness: 1,
@@ -119,7 +125,7 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
             CheckboxListTile(
               activeColor: Theme.of(context).colorScheme.secondary,
               title: Text(
-                "I have read the terms and I agree",
+                AppLocalizations.of(context)!.agreeToTerms,
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
               ),
               value: agree,
@@ -150,9 +156,9 @@ class _BecomeASellerScreenState extends State<BecomeASellerScreen> {
                               .pushNamed(BecomeASellerFormScreen.routeName)
                           : null;
                     },
-                    child: const Center(
+                    child:  Center(
                       child: Text(
-                        'Next',
+                        AppLocalizations.of(context)!.next,
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),

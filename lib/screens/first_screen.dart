@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/providers/user_provider.dart';
 import 'package:kay_sy/screens/search_screen.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/favorites_screen.dart';
 import '../screens/home_screen.dart';
 import 'settings_screen.dart';
 
+
 class FirstScreen extends StatefulWidget {
-  const FirstScreen({Key? key}) : super(key: key);
   static const routeName = '/first-screen';
 
   @override
@@ -15,6 +18,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  // final user = Provider.of<UserProvider>(context)
   late PageController _pageController;
   int selectedIndex = 0;
 
@@ -50,25 +54,25 @@ class _FirstScreenState extends State<FirstScreen> {
         barItems: <BarItem>[
           BarItem(
             icon: Icons.home,
-            title: 'Home',
+            title: AppLocalizations.of(context)!.home,
             activeColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
           BarItem(
             icon: Icons.search_rounded,
-            title: 'Search',
+            title: AppLocalizations.of(context)!.search,
             activeColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
           BarItem(
             icon: Icons.favorite,
-            title: 'Favorites',
+            title: AppLocalizations.of(context)!.favorites,
             activeColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
           BarItem(
             icon: Icons.settings,
-            title: 'Settings',
+            title: AppLocalizations.of(context)!.settings,
             activeColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
