@@ -6,6 +6,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/models/product.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'package:kay_sy/widgets/custom_button.dart';
 import 'package:kay_sy/widgets/custom_product/custom_product_widget.dart';
@@ -101,8 +103,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                           ),
                         ),
-                        const Text(
-                          'Details',
+                        // DETAILS 
+                       Text(
+                          AppLocalizations.of(context)!.details,
                           style: TextStyle(
                               fontSize: 23, fontWeight: FontWeight.bold),
                         ),
@@ -275,9 +278,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                     //DESCRIPTON
                     Align(
-                      alignment: const Alignment(-0.9, 1),
+                      alignment: isArabic ? const Alignment(0.9, -1) : const Alignment(-0.9, 1),
                       child: Text(
-                        'INFORMATION',
+                        // INFORMATION
+                        AppLocalizations.of(context)!.information,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 25.sp,
@@ -296,9 +300,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     Align(
-                        alignment: const Alignment(-0.9, 1),
+                        alignment: isArabic ? const Alignment(0.9, -1) : const Alignment(-0.9, 1),
                         child: Text(
-                          "Reviews",
+                          // REVIEWS
+                          AppLocalizations.of(context)!.reviews,
                           style: TextStyle(
                               fontSize: 25.sp, fontWeight: FontWeight.bold),
                         )),
@@ -364,7 +369,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             });
                           },
                           icon: const Icon(Icons.add_comment_rounded),
-                          label: const Text('Add a review')),
+                          // ADD A REVIEW
+                          label:  Text(AppLocalizations.of(context)!.addReview)),
                     if (expandForReview)
                       Card(
                         shape: RoundedRectangleBorder(
@@ -382,8 +388,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             children: [
                               Row(
                                 children: [
-                                  const Text(
-                                    'Rating ',
+                                   Text(
+                                     //RATING
+                                    AppLocalizations.of(context)!.rating,
                                     style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold),
@@ -410,9 +417,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   )
                                 ],
                               ),
-                              const TextField(
+                               TextField(
                                 decoration: InputDecoration(
-                                  label: Text('Comment'),
+                                  // COMMENT
+                                  label: Text(AppLocalizations.of(context)!.comment),
                                 ),
                               ),
                               SizedBox(
@@ -432,9 +440,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               _pickedImage!,
                                               fit: BoxFit.cover,
                                             )
-                                          : const FittedBox(
+                                          :  FittedBox(
                                               child: Center(
-                                              child: Text('no image'),
+                                              child: Text(AppLocalizations.of(context)!.noImage),
                                             )),
                                     ),
                                   ),
@@ -450,8 +458,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                       ListTile(
                                                         leading: const Icon(
                                                             Icons.camera_alt),
-                                                        title: const Text(
-                                                            'Camera'),
+                                                        title:  Text(
+                                                            AppLocalizations.of(context)!.camera),
                                                         onTap: () {
                                                           source = ImageSource
                                                               .camera;
@@ -463,8 +471,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                       ListTile(
                                                         leading: const Icon(
                                                             Icons.photo),
-                                                        title: const Text(
-                                                            'Gallery'),
+                                                        title: Text(
+                                                            AppLocalizations.of(context)!.gallery),
                                                         onTap: () {
                                                           source = ImageSource
                                                               .gallery;
@@ -479,7 +487,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       },
                                       icon: const Icon(
                                           Icons.add_photo_alternate_rounded),
-                                      label: const Text('Add photo')),
+                                      label: Text(AppLocalizations.of(context)!.addPhoto)),
                                   SizedBox(
                                     width: 5.w,
                                   ),
@@ -490,7 +498,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               .secondary),
                                       onPressed: () {},
                                       icon: const Icon(Icons.add),
-                                      label: const Text('Post review')),
+                                      label: Text(AppLocalizations.of(context)!.postReview)),
                                 ],
                               ),
                             ],
@@ -503,7 +511,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             child: SizedBox(
                               width: 150.w,
                               child: Text(
-                                "NO REVIEWS FOR THIS PRODUCT....",
+                                AppLocalizations.of(context)!.noReviews,
                                 style: TextStyle(
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.bold),
@@ -545,7 +553,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'SYP',
+                                text: AppLocalizations.of(context)!.currency,
                                 style: TextStyle(
                                   fontSize: 10,
                                   color:
@@ -615,7 +623,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: CustomButton(
-                                      text: "Add to cart",
+                                      text: AppLocalizations.of(context)!.addToCart,
                                       width: 200.w,
                                       height: 50.h,
                                       onTap: () {
@@ -627,7 +635,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 content: Text(
-                                                    'Item added succesfully')));
+                                                    AppLocalizations.of(context)!.itemAdded)));
                                       })),
                             ),
                     ),

@@ -82,6 +82,7 @@ class BecomeASellerFormScreen extends StatelessWidget {
             CustomTextFormField(
                 context: context,
                 labelText: AppLocalizations.of(context)!.fullName,
+                suffix: '',
                 initVal: null,
                 inputAction: TextInputAction.next,
                 myKeyboardType: TextInputType.name,
@@ -99,6 +100,7 @@ class BecomeASellerFormScreen extends StatelessWidget {
             CustomTextFormField(
                 context: context,
                 labelText: AppLocalizations.of(context)!.contactNumber,
+                suffix: '',
                 initVal: null,
                 inputAction: TextInputAction.done,
                 myKeyboardType: TextInputType.phone,

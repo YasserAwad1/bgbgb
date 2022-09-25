@@ -113,6 +113,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         // city
                           context: context,
                           labelText: AppLocalizations.of(context)!.city,
+                          suffix: '',
                           initVal: 'Damascus',
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -135,6 +136,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         // street
                           context: context,
                           labelText: AppLocalizations.of(context)!.street,
+                          suffix: '',
                           initVal: null,
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -156,6 +158,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       CustomTextFormField(
                           context: context,
                           labelText: AppLocalizations.of(context)!.bn,
+                          suffix: '',
                           initVal: null,
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -177,6 +180,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       CustomTextFormField(
                           context: context,
                           labelText: AppLocalizations.of(context)!.floor,
+                          suffix: '',
                           initVal: null,
                           inputAction: TextInputAction.next,
                           myKeyboardType: TextInputType.text,
@@ -198,6 +202,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       CustomTextFormField(
                           context: context,
                           labelText: AppLocalizations.of(context)!.details,
+                          suffix: '',
                           initVal: null,
                           inputAction: TextInputAction.done,
                           myKeyboardType: TextInputType.multiline,

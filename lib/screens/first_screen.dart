@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 import '../screens/favorites_screen.dart';
 import '../screens/home_screen.dart';
-import 'settings_screen.dart';
-
+import '../screens/settings_screen.dart';
+import 'sellerScreens/seller_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   static const routeName = '/first-screen';
@@ -65,11 +65,17 @@ class _FirstScreenState extends State<FirstScreen> {
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
           BarItem(
-            icon: Icons.favorite,
-            title: AppLocalizations.of(context)!.favorites,
+            icon: Icons.sell_rounded,
+            title: 'Seller',
             activeColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),
+          // BarItem(
+          //   icon: Icons.favorite,
+          //   title: AppLocalizations.of(context)!.favorites,
+          //   activeColor: Theme.of(context).colorScheme.secondary,
+          //   inactiveColor: Theme.of(context).colorScheme.primary,
+          // ),
           BarItem(
             icon: Icons.settings,
             title: AppLocalizations.of(context)!.settings,
@@ -84,7 +90,8 @@ class _FirstScreenState extends State<FirstScreen> {
   final List<Widget> _listOfWidget = <Widget>[
     HomeScreen(),
     SearchScreen(),
-    FavoritesScreen(),
+    SellerScreen(),
+    // FavoritesScreen(),
     SettingsScreen(),
   ];
 }

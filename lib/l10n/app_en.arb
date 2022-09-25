@@ -295,7 +295,7 @@
   "@camera" :{
       "description": "none"
   },
-  "galley" : "Gallery",
+  "gallery" : "Gallery",
   "@gallery" :{
       "description": "none"
   },

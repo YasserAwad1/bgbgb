@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,6 +36,9 @@ import './screens/locations_screen.dart';
 import './screens/logIn_screen.dart';
 import './screens/walkThrough_scree.dart';
 import './screens/become_a_seller_form_screen.dart';
+import 'screens/sellerScreens/seller_screen.dart';
+import 'package:kay_sy/screens/favorites_screen.dart';
+import './screens/sellerScreens/add_product_screen.dart';
 
 void main() async {
   print('aa');
@@ -148,6 +152,9 @@ class _MyAppState extends State<MyApp> {
               SearchScreen.routeName: (ctx) => SearchScreen(),
               BecomeASellerFormScreen.routeName: (ctx) =>
                   BecomeASellerFormScreen(),
+              SellerScreen.routeName: (ctx) => SellerScreen(),
+              FavoritesScreen.routeName: (ctx) => FavoritesScreen(),
+              AddProductScreen.routeName: (ctx) => AddProductScreen(),
             },
             home: FirstScreen(),
           ),

@@ -5,11 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final String? subTitle;
+  final IconData? icon;
   final VoidCallback onTap;
   //constructor
   CustomListTile(
-      {required this.title, required this.icon, required this.onTap});
+      {required this.title,
+       this.subTitle,
+      required this.icon,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class CustomListTile extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold),
         ),
+        subtitle: Text(subTitle!),
         trailing: Icon(
           Icons.arrow_forward_ios_rounded,
           color: Theme.of(context).colorScheme.primary,

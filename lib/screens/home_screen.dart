@@ -6,6 +6,7 @@ import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/cart_provider.dart';
 import 'package:kay_sy/providers/language_provider.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
+import 'package:kay_sy/screens/favorites_screen.dart';
 import 'package:kay_sy/widgets/search_bar.dart';
 import 'package:kay_sy/widgets/section_widget.dart';
 import 'package:kay_sy/widgets/popular_product_widget.dart';
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 60,
@@ -81,8 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               children: [
                                                 // NO ADDRESSES YET
                                                 Text(
-                                                  AppLocalizations
-                                                                  .of(context)!.noAddress,
+                                                  AppLocalizations.of(context)!
+                                                      .noAddress,
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'AnekMalayalam',
@@ -114,12 +115,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         Text(
                                                           // ADD ADDRESS
-                                                          AppLocalizations
-                                                                  .of(context)!.addAddress,
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .addAddress,
                                                           style: TextStyle(
                                                               fontFamily:
                                                                   'AnekMalayalam',
-                                                              fontSize: 15.sp.sp),
+                                                              fontSize:
+                                                                  15.sp.sp),
                                                         )
                                                       ],
                                                     ))
@@ -139,10 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         addressList[i].street);
                                               },
                                               child: Padding(
-                                                padding:
-                                                     EdgeInsets.symmetric(
-                                                        horizontal: 15.h,
-                                                        vertical: 4.w),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 15.h,
+                                                    vertical: 4.w),
                                                 child: Card(
                                                     child: Column(
                                                   crossAxisAlignment:
@@ -237,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .primary)),
                                                           ]),
                                                     ),
-                                                    //     DETAILS 
+                                                    //     DETAILS
                                                     RichText(
                                                       text: TextSpan(
                                                           text: AppLocalizations
@@ -295,6 +297,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         trailing: const Icon(Icons.expand_more_rounded),
                       ),
                     ),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(Icons.favorite_border),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(FavoritesScreen.routeName);
+                      },
+                    ),
                     Consumer<CartProvider>(
                       builder: (_, cart, ch) => Badge(
                           child: ch!,
@@ -326,10 +336,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.only(
-                        topRight: isArabic ? Radius.zero : Radius.circular(15.sp),
+                        topRight:
+                            isArabic ? Radius.zero : Radius.circular(15.sp),
                         bottomRight:
                             isArabic ? Radius.zero : Radius.circular(15.sp),
-                        topLeft: isArabic ? Radius.circular(15.sp) : Radius.zero,
+                        topLeft:
+                            isArabic ? Radius.circular(15.sp) : Radius.zero,
                         bottomLeft:
                             isArabic ? Radius.circular(15.sp) : Radius.zero,
                       )),
@@ -370,14 +382,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               //   SECTIONS
               Align(
-                alignment: isArabic ? const Alignment(1, -1) : const Alignment(-1, 1),
+                alignment:
+                    isArabic ? const Alignment(1, -1) : const Alignment(-1, 1),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topRight: isArabic ? Radius.zero :  Radius.circular(15.sp.sp),
-                      bottomRight: isArabic ? Radius.zero : Radius.circular(15.sp.sp),
-                      topLeft: isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
-                      bottomLeft: isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
+                      topRight:
+                          isArabic ? Radius.zero : Radius.circular(15.sp.sp),
+                      bottomRight:
+                          isArabic ? Radius.zero : Radius.circular(15.sp.sp),
+                      topLeft:
+                          isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
+                      bottomLeft:
+                          isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
                     ),
                     color: Theme.of(context).colorScheme.primary,
                   ),

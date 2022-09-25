@@ -101,6 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           //  EDIT YOUR PROFILE
           CustomListTile(
               title: AppLocalizations.of(context)!.editProfile,
+              subTitle: '',
               icon: Icons.person,
               onTap: () {
                 Navigator.of(context).pushNamed(EditProfileScreen.routeName);
@@ -108,6 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           //  EDIT YOUR LOCATIONS
           CustomListTile(
               title: AppLocalizations.of(context)!.editLocations,
+              subTitle: '',
               icon: Icons.location_on,
               onTap: () {
                 Navigator.pushNamed(context, LocationsScreen.routeName);
@@ -115,6 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           //   MY ORDERS
           CustomListTile(
               title: AppLocalizations.of(context)!.myOrders,
+              subTitle: '',
               icon: Icons.shopping_basket_rounded,
               onTap: () {
                 Navigator.of(context).pushNamed(OrdersScreen.routeName);
