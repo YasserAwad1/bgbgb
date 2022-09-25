@@ -12,7 +12,7 @@ ReviewModel _$ReviewModelFromJson(Map<String, dynamic> json) => ReviewModel(
       content: json['content'] as String?,
       image: json['image'] as String?,
       rating: (json['rating'] as num?)?.toDouble() ?? 1,
-      date: DateTime.parse(json['createdAt'] as String),
+      date: DateTime.parse(json['date'] as String),
     );
 
 Map<String, dynamic> _$ReviewModelToJson(ReviewModel instance) =>

@@ -8,7 +8,7 @@ part of 'custom_product.dart';
 
 CustomProduct _$CustomProductFromJson(Map<String, dynamic> json) =>
     CustomProduct(
-      id: json['_id'] as String,
+      id: json['id'] as String,
       products: (json['products'] as List<dynamic>)
           .map((e) => Product.fromJson(e as Map<String, dynamic>))
           .toList(),

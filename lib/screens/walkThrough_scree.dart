@@ -111,7 +111,7 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
                         effect: WormEffect(
                           dotColor: Colors.white,
                           spacing: 10,
-                          activeDotColor: Colors.black,
+                          activeDotColor: Theme.of(context).colorScheme.primary,
                         ),
                         onDotClicked: (index) => controller.animateToPage(
                           index,

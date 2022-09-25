@@ -18,6 +18,7 @@ class SectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print('********************$id');
         Navigator.pushNamed(context, ProductsScreen.routeName, arguments: id);
       },
       child: Material(

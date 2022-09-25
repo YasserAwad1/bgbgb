@@ -2,25 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kay_sy/constants.dart';
+import 'package:kay_sy/models/product.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart';
 
 class CartWidget extends StatefulWidget {
   final String id;
-  final String itemId;
-  final String title;
-  final int price;
-  final int quantity;
-  final String imageUrl;
 
-  CartWidget(
-      {required this.id,
-      required this.itemId,
-      required this.title,
-      required this.price,
-      required this.imageUrl,
-      required this.quantity});
+  final int quantity;
+  final Product product;
+
+  CartWidget({required this.id, required this.product, required this.quantity});
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -45,7 +39,7 @@ class _CartWidgetState extends State<CartWidget> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.network(
-                  widget.imageUrl,
+                  "${Constants.baseUrl}/${widget.product.imageUrls[0]}",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -57,7 +51,7 @@ class _CartWidgetState extends State<CartWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    widget.title,
+                    widget.product.title,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -66,7 +60,7 @@ class _CartWidgetState extends State<CartWidget> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: NumberFormat().format(widget.price),
+                      text: NumberFormat().format(widget.product.price),
                       style:
                           TextStyle(color: Colors.grey[600], fontSize: 12.sp),
                       children: [
@@ -94,13 +88,14 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                       children: [
                         TextSpan(
-                            text:
-                                NumberFormat().format(Provider.of<CartProvider>(context).itemTotal(widget.id)),
+                            text: NumberFormat().format(
+                                Provider.of<CartProvider>(context)
+                                    .itemTotal(widget.id)),
                             style: TextStyle(
                                 color:
                                     Theme.of(context).colorScheme.secondary)),
                         TextSpan(
-                          // syp 
+                          // syp
                           text: ' ${AppLocalizations.of(context)!.currency}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
@@ -130,7 +125,7 @@ class _CartWidgetState extends State<CartWidget> {
                     IconButton(
                       onPressed: () {
                         Provider.of<CartProvider>(context, listen: false)
-                            .addQuantity(widget.id);
+                            .addItem(widget.product);
                       },
                       icon: Icon(
                         Icons.add,
@@ -138,7 +133,7 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                     ),
                     Text(
-                      '${Provider.of<CartProvider>(context).itemQuantity(widget.id)}',
+                      '${Provider.of<CartProvider>(context).itemQuantity(widget.product.id)}',
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontFamily: 'AnekMalayalam',
@@ -148,7 +143,7 @@ class _CartWidgetState extends State<CartWidget> {
                     IconButton(
                       onPressed: () {
                         Provider.of<CartProvider>(context, listen: false)
-                            .decreaseQuantity(widget.id);
+                            .decreaseQuantity(widget.product);
                       },
                       icon: Icon(
                         Icons.remove,

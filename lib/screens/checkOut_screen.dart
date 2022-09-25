@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/providers/order_provider.dart';
 import 'package:kay_sy/screens/add_address_screen.dart';
 import 'package:kay_sy/screens/first_screen.dart';
+import 'package:kay_sy/widgets/checkout_widget.dart';
 import 'package:provider/provider.dart';
 import '../models/address_model.dart';
 
@@ -25,13 +26,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final cart = Provider.of<CartProvider>(context);
     final addressList = Provider.of<AddressProvider>(context).addresses;
     var shipping;
-    var firstLocation = addressList.first;
+    // var Provider.of<AddressProvider>(context).selectedAddress! = addressList.first;
 
-    void changeLocation(AddressModel newAddress) {
-      setState(() {
-        firstLocation = newAddress;
-      });
-    }
+    // void changeLocation(AddressModel newAddress) {
+    //   setState(() {
+    //     Provider.of<AddressProvider>(context).selectedAddress! = newAddress;
+    //   });
+    // }
 
     Row CustomRadioButton(String text) {
       return Row(
@@ -77,52 +78,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: cart.items.length,
-                  itemBuilder: (context, i) => Column(
-                        children: [
-                          ListTile(
-                            leading: Container(
-                              height: 50.h,
-                              width: 50.w,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.network(
-                                  cart.items.values.toList()[i].imageUrl,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            title: Text(cart.items.values.toList()[i].title),
-                            subtitle: Text(
-                              '${cart.items.values.toList()[i].quantity.toString()} X',
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                            trailing: Column(
-                              children: [
-                                Text(AppLocalizations.of(context)!.total,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary)),
-                                Text(NumberFormat()
-                                    .format(cart.itemTotal(
-                                        cart.items.values.toList()[i].id))
-                                    .toString())
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            thickness: 0.45,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ],
-                      )),
+                  itemBuilder: (context, i) =>
+                      CheckoutWidget(cartItem: cart.items[i])),
             ),
-            // Center(
-            //   child: Text('${cart.itemCount} Items'),
-            // ),
             Container(
               color: Colors.transparent,
               height: 230.h,
@@ -145,14 +103,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         RichText(
                           // CART TOTAL
                           text: TextSpan(
-                              text: '${AppLocalizations.of(context)!.cartTotal}: ',
+                              text:
+                                  '${AppLocalizations.of(context)!.cartTotal}: ',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color:
                                       Theme.of(context).colorScheme.secondary),
                               children: [
                                 TextSpan(
-                                    text: NumberFormat().format(cart.cartTotal),
+                                    text: NumberFormat()
+                                        .format(cart.getCartTotal()),
                                     style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         color: Theme.of(context)
@@ -303,21 +263,44 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     borderRadius: BorderRadius.circular(20)),
                                 actions: [
                                   TextButton(
-                                      onPressed: () {
-                                        Provider.of<OrderProvider>(context,
+                                      onPressed: () async {
+                                        final success = await Provider.of<
+                                                    OrderProvider>(context,
                                                 listen: false)
                                             .addOrder(
-                                                cart.items.values.toList(),
-                                                cart.cartTotal.toDouble());
-                                        cart.clearCart();
-                                        Navigator.of(context)
-                                            .pushReplacementNamed(
-                                                FirstScreen.routeName);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text(AppLocalizations.of(context)!.orderSubmitted),
-                                          duration: const Duration(seconds: 5),
-                                        ));
+                                                Provider.of<AddressProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .selectedAddress!
+                                                    .id,
+                                                cart.getCartTotal(),
+                                                2000);
+                                        //remove all screens and navigate
+                                        // to home screen
+                                        if (success) {
+                                          Navigator.of(context)
+                                              .restorablePushNamedAndRemoveUntil(
+                                                  FirstScreen.routeName,
+                                                  (route) => false);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(
+                                                AppLocalizations.of(context)!
+                                                    .orderSubmitted),
+                                            duration:
+                                                const Duration(seconds: 5),
+                                          ));
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(
+                                                Provider.of<OrderProvider>(
+                                                        context)
+                                                    .message),
+                                            duration:
+                                                const Duration(seconds: 5),
+                                          ));
+                                        }
                                       },
                                       child: Text(
                                         AppLocalizations.of(context)!.submit,
@@ -367,9 +350,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                             child:
                                                                 GestureDetector(
                                                               onTap: () {
-                                                                changeLocation(
-                                                                    addressList[
-                                                                        i]);
+                                                                Provider.of<AddressProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .selectLocation(
+                                                                        addressList[
+                                                                            i]);
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
@@ -448,8 +435,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                     ]));
                                       },
                                       child: Text(
-                                        AppLocalizations.of(context)!
-                                            .changeLocation,
+                                        Provider.of<AddressProvider>(context)
+                                                    .selectedAddress ==
+                                                null
+                                            ? "Choose an address"
+                                            : AppLocalizations.of(context)!
+                                                .changeLocation,
                                         style:
                                             const TextStyle(color: Colors.grey),
                                       )),
@@ -475,92 +466,130 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     children: [
                                       // YOUR TOTAL IS, IT WILL BE SHIPPED TO THE FOLLOWING ADDRESS
                                       Text(
-                                          '${AppLocalizations.of(context)!.yourTotalIs} ${NumberFormat().format(cart.cartTotal)}, ${AppLocalizations.of(context)!.itWill}'),
-                                      RichText(
-                                        text: TextSpan(
-                                            text: AppLocalizations.of(context)!
-                                                .street,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary),
-                                            children: [
-                                              TextSpan(
-                                                  text: firstLocation.street,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primary)),
-                                            ]),
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                            // BUILDING NUMBER
-                                            text: AppLocalizations.of(context)!
-                                                .bn,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary),
-                                            children: [
-                                              TextSpan(
-                                                  text: firstLocation
-                                                      .buildingNumber,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primary)),
-                                            ]),
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                            // FLOOR
-                                            text: AppLocalizations.of(context)!
-                                                .floor,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary),
-                                            children: [
-                                              TextSpan(
-                                                  text: firstLocation.floor,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primary)),
-                                            ]),
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                            // details
-                                            text: AppLocalizations.of(context)!
-                                                .details,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary),
-                                            children: [
-                                              TextSpan(
-                                                  text:
-                                                      firstLocation.description,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primary)),
-                                            ]),
-                                      ),
+                                          '${AppLocalizations.of(context)!.yourTotalIs} ${NumberFormat().format(cart.getCartTotal())}, ${AppLocalizations.of(context)!.itWill}'),
+                                      if (Provider.of<AddressProvider>(context)
+                                              .selectedAddress !=
+                                          null)
+                                        RichText(
+                                          text: TextSpan(
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .street,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary),
+                                              children: [
+                                                TextSpan(
+                                                    text: Provider.of<AddressProvider>(
+                                                                    context)
+                                                                .selectedAddress ==
+                                                            null
+                                                        ? "Please Select a location"
+                                                        : Provider.of<
+                                                                    AddressProvider>(
+                                                                context)
+                                                            .selectedAddress!
+                                                            .street,
+                                                    style:
+                                                        TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .primary)),
+                                              ]),
+                                        ),
+                                      if (Provider.of<AddressProvider>(context)
+                                              .selectedAddress !=
+                                          null)
+                                        RichText(
+                                          text: TextSpan(
+                                              // BUILDING NUMBER
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .bn,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary),
+                                              children: [
+                                                TextSpan(
+                                                    text: Provider.of<
+                                                                AddressProvider>(
+                                                            context)
+                                                        .selectedAddress!
+                                                        .buildingNumber,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary)),
+                                              ]),
+                                        ),
+                                      if (Provider.of<AddressProvider>(context)
+                                              .selectedAddress !=
+                                          null)
+                                        RichText(
+                                          text: TextSpan(
+                                              // FLOOR
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .floor,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary),
+                                              children: [
+                                                TextSpan(
+                                                    text: Provider.of<
+                                                                AddressProvider>(
+                                                            context)
+                                                        .selectedAddress!
+                                                        .floor,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary)),
+                                              ]),
+                                        ),
+                                      if (Provider.of<AddressProvider>(context)
+                                              .selectedAddress !=
+                                          null)
+                                        RichText(
+                                          text: TextSpan(
+                                              // details
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .details,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary),
+                                              children: [
+                                                TextSpan(
+                                                    text: Provider.of<
+                                                                AddressProvider>(
+                                                            context)
+                                                        .selectedAddress!
+                                                        .description,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary)),
+                                              ]),
+                                        ),
                                     ],
                                   ),
                                 ),

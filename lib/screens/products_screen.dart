@@ -26,6 +26,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Future<void> didChangeDependencies() async {
     id = ModalRoute.of(context)!.settings.arguments as String;
+    print(id);
     await Provider.of<ProductProvider>(context, listen: false)
         .findbySection(id);
     super.didChangeDependencies();

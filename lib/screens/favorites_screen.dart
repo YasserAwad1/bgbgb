@@ -144,12 +144,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    cart.addItem(
-                                      favoriteProducts[i].id,
-                                      favoriteProducts[i].title,
-                                      favoriteProducts[i].price,
-                                      favoriteProducts[i].imageUrls[0],
-                                    );
+                                    cart.addItem(favoriteProducts[i]);
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();
                                     ScaffoldMessenger.of(context)

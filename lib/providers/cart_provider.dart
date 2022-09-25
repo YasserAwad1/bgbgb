@@ -1,110 +1,111 @@
+import 'package:kay_sy/models/cart/cart_api_model.dart';
+import 'package:kay_sy/services/cart_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/product.dart';
 
-import '../models/cart_model.dart';
+import '../models/cart/cart_model.dart';
 
 class CartProvider with ChangeNotifier {
-  Map<String, CartModel> _items = {};
+  final _service = CartService();
+  bool isLoading = false;
+  List<CartModel> _cartItems = [];
+  String message = '';
 
-  Map<String, CartModel> get items {
-    return {..._items};
+  List<CartModel> get items {
+    return [..._cartItems];
   }
 
   int get itemCount {
-    return _items.length;
+    return _cartItems.length;
   }
 
-  bool isItemInCart(String itemId) {
-    if (_items.containsKey(itemId)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  void addItem(
-    String itemId,
-    String title,
-    int price,
-    String imageUrl,
-  ) {
-    if (_items.containsKey(itemId)) {
-      _items.update(
-        itemId,
-        (existingCartItem) => CartModel(
-          existingCartItem.id,
-          existingCartItem.title,
-          existingCartItem.price,
-          existingCartItem.quantity + 1,
-          imageUrl,
-        ),
-      );
-    }
-    _items.putIfAbsent(
-      itemId,
-      () => CartModel(
-        itemId,
-        title,
-        price.toInt(),
-        1,
-        imageUrl,
-      ),
-    );
+  Future<void> addItem(Product product) async {
+    isLoading = true;
+    notifyListeners();
+    final cartItem = CartApiModel(
+        product: product.id, quantity: 1, user: '631f5020675e12ae28766a19');
+    await _service.addItemToCart(cartItem);
+    await getCartItems();
+    message = _service.message!;
+    isLoading = false;
     notifyListeners();
   }
 
-  int get cartTotal {
+  Future<void> getCartItems() async {
+    isLoading = true;
+    notifyListeners();
+    _cartItems = await _service.getCart('631f5020675e12ae28766a19');
+
+    getCartTotal();
+    isLoading = false;
+    notifyListeners();
+  }
+
+  int getCartTotal() {
     var total = 0;
-    _items.forEach((key, item) {
-      total += item.price * item.quantity;
+    _cartItems.forEach((element) {
+      total += element.product.price * element.quantity;
     });
     return total;
   }
 
-  void removeSingleItem(String itemId) {
-    if (!_items.containsKey(itemId)) {
+  // void removeSingleItem(String itemId) {
+
+  // }
+
+  Future<void> removeItem(CartApiModel item) async {
+    isLoading = true;
+
+    await _service.deleteCartItem(item);
+    await getCartItems();
+    message = _service.message!;
+    isLoading = false;
+  }
+
+  Future<void> clearCart() async {
+    isLoading = true;
+    notifyListeners();
+    await _service.clearCart('631f5020675e12ae28766a19');
+    await getCartItems();
+    message = _service.message!;
+    isLoading = false;
+  }
+
+  Future<void> decreaseQuantity(Product product) async {
+    isLoading = true;
+    notifyListeners();
+    if (itemQuantity(product.id) == 1) {
+      print("remove");
+      await removeItem(CartApiModel(
+          product: product.id, quantity: 1, user: '631f5020675e12ae28766a19'));
       return;
     }
-    if (_items.containsKey(itemId)) {
-      if (_items[itemId]!.quantity > 1) {
-        _items[itemId]!.quantity -= 1;
-      } else {
-        _items.remove(itemId);
-      }
-    }
-  }
-
-  void removeItem(String itemId) {
-    _items.remove(itemId);
+    final cartItem = CartApiModel(
+        product: product.id, quantity: -1, user: '631f5020675e12ae28766a19');
+    await _service.addItemToCart(cartItem);
+    await getCartItems();
+    message = _service.message!;
+    isLoading = false;
     notifyListeners();
-  }
-
-  void clearCart() {
-    _items.clear();
-    notifyListeners();
-  }
-
-  void addQuantity(String id) {
-    _items[id]!.quantity += 1;
-    notifyListeners();
-  }
-
-  void decreaseQuantity(String id) {
-    if (_items[id]!.quantity == 1) {
-      removeItem(id);
-      notifyListeners();
-    } else {
-      _items[id]!.quantity -= 1;
-      notifyListeners();
-    }
   }
 
   int? itemQuantity(String id) {
-    return _items[id]!.quantity;
+    final item = _cartItems.firstWhere((element) => element.product.id == id);
+    return item.quantity;
   }
 
   int itemTotal(String id) {
-    return (_items[id]!.quantity * _items[id]!.price);
+    final item = _cartItems.firstWhere((element) => element.id == id);
+    return (item.quantity * item.product.price);
+  }
+
+  bool isItemInCart(String prodId) {
+    for (var item in _cartItems) {
+      if (item.product.id == prodId) {
+        return true;
+      }
+    }
+    return false;
   }
 }

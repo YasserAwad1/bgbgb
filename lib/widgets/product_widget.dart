@@ -9,6 +9,7 @@ import 'package:kay_sy/models/product.dart';
 import 'package:kay_sy/screens/product_details_screen.dart' as details;
 import 'package:kay_sy/widgets/custom_product/custom_product_image.dart';
 import 'package:provider/provider.dart';
+import '../constants.dart';
 import '../providers/product_provider.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -20,6 +21,8 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final price = NumberFormat().format(product.price);
+    print(product.title);
+    print(product.id);
 
     // final p = Provider.of<Product>(context);
     return GestureDetector(
@@ -41,7 +44,7 @@ class ProductWidget extends StatelessWidget {
                   color: Colors.grey, blurRadius: 15, offset: Offset(6, 6))
             ], color: Colors.grey[300]),
             child: Image.network(
-              product.imageUrls[0],
+              "${Constants.baseUrl}/${product.imageUrls[0]}",
               fit: BoxFit.contain,
               frameBuilder: (_, image, loadingBuilder, __) {
                 if (loadingBuilder == null) {
