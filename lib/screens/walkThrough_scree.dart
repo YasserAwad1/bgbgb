@@ -60,21 +60,21 @@ class _WalkThroughScreenState extends State<WalkThroughScreen> {
               ),
             ),
             Container(
-              color: Colors.amber,
+              color: Colors.white,
             ),
             Container(
-              color: Colors.blueAccent,
+              color: Colors.white,
             ),
           ],
         ),
       ),
       bottomSheet: isLastPage
           ? Container(
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.secondary,
               child: TextButton(
                 style: TextButton.styleFrom(
                     primary: Colors.white,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     minimumSize: Size.fromHeight(60.h)),
                 onPressed: () {
                   Navigator.of(context)

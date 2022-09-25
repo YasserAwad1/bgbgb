@@ -11,7 +11,7 @@ class CustomListTile extends StatelessWidget {
   //constructor
   CustomListTile(
       {required this.title,
-       this.subTitle,
+      this.subTitle,
       required this.icon,
       required this.onTap});
 
@@ -30,7 +30,7 @@ class CustomListTile extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(subTitle!),
+        subtitle: subTitle == null ? null : Text(subTitle!),
         trailing: Icon(
           Icons.arrow_forward_ios_rounded,
           color: Theme.of(context).colorScheme.primary,

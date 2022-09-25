@@ -31,7 +31,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TextButton.icon(
             onPressed: () {
@@ -50,10 +50,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 backgroundColor: Theme.of(context).colorScheme.secondary),
           ),
           CustomButton(
-              text: 'Send request',
-              onTap: () {},
-              width: 200.w,
-              height: 50.h),
+              text: 'Send request', onTap: () {}, width: 200.w, height: 50.h),
         ],
       )),
       body: SingleChildScrollView(
@@ -80,10 +77,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
               Text(
                 // ADD A PRODUCT
                 'Add a product',
-                style:
-                   TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold),
               ),
-              const Spacer(),
+              const Spacer(
+                flex: 2,
+              ),
             ],
           ),
           CustomTextFormField(

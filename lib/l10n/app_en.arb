@@ -147,15 +147,15 @@
   "@term2" :{
       "description": "none"
   },
-  "term3" : "When you apply, we will contact you for to set up a meeting so you can sign some papers, and payment will be made then.",
+  "term3" : "When you apply, we will contact you to set up a meeting so you can sign some papers, and payment will be made then.",
   "@term3" :{
       "description": "none"
   },
-  "term4" : "If your product is sold, we will be responsible for the shipping, you just display them and we'll take care of the rest.",
+  "term4" : "If someone orders your product, we will be responsible for the shipping, you just display them and we'll take care of the rest.",
   "@term4" :{
       "description": "none"
   },
-  "term5" : "Not all products are accepted. When you display a product, we will accept it or deny it.",
+  "term5" : "Not all added products are necessarily displayed. When you add a product, we will either accept or deny it.",
   "@term5" :{
       "description": "none"
   },
@@ -167,7 +167,7 @@
   "@term7" :{
       "description": "none"
   },
-  "term8" : "All products should have a clear photo, with a nice background (white or grey is preferred).",
+  "term8" : "All products should have a clear photo, with a suitable background (white or grey is preferred).",
   "@term8" :{
       "description": "none"
   },
