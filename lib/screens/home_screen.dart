@@ -6,6 +6,7 @@ import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/cart_provider.dart';
 import 'package:kay_sy/providers/language_provider.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
+import 'package:kay_sy/screens/favorites_screen.dart';
 import 'package:kay_sy/widgets/search_bar.dart';
 import 'package:kay_sy/widgets/section_widget.dart';
 import 'package:kay_sy/widgets/popular_product_widget.dart';
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 60,
@@ -308,6 +309,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         trailing: const Icon(Icons.expand_more_rounded),
                       ),
+                    ),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(Icons.favorite_border),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(FavoritesScreen.routeName);
+                      },
                     ),
                     Consumer<CartProvider>(
                       builder: (_, cart, ch) => Badge(

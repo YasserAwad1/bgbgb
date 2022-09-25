@@ -110,6 +110,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       // CITY
                         context: context,
                         labelText: AppLocalizations.of(context)!.city,
+                        suffix : '',
                         initVal: loadedAddress.city,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.text,
@@ -121,6 +122,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       // STREET
                       context: context,
                       labelText: AppLocalizations.of(context)!.street,
+                      suffix : '',
                       initVal: loadedAddress.street,
                       inputAction: TextInputAction.next,
                       myKeyboardType: TextInputType.text,
@@ -144,6 +146,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       // BUILDING NUMBER
                         context: context,
                         labelText: AppLocalizations.of(context)!.bn,
+                        suffix : '',
                         initVal: loadedAddress.buildingNumber,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.number,
@@ -161,6 +164,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       // FLOOR
                         context: context,
                         labelText: AppLocalizations.of(context)!.floor,
+                        suffix : '',
                         initVal: loadedAddress.floor,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.number,
@@ -178,6 +182,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       // DESCRIPTION
                         context: context,
                         labelText: AppLocalizations.of(context)!.details,
+                        suffix: '',
                         initVal: loadedAddress.description!,
                         inputAction: TextInputAction.done,
                         myKeyboardType: TextInputType.multiline,
