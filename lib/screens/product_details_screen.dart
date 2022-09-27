@@ -88,17 +88,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 }
                 print('done');
                 final loadedProduct = snapshot.data as Product;
+                print(loadedProduct.toJson());
 
                 int total = 0;
                 if (loadedProduct.custom != null) {
-                  loadedProduct.custom!.chosenProducts.forEach(
-                    (element) => total += element.price,
-                  );
+                  total = Provider.of<ProductProvider>(context)
+                      .productTotal(loadedProduct);
                 }
 
-                loadedProduct.custom?.chosenProducts.forEach(
-                  (element) => total += element.price,
-                );
                 return Scaffold(
                   body: SingleChildScrollView(
                     child: Column(
@@ -276,13 +273,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               itemCount: loadedProduct.custom!.products.length,
                               itemBuilder: (context, index) {
                                 return CustomProductWidget(
-                                    isSelected: loadedProduct
-                                        .custom!.chosenProducts
-                                        .any((product) {
-                                      return loadedProduct
-                                              .custom!.products[index].id ==
-                                          product.id;
-                                    }),
+                                    isSelected:
+                                        Provider.of<ProductProvider>(context)
+                                            .childIsSelected(
+                                                loadedProduct,
+                                                loadedProduct
+                                                    .custom!.products[index]),
                                     product:
                                         loadedProduct.custom!.products[index],
                                     onTap: () {

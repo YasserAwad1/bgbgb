@@ -17,7 +17,7 @@ class AddressWidget extends StatelessWidget {
       shadowColor: Theme.of(context).colorScheme.secondary,
       elevation: 2,
       child: ExpansionTile(
-        title: Text(address.city),
+        title: Text("Damascus"),
         subtitle: Text(address.street),
         trailing: SizedBox(
           width: 90.w,
@@ -27,8 +27,7 @@ class AddressWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(
-                      EditAddressScreen.routeName,
+                  Navigator.of(context).pushNamed(EditAddressScreen.routeName,
                       arguments: address.id);
                 },
               ),
@@ -45,7 +44,9 @@ class AddressWidget extends StatelessWidget {
         ),
         children: [
           Text("${AppLocalizations.of(context)!.bn} ${address.buildingNumber}"),
-          if (address.description != null)  Text("${AppLocalizations.of(context)!.details} ${address.description!}"),
+          if (address.description != null)
+            Text(
+                "${AppLocalizations.of(context)!.details} ${address.description!}"),
         ],
       ),
     );

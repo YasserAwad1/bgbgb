@@ -18,7 +18,6 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   var _editedAddress = AddressModel(
       id: null.toString(),
-      city: '',
       street: '',
       buildingNumber: '',
       floor: '',
@@ -42,7 +41,6 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
         _editedAddress = Provider.of<AddressProvider>(context, listen: false)
             .findById(addressId);
         _initValues = {
-          'city': _editedAddress.city,
           'street': _editedAddress.street,
           'buildingNumber': _editedAddress.buildingNumber,
           'floor': _editedAddress.floor,
@@ -107,34 +105,21 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                 child: Column(
                   children: [
                     CustomTextFormField(
-                      // CITY
-                        context: context,
-                        labelText: AppLocalizations.of(context)!.city,
-                        suffix : '',
-                        initVal: loadedAddress.city,
-                        inputAction: TextInputAction.next,
-                        myKeyboardType: TextInputType.text,
-                        myOnSaved: null,
-                        myValidator: null,
-                        myController: null,
-                        isEnabled: false),
-                    CustomTextFormField(
                       // STREET
                       context: context,
                       labelText: AppLocalizations.of(context)!.street,
-                      suffix : '',
+                      suffix: '',
                       initVal: loadedAddress.street,
                       inputAction: TextInputAction.next,
                       myKeyboardType: TextInputType.text,
                       myOnSaved: (value) => _editedAddress = AddressModel(
                           id: _editedAddress.id,
-                          city: _editedAddress.city,
                           street: value!,
                           buildingNumber: _editedAddress.buildingNumber,
                           floor: _editedAddress.floor,
                           description: _editedAddress.description),
-                      myValidator: (value){
-                        if(value!.isEmpty){
+                      myValidator: (value) {
+                        if (value!.isEmpty) {
                           return 'please provide a value';
                         }
                         return null;
@@ -143,16 +128,15 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       isEnabled: true,
                     ),
                     CustomTextFormField(
-                      // BUILDING NUMBER
+                        // BUILDING NUMBER
                         context: context,
                         labelText: AppLocalizations.of(context)!.bn,
-                        suffix : '',
+                        suffix: '',
                         initVal: loadedAddress.buildingNumber,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.number,
                         myOnSaved: (value) => _editedAddress = AddressModel(
                             id: _editedAddress.id,
-                            city: _editedAddress.city,
                             street: _editedAddress.street,
                             buildingNumber: value!,
                             floor: _editedAddress.floor,
@@ -161,16 +145,15 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         myController: null,
                         isEnabled: true),
                     CustomTextFormField(
-                      // FLOOR
+                        // FLOOR
                         context: context,
                         labelText: AppLocalizations.of(context)!.floor,
-                        suffix : '',
+                        suffix: '',
                         initVal: loadedAddress.floor,
                         inputAction: TextInputAction.next,
                         myKeyboardType: TextInputType.number,
                         myOnSaved: (value) => _editedAddress = AddressModel(
                             id: _editedAddress.id,
-                            city: _editedAddress.city,
                             street: _editedAddress.street,
                             buildingNumber: _editedAddress.buildingNumber,
                             floor: value!,
@@ -179,7 +162,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         myController: null,
                         isEnabled: true),
                     CustomTextFormField(
-                      // DESCRIPTION
+                        // DESCRIPTION
                         context: context,
                         labelText: AppLocalizations.of(context)!.details,
                         suffix: '',
@@ -188,7 +171,6 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         myKeyboardType: TextInputType.multiline,
                         myOnSaved: (value) => _editedAddress = AddressModel(
                             id: _editedAddress.id,
-                            city: _editedAddress.city,
                             street: _editedAddress.street,
                             buildingNumber: _editedAddress.buildingNumber,
                             floor: _editedAddress.floor,

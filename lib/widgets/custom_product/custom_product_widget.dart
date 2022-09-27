@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:kay_sy/models/product.dart';
 
+import '../../constants.dart';
+
 class CustomProductWidget extends StatefulWidget {
   final Product product;
   final VoidCallback onTap;
@@ -48,7 +50,7 @@ class _CustomProductWidgetState extends State<CustomProductWidget> {
                   margin: const EdgeInsets.all(2),
                   width: 320.w,
                   child: Image.network(
-                    widget.product.imageUrls[i],
+                    "${Constants.baseUrl}/${widget.product.imageUrls[i]}",
                   ),
                 ),
                 itemCount: widget.product.imageUrls.length,

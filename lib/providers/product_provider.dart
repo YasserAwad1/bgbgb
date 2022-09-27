@@ -271,6 +271,20 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
+  bool childIsSelected(Product paretnProduct, Product childProduct) {
+    bool contains = paretnProduct.custom!.chosenProducts
+        .any((element) => element.id == childProduct.id);
+    return contains;
+  }
+
+  int productTotal(Product product) {
+    int total = 0;
+    product.custom!.chosenProducts.forEach(
+      (element) => total += element.price,
+    );
+    return total;
+  }
+
   getProductsByCategory(String id) async {
     isLoading = true;
     notifyListeners();
