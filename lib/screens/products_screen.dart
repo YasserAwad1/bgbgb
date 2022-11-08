@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/models/category_model.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/product_provider.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
+import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 import '../providers/cart_provider.dart';
 import 'package:kay_sy/widgets/product_widget.dart';
 import 'package:kay_sy/widgets/search_bar.dart';
@@ -49,32 +50,37 @@ class _ProductsScreenState extends State<ProductsScreen> {
               CategoryModel(id: '1', title: 'All'),
               if (section.categories != null) ...section.categories!
             ];
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 60.h,
-                    child: Row(
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  toolbarHeight: 38.h,
+                  leading: BackButton(color: Colors.white),
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Row(
                       children: [
-                        BackButton(),
                         Spacer(),
                         Text(
                           "KAY",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 25.sp),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 25.sp),
                         ),
-                        Spacer(),
+                        Spacer(
+                          flex: 2,
+                        ),
                         Consumer<CartProvider>(
                           builder: (_, cart, ch) => Badge(
                               child: ch!,
                               value: cart.itemCount.toString(),
-                              color: Theme.of(context).colorScheme.secondary),
+                              color: Colors.white),
                           child: IconButton(
                             onPressed: () => Navigator.of(context)
                                 .pushNamed(CartScreen.routeName),
                             icon: const Icon(
                               Icons.shopping_cart_outlined,
-                              color: Colors.black,
+                              color: Colors.white,
                               size: 32,
                             ),
                           ),
@@ -82,30 +88,48 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       ],
                     ),
                   ),
-                  //quote
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: 180.w,
-                        child: Text(
-                          section.quote,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
+                ),
+                SliverPersistentHeader(
+                    pinned: true,
+                    delegate: FlexibleHeaderDelegate(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        // statusBarHeight: MediaQuery.of(context).padding.top,
+                        collapsedHeight: 60.h,
+                        expandedHeight: 80.h,
+                        expandedElevation: 10,
+                        leading: Container(),
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 180.w,
+                                child: Text(
+                                  section.quote,
+                                  style: TextStyle(
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              Icon(
+                                IconData(section.icon,
+                                    fontFamily: 'MaterialIcons'),
+                                size: 50.sp,
+                                color: Colors.white,
+                              )
+                            ],
                           ),
-                        ),
-                      ),
-                      Icon(
-                        IconData(section.icon, fontFamily: 'MaterialIcons'),
-                        size: 50.sp,
-                      )
-                    ],
-                  ),
+                        ])),
+                SliverList(
+                    delegate: SliverChildListDelegate([
                   SizedBox(
                     height: 20.h,
                   ),
-                  SearchBar(),
+                  SearchBar(
+                    onChanged: (v) {},
+                  ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -178,11 +202,24 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             return ProductWidget(
                                 product: Provider.of<ProductProvider>(context)
                                     .products[index]);
-                          })
-                ],
-              ),
+                          }),
+                  SizedBox(
+                    height: 200.h,
+                  )
+                ]))
+              ],
             );
           }),
     );
   }
 }
+// SingleChildScrollView(
+//               child: Column(
+//                 children: [
+                  
+//                   //quote
+                  
+                  
+//                 ],
+//               ),
+//             );

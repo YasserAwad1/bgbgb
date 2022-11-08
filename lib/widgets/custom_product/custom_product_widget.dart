@@ -5,7 +5,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 
 import '../../constants.dart';
 

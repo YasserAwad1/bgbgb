@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/constants.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -88,10 +88,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 }
                 print('done');
                 final loadedProduct = snapshot.data as Product;
-                print(loadedProduct.toJson());
+                print(loadedProduct.custom!.toJson());
 
                 int total = 0;
-                if (loadedProduct.custom != null) {
+                if (loadedProduct.custom!.products.isNotEmpty) {
                   total = Provider.of<ProductProvider>(context)
                       .productTotal(loadedProduct);
                 }
@@ -263,7 +263,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        if (loadedProduct.custom != null)
+                        if (loadedProduct.custom!.products.isNotEmpty)
                           GridView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../constants.dart';
+import '../models/address_api_model.dart';
 import '../models/address_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,7 +28,7 @@ class AddressService {
     }
   }
 
-  Future<bool> addAddress(AddressModel address) async {
+  Future<bool> addAddress(AddressApiModel address) async {
     final url = Uri.parse(Constants.addressesUrl);
     final response = await http.post(url,
         headers: httpHeaders, body: jsonEncode(address.toJson()));
@@ -42,10 +43,12 @@ class AddressService {
     }
   }
 
-  Future<bool> updateAddress(AddressModel address) async {
-    final url = Uri.parse('${Constants.addressesUrl}/${address.id}');
+  Future<bool> updateAddress(
+      AddressApiModel updatedAddress, String addressId) async {
+    final url = Uri.parse('${Constants.addressesUrl}/$addressId');
+    print(url);
     final response = await http.put(url,
-        headers: httpHeaders, body: jsonEncode(address.toJson()));
+        headers: httpHeaders, body: jsonEncode(updatedAddress.toJson()));
     print(response.body);
     if (response.statusCode == 200) {
       final jsonresponse = jsonDecode(response.body);

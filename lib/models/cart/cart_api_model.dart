@@ -7,8 +7,12 @@ class CartApiModel {
   final String product;
   int quantity;
   final String user;
+  final String? specificNote;
   CartApiModel(
-      {required this.product, required this.quantity, required this.user});
+      {required this.product,
+      required this.quantity,
+      required this.user,
+      this.specificNote});
   factory CartApiModel.fromJson(Map<String, dynamic> json) =>
       _$CartApiModelFromJson(json);
   Map<String, dynamic> toJson() => _$CartApiModelToJson(this);

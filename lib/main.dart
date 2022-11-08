@@ -26,7 +26,6 @@ import './screens/products_screen.dart';
 import './screens/first_screen.dart';
 import './screens/product_details_screen.dart';
 import './screens/cart_screen.dart';
-import './screens/edit_address_screen.dart';
 import './screens/add_address_screen.dart';
 import './screens/checkOut_screen.dart';
 import './screens/orders_screen.dart';
@@ -125,9 +124,11 @@ class _MyAppState extends State<MyApp> {
             // supportedLocales: translator.locals(),
             themeMode: ThemeMode.light,
             darkTheme: ThemeData.dark(),
+
             builder: (context, child) => SafeArea(child: child!),
             title: 'Flutter Demo',
             theme: ThemeData(
+              scaffoldBackgroundColor: Colors.grey[300],
               fontFamily: "AnekMalayalam",
               colorScheme: ColorScheme.fromSwatch().copyWith(
                 // primary: const Color.fromARGB(255, 29, 14, 70),
@@ -142,7 +143,6 @@ class _MyAppState extends State<MyApp> {
               ProductsScreen.routeName: (ctx) => ProductsScreen(),
               LocationsScreen.routeName: (ctx) => LocationsScreen(),
               EditProfileScreen.routeName: (context) => EditProfileScreen(),
-              EditAddressScreen.routeName: (ctx) => EditAddressScreen(),
               AddAddressScreen.routeName: (ctx) => AddAddressScreen(),
               CheckOutScreen.routeName: (ctx) => CheckOutScreen(),
               OrdersScreen.routeName: (ctx) => OrdersScreen(),

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 
 part 'cart_model.g.dart';
 

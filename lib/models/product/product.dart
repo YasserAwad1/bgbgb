@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kay_sy/models/custom_product.dart';
-import 'package:kay_sy/models/review_model.dart';
+import 'package:kay_sy/models/product/custom_product.dart';
+import 'package:kay_sy/models/product/review_model.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 part 'product.g.dart';
 
 @JsonSerializable()
@@ -19,6 +19,7 @@ class Product {
   final CustomProduct? custom;
   double rating;
   final String category;
+  final String? specificQuestion;
 
   Product(
       {required this.id,
@@ -29,6 +30,7 @@ class Product {
       required this.imageUrls,
       required this.description,
       required this.rating,
+      this.specificQuestion,
       this.reviews,
       this.isFavorite = false,
       this.custom});

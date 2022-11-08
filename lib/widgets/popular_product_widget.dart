@@ -6,7 +6,7 @@ import 'package:kay_sy/widgets/circle_container.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/product_details_screen.dart' as details;
-import '../models/product.dart';
+import '../models/product/product.dart';
 import '../providers/cart_provider.dart';
 
 class PopularProductWidget extends StatefulWidget {
@@ -50,6 +50,7 @@ class _PopularProductWidgetState extends State<PopularProductWidget> {
         child: Container(
           //margin: EdgeInsets.only(left: 10),
           child: ListView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
               SizedBox(
                 width: double.infinity,

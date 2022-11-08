@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:kay_sy/constants.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 import 'package:kay_sy/models/section_model.dart';
 
 import 'package:http/http.dart' as http;

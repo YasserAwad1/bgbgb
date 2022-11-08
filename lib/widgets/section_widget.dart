@@ -16,40 +16,22 @@ class SectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print('********************$id');
-        Navigator.pushNamed(context, ProductsScreen.routeName, arguments: id);
-      },
-      child: Material(
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Container(
-          height: 50.h,
-          decoration: BoxDecoration(
-              // boxShadow: [BoxShadow(blurRadius: 4)],
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            children: [
-              Container(
-                  height: 49.h,
-                  width: 90.w,
-                  child: Icon(
-                    IconData(icon, fontFamily: 'MaterialIcons'),
-                    color: Colors.white,
-                    size: 30.sp,
-                  )),
-              Center(
-                  child: Text(
-                title,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.w),
-              )),
-            ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Center(
+        child: FloatingActionButton.extended(
+          elevation: 13,
+          onPressed: () {
+            Navigator.pushNamed(context, ProductsScreen.routeName,
+                arguments: id);
+          },
+          // become a seller
+          label: Text(
+            title,
+            style: TextStyle(fontSize: 16.sp),
           ),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          icon: Icon(IconData(icon, fontFamily: 'MaterialIcons')),
         ),
       ),
     );

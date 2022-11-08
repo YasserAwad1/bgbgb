@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kay_sy/screens/add_address_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../providers/address_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/models/address_model.dart';
-import '../screens/edit_address_screen.dart';
 
 class AddressWidget extends StatelessWidget {
   final AddressModel address;
@@ -27,7 +27,7 @@ class AddressWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(EditAddressScreen.routeName,
+                  Navigator.of(context).pushNamed(AddAddressScreen.routeName,
                       arguments: address.id);
                 },
               ),
