@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '/screens/sellerScreens/add_product_screen.dart';
+import './my_products_screen.dart';
 import '../../widgets/custom_listtile.dart';
 
 class SellerScreen extends StatelessWidget {
@@ -68,7 +69,9 @@ class SellerScreen extends StatelessWidget {
               title: 'My products',
               subTitle: 'See all the products you displayed',
               icon: Icons.shopping_bag_rounded,
-              onTap: () {}),
+              onTap: () {
+                Navigator.of(context).pushNamed(MyProductsScreen.routeName);
+              }),
           CustomListTile(
               title: 'Pending products',
               subTitle: 'Check the state of the products you want to display',

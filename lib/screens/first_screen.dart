@@ -66,7 +66,7 @@ class _FirstScreenState extends State<FirstScreen> {
           ),
           BarItem(
             icon: Icons.sell_rounded,
-            title: 'Seller',
+            title: 'Dashboard',
             activeColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).colorScheme.primary,
           ),

@@ -39,6 +39,7 @@ import './screens/become_a_seller_form_screen.dart';
 import 'screens/sellerScreens/seller_screen.dart';
 import 'package:kay_sy/screens/favorites_screen.dart';
 import './screens/sellerScreens/add_product_screen.dart';
+import './screens/sellerScreens/my_products_screen.dart';
 
 void main() async {
   print('aa');
@@ -155,6 +156,7 @@ class _MyAppState extends State<MyApp> {
               SellerScreen.routeName: (ctx) => SellerScreen(),
               FavoritesScreen.routeName: (ctx) => FavoritesScreen(),
               AddProductScreen.routeName: (ctx) => AddProductScreen(),
+              MyProductsScreen.routeName: (ctx) => MyProductsScreen(),
             },
             home: FirstScreen(),
           ),

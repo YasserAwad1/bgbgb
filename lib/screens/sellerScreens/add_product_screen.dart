@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kay_sy/widgets/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '/widgets/custom_textformfield.dart';
 
@@ -26,6 +27,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     setState(() {});
   }
 
+  void deleteImage(XFile deletedImage) {
+    imageFileList!.removeWhere((image) => deletedImage == image);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +47,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               Icons.add_photo_alternate_rounded,
               color: Colors.white,
             ),
-            label: Text(
+            label: const Text(
               'Add images',
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -122,7 +128,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
               scrollDirection: Axis.vertical,
               child: Container(
                 width: double.infinity,
-                height: imageFileList!.length * 40 + 15,
                 child: Padding(
                   padding: EdgeInsets.all(8.0.sp),
                   child: GridView.builder(
@@ -135,9 +140,61 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         crossAxisCount: 3,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return Image.file(
-                          File(imageFileList![index].path),
-                          fit: BoxFit.cover,
+                        return Container(
+                          margin: EdgeInsets.all(2.sp),
+                          child: Stack(
+                            // alignment: Alignment.topRight,
+                            fit: StackFit.expand,
+                            children: [
+                              Image.file(
+                                File(imageFileList![index].path),
+                                fit: BoxFit.cover,
+                              ),
+                              Positioned(
+                                top: -10,
+                                right: -10,
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.delete_forever_outlined,
+                                    size: 18.sp,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text(
+                                            'Are you sure you want to delete this image ? '),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .no)),
+                                          TextButton(
+                                            onPressed: () {
+                                              deleteImage(
+                                                  imageFileList![index]);
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              AppLocalizations.of(context)!.yes,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         );
                       }),
                 ),

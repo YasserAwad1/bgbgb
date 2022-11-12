@@ -59,8 +59,8 @@ class _CartScreenState extends State<CartScreen> {
                                   ? Icons.arrow_back_ios_outlined
                                   : Icons.arrow_back_ios_new_rounded),
                             ),
-                            const SizedBox(
-                              width: 100,
+                             SizedBox(
+                              width: 100.w,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,

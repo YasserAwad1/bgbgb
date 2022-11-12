@@ -109,7 +109,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   SizedBox(
                     height: 20.h,
                   ),
-
                   //categories
                   Container(
                     height: 50.h,

@@ -43,9 +43,11 @@ class BecomeASellerFormScreen extends StatelessWidget {
                           actions: [
                             TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushReplacementNamed(
-                                      FirstScreen.routeName);
-                                      // formKey.currentState!.dispose();
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      FirstScreen.routeName,
+                                      (Route<dynamic> route) => false);
+                                  ;
+                                  // formKey.currentState!.dispose();
                                 },
                                 child: Text(
                                   //   yes
@@ -56,7 +58,7 @@ class BecomeASellerFormScreen extends StatelessWidget {
                                           .secondary),
                                 )),
                             TextButton(
-                              // no
+                                // no
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -72,9 +74,10 @@ class BecomeASellerFormScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                 Text(
+                Text(
                   AppLocalizations.of(context)!.becomeSeller,
-                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
               ],
@@ -115,7 +118,7 @@ class BecomeASellerFormScreen extends StatelessWidget {
                 },
                 myController: null,
                 isEnabled: true),
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 AppLocalizations.of(context)!.sellerLastLine,
