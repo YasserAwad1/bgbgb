@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,19 +48,43 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   //   isInit = false;
   //   super.didChangeDependencies();
   // }
+  AddressModel? address;
+  bool isEdit = false;
+  String? id;
+  @override
+  void didChangeDependencies() {
+    id = ModalRoute.of(context)!.settings.arguments as String;
+    if (id != null) {
+      address =
+          Provider.of<AddressProvider>(context, listen: false).findById(id!);
+      isEdit = true;
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     var newAddress = AddressModel(
         id: '', street: '', buildingNumber: '', floor: '', description: '');
 
-    void _saveForm() {
+    Future<void> _saveForm() async {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
         // print('saved');
-        Provider.of<AddressProvider>(context, listen: false)
-            .addAddress(newAddress);
-        Navigator.of(context).pop();
+        if (isEdit) {
+          await Provider.of<AddressProvider>(context, listen: false)
+              .editAddress(newAddress.street, newAddress.buildingNumber,
+                  newAddress.floor, newAddress.description, id!);
+          //show snackbar
+
+          return;
+        }
+        await Provider.of<AddressProvider>(context, listen: false).addAddress(
+            newAddress.street,
+            newAddress.buildingNumber,
+            newAddress.floor,
+            newAddress.description);
+
         // print(newAddress.street);
       }
       return;
@@ -67,10 +92,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,7 +160,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               context: context,
                               labelText: AppLocalizations.of(context)!.street,
                               suffix: '',
-                              initVal: null,
+                              initVal: isEdit ? address!.street : null,
                               inputAction: TextInputAction.next,
                               myKeyboardType: TextInputType.text,
                               myOnSaved: (value) => newAddress = AddressModel(
@@ -157,7 +182,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               context: context,
                               labelText: AppLocalizations.of(context)!.bn,
                               suffix: '',
-                              initVal: null,
+                              initVal: isEdit ? address!.buildingNumber : null,
                               inputAction: TextInputAction.next,
                               myKeyboardType: TextInputType.text,
                               myOnSaved: (value) => newAddress = AddressModel(
@@ -179,7 +204,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               context: context,
                               labelText: AppLocalizations.of(context)!.floor,
                               suffix: '',
-                              initVal: null,
+                              initVal: isEdit ? address!.floor : null,
                               inputAction: TextInputAction.next,
                               myKeyboardType: TextInputType.text,
                               myOnSaved: (value) => newAddress = AddressModel(
@@ -201,7 +226,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               context: context,
                               labelText: AppLocalizations.of(context)!.details,
                               suffix: '',
-                              initVal: null,
+                              initVal: isEdit
+                                  // ignore: unnecessary_null_in_if_null_operators
+                                  ? address!.description ?? null
+                                  : null,
                               inputAction: TextInputAction.done,
                               myKeyboardType: TextInputType.multiline,
                               myOnSaved: (value) => newAddress = AddressModel(
@@ -225,14 +253,24 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   )
                 ],
               ),
-              if (Provider.of<AddressProvider>(context).isLoading) Loader()
-            ],
-          ),
+            ),
+            if (Provider.of<AddressProvider>(context).isLoading) Loader()
+          ],
         ),
         bottomNavigationBar: BottomAppBar(
             child: CustomButton(
                 text: AppLocalizations.of(context)!.save,
-                onTap: _saveForm,
+                onTap: () async {
+                  await _saveForm();
+
+                  Navigator.pop(context);
+                  Flushbar(
+                    message:
+                        Provider.of<AddressProvider>(context, listen: false)
+                            .message,
+                    duration: const Duration(seconds: 3),
+                  )..show(context);
+                },
                 width: 200.w,
                 height: 50.h)),
       ),

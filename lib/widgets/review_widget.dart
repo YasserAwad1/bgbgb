@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:kay_sy/models/review_model.dart';
+import 'package:kay_sy/models/product/review_model.dart';
 import 'package:kay_sy/providers/user_provider.dart';
 import 'package:kay_sy/widgets/rating_star_widget.dart';
 import 'package:provider/provider.dart';

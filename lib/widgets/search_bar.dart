@@ -5,17 +5,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  Function(String)? onChanged;
+  SearchBar({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 10.w, right: 10.w),
       decoration: BoxDecoration(
-          color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: TextField(
+        onChanged: onChanged,
         decoration: InputDecoration(
-            suffixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.primary,),
+            suffixIcon: Icon(
+              Icons.search,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             border: InputBorder.none,
             hintText: AppLocalizations.of(context)!.search,
             contentPadding: EdgeInsets.only(left: 10.w, top: 10.h)),

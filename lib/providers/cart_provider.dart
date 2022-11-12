@@ -2,7 +2,7 @@ import 'package:kay_sy/models/cart/cart_api_model.dart';
 import 'package:kay_sy/services/cart_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import '../models/product.dart';
+import '../models/product/product.dart';
 
 import '../models/cart/cart_model.dart';
 
@@ -20,11 +20,14 @@ class CartProvider with ChangeNotifier {
     return _cartItems.length;
   }
 
-  Future<void> addItem(Product product) async {
+  Future<void> addItem(Product product, {String? specificNote}) async {
     isLoading = true;
     notifyListeners();
     final cartItem = CartApiModel(
-        product: product.id, quantity: 1, user: '631f5020675e12ae28766a19');
+        product: product.id,
+        quantity: 1,
+        user: '631f5020675e12ae28766a19',
+        specificNote: specificNote);
     await _service.addItemToCart(cartItem);
     await getCartItems();
     message = _service.message!;

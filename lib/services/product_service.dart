@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:kay_sy/constants.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -27,6 +27,22 @@ class ProductService {
       Product product = Product.fromJson(jsonResponse['product']);
 
       return product;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<List<Product>> getProductsBySearch(String search) async {
+    try {
+      final url = Uri.parse("${Constants.productsUrl}/search/$search");
+      final response = await http.get(url);
+      final jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
+      List<Product> products = (jsonResponse['products'] as List)
+          .map<Product>((json) => Product.fromJson(json))
+          .toList();
+      return products;
     } catch (e) {
       print(e);
       rethrow;

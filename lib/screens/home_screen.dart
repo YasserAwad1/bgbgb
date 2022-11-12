@@ -2,16 +2,21 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/l10n/l10n.dart';
+import 'package:kay_sy/models/events/event_model.dart';
 import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/cart_provider.dart';
 import 'package:kay_sy/providers/language_provider.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
 import 'package:kay_sy/screens/favorites_screen.dart';
+import 'package:kay_sy/widgets/events/event_widget.dart';
+import 'package:kay_sy/widgets/points/coins_widget.dart';
 import 'package:kay_sy/widgets/search_bar.dart';
 import 'package:kay_sy/widgets/section_widget.dart';
 import 'package:kay_sy/widgets/popular_product_widget.dart';
+import 'package:kay_sy/widgets/title_container.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rive/rive.dart';
 import '../widgets/badge.dart';
 import '../models/address_model.dart';
 
@@ -339,34 +344,40 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 10.h,
               ),
+              CoinsWidget(),
+              SizedBox(
+                height: 20.h,
+              ),
+              CarouselSlider.builder(
+                  itemCount: productProvider.trendingProducts.length,
+                  itemBuilder: (context, index, e) {
+                    return EventWidget(
+                        event: EventModel(
+                      id: 'aaa',
+                      description: 'wwwww',
+                      image:
+                          'https://images.unsplash.com/photo-1533745848184-3db07256e163?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80',
+                      title: 'wwww',
+                    ));
+                  },
+                  options: CarouselOptions(
+                      // enlargeCenterPage: true,
+
+                      autoPlay: true,
+                      viewportFraction: 1,
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                      clipBehavior: Clip.none)),
+              SizedBox(
+                height: 20.h,
+              ),
               //   TRENDING
               Align(
-                alignment:
-                    isArabic ? const Alignment(1, -1) : const Alignment(-1, 1),
-                child: Container(
-                  width: isArabic ? 100.w : 90.w,
-                  padding: EdgeInsets.all(10.w),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.only(
-                        topRight:
-                            isArabic ? Radius.zero : Radius.circular(15.sp),
-                        bottomRight:
-                            isArabic ? Radius.zero : Radius.circular(15.sp),
-                        topLeft:
-                            isArabic ? Radius.circular(15.sp) : Radius.zero,
-                        bottomLeft:
-                            isArabic ? Radius.circular(15.sp) : Radius.zero,
-                      )),
-                  child: Text(
-                    AppLocalizations.of(context)!.trending,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+                  alignment: isArabic
+                      ? const Alignment(1, -1)
+                      : const Alignment(-1, 1),
+                  child: TitleContainer(
+                    title: AppLocalizations.of(context)!.trending,
+                  )),
               SizedBox(
                 height: 20.h,
               ),
@@ -395,33 +406,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               //   SECTIONS
               Align(
-                alignment:
-                    isArabic ? const Alignment(1, -1) : const Alignment(-1, 1),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight:
-                          isArabic ? Radius.zero : Radius.circular(15.sp.sp),
-                      bottomRight:
-                          isArabic ? Radius.zero : Radius.circular(15.sp.sp),
-                      topLeft:
-                          isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
-                      bottomLeft:
-                          isArabic ? Radius.circular(15.sp.sp) : Radius.zero,
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  padding: EdgeInsets.all(10.w),
-                  child: Text(
-                    AppLocalizations.of(context)!.sections,
-                    style: TextStyle(
-                        fontFamily: 'AnekMalayalam',
-                        color: Colors.white,
-                        fontSize: 15.sp.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+                  alignment: isArabic
+                      ? const Alignment(1, -1)
+                      : const Alignment(-1, 1),
+                  child: TitleContainer(
+                    title: AppLocalizations.of(context)!.sections,
+                  )),
               SizedBox(
                 height: 10.h,
               ),
@@ -434,34 +424,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: CircularProgressIndicator(),
                       );
                     }
-                    return SizedBox(
-                      height: 220.h,
-                      child: Padding(
-                        padding: EdgeInsets.all(25.0.w),
-                        child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 120.w,
-                            mainAxisSpacing: 20.h,
-                            crossAxisSpacing: 20.w,
-                            childAspectRatio: 1,
-                          ),
-                          itemCount: Provider.of<SectionsProvider>(context)
-                              .sections
-                              .length,
-                          itemBuilder: (ctx, index) => SectionWidget(
-                            id: Provider.of<SectionsProvider>(context)
-                                .sections[index]
-                                .id,
-                            icon: Provider.of<SectionsProvider>(context)
-                                .sections[index]
-                                .icon,
-                            title: Provider.of<SectionsProvider>(context)
-                                .sections[index]
-                                .title,
-                          ),
+                    return Padding(
+                      padding: EdgeInsets.all(25.0.w),
+                      child: GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 2,
+                            crossAxisSpacing: 5.w),
+                        itemCount: Provider.of<SectionsProvider>(context)
+                            .sections
+                            .length,
+                        itemBuilder: (ctx, index) => SectionWidget(
+                          id: Provider.of<SectionsProvider>(context)
+                              .sections[index]
+                              .id,
+                          icon: Provider.of<SectionsProvider>(context)
+                              .sections[index]
+                              .icon,
+                          title: Provider.of<SectionsProvider>(context)
+                              .sections[index]
+                              .title,
                         ),
                       ),
                     );

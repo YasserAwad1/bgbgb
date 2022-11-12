@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kay_sy/models/address_model.dart';
 import 'package:kay_sy/models/cart/cart_model.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 part 'order_model.g.dart';
 
 @JsonSerializable()

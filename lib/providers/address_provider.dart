@@ -2,46 +2,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:kay_sy/models/address_model.dart';
 import 'package:kay_sy/services/address_service.dart';
 
+import '../models/address_api_model.dart';
+
 class AddressProvider with ChangeNotifier {
   AddressModel? selectedAddress;
   bool isLoading = false;
   final AddressService _service = AddressService();
-  List<AddressModel> _addresses = [
-    // AddressModel(
-    //     id: 'a1',
-    //     city: "Damascus",
-    //     street: "Mezzeh",
-    //     buildingNumber: "34",
-    //     floor: "2",
-    //     description: "مقابل سفارة جنوب افرقيا"),
-    // AddressModel(
-    //     id: 'a2',
-    //     city: "Damascus",
-    //     street: "tijara",
-    //     buildingNumber: "21",
-    //     floor: "6",
-    //     description: "dlfgkjdflgkjdfglkj"),
-    // AddressModel(
-    //     id: 'a3',
-    //     city: "Damascus",
-    //     street: "malki",
-    //     buildingNumber: "15",
-    //     floor: "4",
-    //     description: "dlfgkjdflgkjdfglkj"),
-  ];
+  List<AddressModel> _addresses = [];
 
   List<AddressModel> get addresses {
     return [..._addresses];
   }
+
+  String message = '';
 
   void selectLocation(AddressModel value) {
     selectedAddress = value;
     notifyListeners();
   }
 
-  Future<void> addAddress(AddressModel address) async {
+  Future<void> addAddress(
+      String street, String building, String floor, String? description) async {
+    final address = AddressApiModel(
+        street: street,
+        building: building,
+        user: '631f5020675e12ae28766a19',
+        floor: floor,
+        description: description);
     isLoading = true;
+    notifyListeners();
     await _service.addAddress(address);
+    message = _service.message;
     await getAdresses();
     isLoading = false;
     notifyListeners();
@@ -54,9 +45,20 @@ class AddressProvider with ChangeNotifier {
   }
 
   //edit address
-  void editAddress(String id, AddressModel address) {
-    _addresses.removeWhere((address) => address.id == id);
-    _addresses.add(address);
+  Future<void> editAddress(String street, String building, String floor,
+      String? description, String id) async {
+    isLoading = true;
+    notifyListeners();
+    final updatedAddress = AddressApiModel(
+        street: street,
+        building: building,
+        user: '631f5020675e12ae28766a19',
+        floor: floor,
+        description: description);
+    await _service.updateAddress(updatedAddress, id);
+    message = _service.message;
+    await getAdresses();
+    isLoading = false;
     notifyListeners();
   }
 

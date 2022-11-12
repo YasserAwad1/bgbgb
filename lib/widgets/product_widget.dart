@@ -4,7 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:kay_sy/models/product.dart';
+import 'package:kay_sy/models/product/product.dart';
 
 import 'package:kay_sy/screens/product_details_screen.dart' as details;
 import 'package:kay_sy/widgets/custom_product/custom_product_image.dart';
@@ -60,9 +60,24 @@ class ProductWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                "$price SYP",
-                style: TextStyle(fontSize: 15.sp),
+              Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      product.title,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "$price SYP",
+                    style: TextStyle(fontSize: 15.sp),
+                  ),
+                ],
               ),
               Consumer<ProductProvider>(builder: (context, p, _) {
                 return IconButton(
