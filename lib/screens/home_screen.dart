@@ -152,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         listen: false)
                                                     .selectLocation(
                                                         addressList[i]);
+                                                Navigator.of(context).pop();
                                               },
                                               child: Padding(
                                                 padding: EdgeInsets.symmetric(
@@ -342,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 0.h,
               ),
               CoinsWidget(),
               SizedBox(
@@ -362,7 +363,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   options: CarouselOptions(
                       // enlargeCenterPage: true,
-
                       autoPlay: true,
                       viewportFraction: 1,
                       enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -432,7 +432,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: 2,
-                            crossAxisSpacing: 5.w),
+                            crossAxisSpacing: 30.w,
+                            ),
                         itemCount: Provider.of<SectionsProvider>(context)
                             .sections
                             .length,

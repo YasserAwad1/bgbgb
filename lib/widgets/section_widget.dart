@@ -17,9 +17,10 @@ class SectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 14),
       child: Center(
         child: FloatingActionButton.extended(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: 13,
           onPressed: () {
             Navigator.pushNamed(context, ProductsScreen.routeName,

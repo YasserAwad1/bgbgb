@@ -153,7 +153,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 } else {
                                   await Provider.of<ProductProvider>(context,
                                           listen: false)
-                                      .getProductsByCategory(
+                                      .getProductsByCategory( 
                                           categories[index].id);
                                 }
                               },
