@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/cart_provider.dart';
 import '../../main/cart/screens/cart_screen.dart';
-import 'badge.dart';
+import 'badge.dart' as bad;
 
 class CartButton extends StatelessWidget {
   Color? color;
@@ -14,9 +14,11 @@ class CartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CartProvider>(
-      builder: (_, cart, ch) => Badge(
+      builder: (_, cart, ch) =>  bad.Badge(
         value: cart.itemCount.toString(),
-        color: badgeColor ==null ? Theme.of(context).colorScheme.secondary : badgeColor!,
+        color: badgeColor == null
+            ? Theme.of(context).colorScheme.secondary
+            : badgeColor!,
         child: ch!,
         textColor: textColor,
       ),

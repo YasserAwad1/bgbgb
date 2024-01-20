@@ -9,7 +9,7 @@ import 'package:kay_sy/models/category_model.dart';
 import 'package:kay_sy/models/section_model.dart';
 import 'package:kay_sy/providers/product_provider.dart';
 import 'package:kay_sy/providers/sections_provider.dart';
-import 'package:kay_sy/common/widgets/search_bar.dart';
+// import 'package:kay_sy/common/widgets/search_bar.dart';
 import 'package:provider/provider.dart';
 
 

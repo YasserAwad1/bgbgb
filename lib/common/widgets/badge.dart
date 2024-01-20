@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Badge extends StatelessWidget {
-   Badge({
+  Badge({
     required this.child,
     required this.value,
     required this.color,
     this.textColor,
-
   });
 
   final Widget child;
@@ -31,18 +30,17 @@ class Badge extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               color: color,
             ),
-            constraints:  BoxConstraints(
+            constraints: BoxConstraints(
               minWidth: 16.w,
               minHeight: 16.h,
             ),
             child: Text(
               value,
               textAlign: TextAlign.center,
-              style:  TextStyle(
-                color: textColor?? Colors.black,
-                fontSize: 10.sp,
-                fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(
+                  color: textColor ?? Colors.black,
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         )

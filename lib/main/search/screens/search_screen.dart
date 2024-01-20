@@ -3,7 +3,6 @@ import 'package:kay_sy/main/search/widgets/SearchAppBar.dart';
 import 'package:kay_sy/main/search/widgets/SearchProductsGrid.dart';
 import 'package:kay_sy/providers/product_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:kay_sy/common/widgets/search_bar.dart';
 
 
 class SearchScreen extends StatelessWidget {
