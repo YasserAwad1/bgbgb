@@ -1,11 +1,8 @@
-import 'dart:io';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/providers/language_provider.dart';
-import 'package:kay_sy/screens/otp_screen.dart';
-import 'package:kay_sy/screens/search_screen.dart';
+import 'package:kay_sy/main/search/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,25 +15,25 @@ import 'l10n/l10n.dart';
 import './providers/address_provider.dart';
 import './providers/product_provider.dart';
 import './providers/cart_provider.dart';
+import 'main/settings/screens/become_a_seller/become_seller_screen.dart';
 import 'providers/sections_provider.dart';
 import 'providers/user_provider.dart';
 import './providers/order_provider.dart';
 
-import './screens/products_screen.dart';
-import './screens/first_screen.dart';
-import './screens/product_details_screen.dart';
-import './screens/cart_screen.dart';
-import './screens/add_address_screen.dart';
-import './screens/checkOut_screen.dart';
-import './screens/orders_screen.dart';
-import './screens/become_seller_screen.dart';
-import './screens/edit_profile_screen.dart';
-import './screens/locations_screen.dart';
+import 'main/products/screens/products_screen.dart';
+import 'common/screens/first_screen.dart';
+import 'main/products/screens/product_details_screen.dart';
+import 'main/cart/screens/cart_screen.dart';
+import 'screens/add_address_screen.dart';
+import 'main/checkout/screens/checkOut_screen.dart';
+import 'main/settings/screens/orders_screen.dart';
+import 'main/settings/screens/edit_profile_screen.dart';
+import 'main/settings/screens/locations_screen.dart';
 import './screens/logIn_screen.dart';
 import './screens/walkThrough_scree.dart';
-import './screens/become_a_seller_form_screen.dart';
+import 'main/settings/screens/become_a_seller/become_a_seller_form_screen.dart';
 import 'screens/sellerScreens/seller_screen.dart';
-import 'package:kay_sy/screens/favorites_screen.dart';
+import 'package:kay_sy/main/favorites/screens/favorites_screen.dart';
 import './screens/sellerScreens/add_product_screen.dart';
 import './screens/sellerScreens/my_products_screen.dart';
 
@@ -110,6 +107,7 @@ class _MyAppState extends State<MyApp> {
         ],
         child: Builder(
           builder: (context) => MaterialApp(
+            debugShowCheckedModeBanner: false,
             locale: Provider.of<LanguageProvider>(context, listen: true)
                 .currentLocale,
             localizationsDelegates: const [
@@ -134,7 +132,7 @@ class _MyAppState extends State<MyApp> {
               colorScheme: ColorScheme.fromSwatch().copyWith(
                 // primary: const Color.fromARGB(255, 29, 14, 70),
                 primary: Colors.black,
-                secondary: Color.fromARGB(255, 227, 99, 99),
+                secondary: const Color.fromARGB(255, 227, 99, 99),
               ),
             ),
             routes: {

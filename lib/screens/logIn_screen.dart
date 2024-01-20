@@ -3,9 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kay_sy/models/user_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/providers/user_provider.dart';
-import 'package:kay_sy/screens/first_screen.dart';
-import 'package:kay_sy/screens/home_screen.dart';
-import 'package:kay_sy/screens/walkThrough_scree.dart';
+import 'package:kay_sy/common/screens/first_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/otp_screen.dart';

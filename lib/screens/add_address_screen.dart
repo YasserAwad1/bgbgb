@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kay_sy/providers/address_provider.dart';
-import 'package:kay_sy/widgets/loader.dart';
+import 'package:kay_sy/common/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kay_sy/models/address_model.dart';
 
-import 'package:kay_sy/widgets/custom_textformfield.dart';
+import 'package:kay_sy/common/widgets/custom_textformfield.dart';
 
-import '../widgets/custom_button.dart';
+import '../common/widgets/custom_button.dart';
 
 class AddAddressScreen extends StatefulWidget {
   static const routeName = '/addAddressScreen';
@@ -254,25 +254,25 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 ],
               ),
             ),
-            if (Provider.of<AddressProvider>(context).isLoading) Loader()
+            if (Provider.of<AddressProvider>(context).isLoading) const Loader()
           ],
         ),
         bottomNavigationBar: BottomAppBar(
-            child: CustomButton(
-                text: AppLocalizations.of(context)!.save,
-                onTap: () async {
-                  await _saveForm();
-
-                  Navigator.pop(context);
-                  Flushbar(
-                    message:
-                        Provider.of<AddressProvider>(context, listen: false)
-                            .message,
-                    duration: const Duration(seconds: 3),
-                  )..show(context);
-                },
-                width: 200.w,
-                height: 50.h)),
+          child: CustomButton(
+            text: AppLocalizations.of(context)!.save,
+            onTap: () async {
+              await _saveForm();
+              Navigator.pop(context);
+              Flushbar(
+                message: Provider.of<AddressProvider>(context, listen: false)
+                    .message,
+                duration: const Duration(seconds: 3),
+              )..show(context);
+            },
+            width: 200.w,
+            height: 50.h,
+          ),
+        ),
       ),
     );
   }

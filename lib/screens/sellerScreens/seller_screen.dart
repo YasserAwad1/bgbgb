@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '/screens/sellerScreens/add_product_screen.dart';
 import './my_products_screen.dart';
-import '../../widgets/custom_listtile.dart';
+import '../../common/widgets/custom_listtile.dart';
 
 class SellerScreen extends StatelessWidget {
   static const routeName = '/seller-screen';
